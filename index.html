@@ -72,7 +72,7 @@
             display: none !important;
         }
 
-        /* شريط الترحب المتحرك في الهيدر */
+        /* شريط الترحيب المتحرك في الهيدر */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -112,11 +112,13 @@
         .spinner { width: 38px; height: 38px; border: 4px solid #f3f3f3; border-top: 4px solid #febd69; border-radius: 50%; animation: spin 0.5s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* نظام التنبيهات الخاص بالموقع الاحترافي بديل alert المتصفح */
         #toast-notification {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: #131921; color: #febd69; border: 1px solid rgba(254, 189, 105, 0.4);
-            padding: 10px 20px; border-radius: 30px; font-weight: bold; font-size: 13px; z-index: 10000;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px);
+            background: #131921; color: #febd69; border: 1.5px solid #febd69;
+            padding: 12px 24px; border-radius: 30px; font-weight: 900; font-size: 13px; z-index: 10000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease; opacity: 0;
+            display: flex; items-center: center; gap: 8px; text-align: center; max-width: 90vw;
         }
         #toast-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .thumb-img.active { border-color: #e77600 !important; }
@@ -129,6 +131,7 @@
         <p id="loading-text" class="text-xs font-bold text-amber-400">جاري التحميل...</p>
     </div>
 
+    <!-- عنصر التنبيه الخاص بالموقع -->
     <div id="toast-notification">✨ تمت إضافة المنتج إلى السلة بنجاح</div>
 
     <!-- زر السلة العائم السلس القابل للسحب بالحجم الجديد والمصغر -->
@@ -509,6 +512,7 @@
         let logoClickCount = 0;
         let logoClickTimer = null;
         let searchTimeout = null;
+        let toastTimer = null;
 
         // تهيئة خاصية سحب زِر السلة وتحريكه على الشاشة
         let isDragging = false;
@@ -659,23 +663,21 @@
 
         function uploadOwnerAvatar() {
             const file = document.getElementById('owner-avatar-file').files[0];
-            if (!file) return alert('الرجاء اختيار صورة أولاً!');
+            if (!file) return showToast('⚠️ الرجاء اختيار صورة أولاً!');
             triggerLoading(() => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     db.collection("settings").doc("owner_profile").set({ avatarUrl: e.target.result })
-                    .then(() => alert('تم تحديث صورة البروفايل بنجاح!'))
-                    .catch(() => alert('حدث خطأ أثناء الحفظ!'));
+                    .then(() => showToast('✅ تم تحديث صورة البروفايل بنجاح!'))
+                    .catch(() => showToast('❌ حدث خطأ أثناء الحفظ!'));
                 };
                 reader.readAsDataURL(file);
             });
         }
 
         function deleteOwnerAvatar() {
-            if (confirm('هل أنت متأكد من مسح صورة البروفايل؟')) {
-                db.collection("settings").doc("owner_profile").delete()
-                .then(() => alert('تم حذف الصورة!'));
-            }
+            db.collection("settings").doc("owner_profile").delete()
+            .then(() => showToast('🗑️ تم حذف صورة البروفايل!'));
         }
 
         // جلب المنتجات المتاحة والتحقق مما إذا كان هناك رابط مخصص لمنتج في الـ URL
@@ -720,7 +722,7 @@
                     document.getElementById('admin-secret-modal').classList.remove('hidden');
                     pushModalState('admin-modal');
                 } else if (pass !== null) {
-                    alert("كلمة المرور غير صحيحة!");
+                    showToast("❌ كلمة المرور غير صحيحة!");
                 }
             } else {
                 logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1000);
@@ -729,11 +731,14 @@
 
         function closeSecretModal() { closeAllModals(); }
 
-        function showToast() {
+        // دالة إظهار التنبيهات المخصصة والبديلة لرسائل alert المتصفح
+        function showToast(message) {
             const toast = document.getElementById('toast-notification');
             if (!toast) return;
+            toast.innerHTML = message;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2000);
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
 
         function updateTabUI(activeId) {
@@ -760,7 +765,6 @@
             renderStore();
         }
 
-        // تصفية قسم "الأكثر مبيعاً" بفرز أعلى المنتجات المبيعة أوتوماتيكياً
         function filterSpecial(type) {
             const grid = document.getElementById('products-grid');
             if (!grid) return;
@@ -771,7 +775,6 @@
 
             let filtered = [];
             if (type === 'best') {
-                // ترتيب المنتجات تنازلياً بحسب عدد المبيعات (salesCount)
                 filtered = [...products].sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
             } else {
                 filtered = products.filter(p => p.tag === 'new');
@@ -977,7 +980,7 @@
             const img2File = document.getElementById('image2-file').files[0];
 
             if(!name || !price || !img1File) {
-                alert('الرجاء إدخال اسم المنتج، السعر، والصورة الأساسية!');
+                showToast('⚠️ الرجاء إدخال اسم المنتج، السعر، والصورة الأساسية!');
                 return;
             }
 
@@ -1024,9 +1027,9 @@
                 document.getElementById('new-desc').value = '';
                 document.getElementById('image1-file').value = '';
                 document.getElementById('image2-file').value = '';
-                alert('تم نشر المنتج بنجاح!');
+                showToast('🚀 تم نشر المنتج بنجاح!');
             } catch(error) {
-                alert('حدث خطأ أثناء الحفظ!');
+                showToast('❌ حدث خطأ أثناء الحفظ!');
             }
         }
 
@@ -1091,7 +1094,7 @@
             const img2File = document.getElementById('edit-image2-file').files[0];
 
             if (!name || !price) {
-                alert('الرجاء إدخال اسم المنتج والسعر على الأقل!');
+                showToast('⚠️ الرجاء إدخال اسم المنتج والسعر على الأقل!');
                 return;
             }
 
@@ -1113,10 +1116,10 @@
             const finishUpdate = () => {
                 db.collection("products").doc(String(id)).update(updatedData)
                 .then(() => {
-                    alert('تم تعديل المنتج بنجاح! ✅');
+                    showToast('✅ تم تعديل المنتج بنجاح!');
                     closeEditModal();
                 })
-                .catch(() => alert('حدث خطأ أثناء الحفظ!'));
+                .catch(() => showToast('❌ حدث خطأ أثناء الحفظ!'));
             };
 
             if (img1File) {
@@ -1148,13 +1151,11 @@
         }
 
         async function deleteProductFromCloud(id) {
-            if(confirm("هل أنت متأكد من حذف هذا المنتج؟")) {
-                try {
-                    await db.collection("products").doc(String(id)).delete();
-                    alert('تم الحذف بنجاح!');
-                } catch(e) {
-                    alert('خطأ أثناء الحذف!');
-                }
+            try {
+                await db.collection("products").doc(String(id)).delete();
+                showToast('🗑️ تم حذف المنتج بنجاح!');
+            } catch(e) {
+                showToast('❌ خطأ أثناء الحذف!');
             }
         }
 
@@ -1165,7 +1166,7 @@
                 if (existing) { existing.quantity += 1; } 
                 else { cart.push({ product: product, quantity: 1 }); }
                 updateCartUI();
-                showToast();
+                showToast('✨ تمت إضافة المنتج إلى السلة بنجاح');
             }
         }
 
@@ -1181,7 +1182,7 @@
                 if (existing) { existing.quantity += currentModalQty; } 
                 else { cart.push({ product: product, quantity: currentModalQty }); }
                 updateCartUI();
-                showToast();
+                showToast('✨ تمت إضافة المنتج إلى السلة بنجاح');
             }
         }
 
@@ -1243,7 +1244,7 @@
         function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
         
         function openCart() {
-            cartBtn.classList.add('btn-hidden'); // إخفاء زر السلة العائم عند فتح السلة
+            cartBtn.classList.add('btn-hidden');
             document.getElementById('cart-modal').classList.remove('hidden');
             pushModalState('cart-modal');
         }
@@ -1251,7 +1252,10 @@
         function closeCart() { closeAllModals(); }
 
         function openCheckoutPage() {
-            if(cart.length === 0) { alert('السلة فارغة، أضف منتجات أولاً!'); return; }
+            if(cart.length === 0) { 
+                showToast('🛒 السلة فارغة! يرجى اختيار منتج أولاً'); 
+                return; 
+            }
             
             let productsTotal = 0;
             const summaryContainer = document.getElementById('checkout-summary-items');
@@ -1285,7 +1289,7 @@
             const cLocation = document.getElementById('client-location').value.trim();
 
             if(!cName || !cPhone || !cAddress) { 
-                alert('الرجاء إدخال اسمك ورقم الهاتف والعنوان التفصيلي أولاً!'); 
+                showToast('⚠️ يرجى كتابة الاسم ورقم الموبايل والعنوان بالكامل!'); 
                 return null; 
             }
 
@@ -1309,7 +1313,6 @@
                 message += `🔗 *رابط المنتج المباشر:* ${productLink}\n\n`;
                 productsTotal += itemTotal;
 
-                // تحديث عداد الأكثر مبيعاً تلقائياً في السحابة بمقدار الكمية المطلوبة
                 try {
                     db.collection("products").doc(String(item.product.id)).update({
                         salesCount: firebase.firestore.FieldValue.increment(item.quantity)
