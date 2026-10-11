@@ -8,7 +8,7 @@
     <meta name="google-site-verification" content="q0kfc7iiLj2Q5mgyORBqMmuuz7G2Z78RRJiLCb99uBY" />
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Playfair+Display:ital,wght@1,700;1,900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
     
     <!-- مكتبات Firebase السحابية -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -34,15 +34,17 @@
         }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
         
+        /* تصميم فخم وجديد لاسم المتجر DROP SHOPPING */
         .fancy-italic-brand {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+            font-family: 'Cinzel', 'Playfair Display', serif;
             font-weight: 900;
-            background: linear-gradient(135deg, #fff2a3 0%, #febd69 50%, #d4af37 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #ffe29a 35%, #febd69 70%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             display: inline-block;
+            text-shadow: 0 0 12px rgba(254, 189, 105, 0.3);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .tab-btn { position: relative; padding-bottom: 6px; transition: all 0.25s ease; }
@@ -74,24 +76,26 @@
         }
         #floating-cart-btn.btn-hidden { display: none !important; }
 
-        /* شريط الترحيب المتلاصق 60 FPS (Seamless Marquee) */
-        .marquee-container {
-            overflow: hidden;
+        /* شريط الترحيب السريع والمتصل أوتوماتيكياً (Seamless Continuous Ticker) */
+        .marquee-wrapper {
             width: 100%;
+            overflow: hidden;
             display: flex;
             white-space: nowrap;
-            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            position: relative;
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
         }
-        .marquee-content {
-            display: inline-flex;
-            gap: 30px;
-            animation: smoothMarquee 20s linear infinite;
+        .marquee-track {
+            display: flex;
+            flex-shrink: 0;
+            gap: 20px;
+            animation: marqueeFast 12s linear infinite;
             will-change: transform;
         }
-        @keyframes smoothMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @keyframes marqueeFast {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
         }
 
         /* شريط البحث الفاخر */
@@ -152,39 +156,28 @@
                 <button onclick="toggleMenu()" class="text-[#febd69] text-2xl font-bold focus:outline-none p-1 transition hover:opacity-80">☰</button>
             </div>
 
-            <!-- المساحة الفاضية بمنتصف الهيدر: شريط ترحيب متلاصق وبحركة 60 FPS -->
+            <!-- شريط الترحيب السريع والمتصل أوتوماتيكياً كشريط واحد -->
             <div class="flex-grow max-w-xs sm:max-w-md mx-1 overflow-hidden pointer-events-none">
-                <div class="marquee-container text-amber-300 font-bold text-[11px] sm:text-xs tracking-wide">
-                    <div class="marquee-content">
-                        <span>✨ أهلاً بك في DROP SHOPPING!</span>
-                        <span>•</span>
-                        <span>🚚 شحن سريع لجميع المحافظات</span>
-                        <span>•</span>
-                        <span>👑 أفضل الخامات بأفضل الأسعار</span>
-                        <span>•</span>
-                        <span>🛍️ تسوق ممتع وعروض حصرية!</span>
-                        <!-- تكرار متلاصق لضمان الاستمرارية بدون أي فواصل -->
-                        <span>✨ أهلاً بك في DROP SHOPPING!</span>
-                        <span>•</span>
-                        <span>🚚 شحن سريع لجميع المحافظات</span>
-                        <span>•</span>
-                        <span>👑 أفضل الخامات بأفضل الأسعار</span>
-                        <span>•</span>
-                        <span>🛍️ تسوق ممتع وعروض حصرية!</span>
+                <div class="marquee-wrapper text-amber-300 font-black text-[11px] sm:text-xs tracking-wide">
+                    <div class="marquee-track">
+                        <span>✨ أهلاً بك في DROP SHOPPING! • 🚚 شحن سريع لكافة المحافظات • 👑 عروض حصرية يومية</span>
+                    </div>
+                    <div class="marquee-track" aria-hidden="true">
+                        <span>✨ أهلاً بك في DROP SHOPPING! • 🚚 شحن سريع لكافة المحافظات • 👑 عروض حصرية يومية</span>
                     </div>
                 </div>
             </div>
 
-            <!-- الشعار وصورة البروفايل موحدين باسم DROP SHOPPING -->
+            <!-- الشعار وصورة البروفايل بالتصميم الفخم الجديد -->
             <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0" onclick="handleSecretAdminClick()">
                 <div class="flex flex-col text-left sm:text-right">
-                    <span class="text-base sm:text-2xl fancy-italic-brand leading-none">Drop</span>
-                    <span class="text-[7px] sm:text-[10px] uppercase tracking-widest text-amber-300 font-bold">SHOPPING</span>
+                    <span class="text-base sm:text-2xl fancy-italic-brand leading-none">DROP</span>
+                    <span class="text-[8px] sm:text-[10px] uppercase tracking-[0.2em] text-amber-300 font-extrabold">SHOPPING</span>
                 </div>
 
-                <div id="owner-avatar-container" class="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-amber-400 bg-gray-900 flex items-center justify-center shrink-0 shadow-md">
+                <div id="owner-avatar-container" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-amber-400 bg-gray-900 flex items-center justify-center shrink-0 shadow-lg">
                     <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DROP SHOPPING">
-                    <span id="owner-avatar-placeholder" class="text-base sm:text-lg font-bold text-amber-400">🛍️</span>
+                    <span id="owner-avatar-placeholder" class="text-base sm:text-lg font-bold text-amber-400">👑</span>
                 </div>
             </div>
         </div>
