@@ -85,8 +85,8 @@
         }
         .marquee-content {
             display: inline-flex;
-            gap: 40px;
-            animation: smoothMarquee 22s linear infinite;
+            gap: 30px;
+            animation: smoothMarquee 20s linear infinite;
             will-change: transform;
         }
         @keyframes smoothMarquee {
@@ -152,19 +152,19 @@
                 <button onclick="toggleMenu()" class="text-[#febd69] text-2xl font-bold focus:outline-none p-1 transition hover:opacity-80">☰</button>
             </div>
 
-            <!-- المساحة الفاضية بمنتصف الهيدر: شريط ترحيب متلاصق وبحركة 60 FPS نعومة تامة -->
+            <!-- المساحة الفاضية بمنتصف الهيدر: شريط ترحيب متلاصق وبحركة 60 FPS -->
             <div class="flex-grow max-w-xs sm:max-w-md mx-1 overflow-hidden pointer-events-none">
                 <div class="marquee-container text-amber-300 font-bold text-[11px] sm:text-xs tracking-wide">
                     <div class="marquee-content">
-                        <span>✨ أهلاً بك في متجر DROP SHOPPING!</span>
+                        <span>✨ أهلاً بك في DROP SHOPPING!</span>
                         <span>•</span>
                         <span>🚚 شحن سريع لجميع المحافظات</span>
                         <span>•</span>
                         <span>👑 أفضل الخامات بأفضل الأسعار</span>
                         <span>•</span>
                         <span>🛍️ تسوق ممتع وعروض حصرية!</span>
-                        <!-- تكرار العناصر لضمان الاتصاق التام بدون أي فواصل -->
-                        <span>✨ أهلاً بك في متجر DROP SHOPPING!</span>
+                        <!-- تكرار متلاصق لضمان الاستمرارية بدون أي فواصل -->
+                        <span>✨ أهلاً بك في DROP SHOPPING!</span>
                         <span>•</span>
                         <span>🚚 شحن سريع لجميع المحافظات</span>
                         <span>•</span>
@@ -175,7 +175,7 @@
                 </div>
             </div>
 
-            <!-- الشعار والبروفايل -->
+            <!-- الشعار وصورة البروفايل موحدين باسم DROP SHOPPING -->
             <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0" onclick="handleSecretAdminClick()">
                 <div class="flex flex-col text-left sm:text-right">
                     <span class="text-base sm:text-2xl fancy-italic-brand leading-none">Drop</span>
@@ -183,8 +183,8 @@
                 </div>
 
                 <div id="owner-avatar-container" class="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-amber-400 bg-gray-900 flex items-center justify-center shrink-0 shadow-md">
-                    <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden">
-                    <span id="owner-avatar-placeholder" class="text-base sm:text-lg font-bold text-amber-400">👑</span>
+                    <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DROP SHOPPING">
+                    <span id="owner-avatar-placeholder" class="text-base sm:text-lg font-bold text-amber-400">🛍️</span>
                 </div>
             </div>
         </div>
@@ -194,7 +194,7 @@
     <div id="side-menu" class="fixed inset-y-0 right-0 bg-[#131921] text-white w-[280px] max-w-[80vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-gray-800">
         <div>
             <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
-                <span class="font-black text-sm text-[#febd69]">قائمة المتجر</span>
+                <span class="font-black text-sm text-[#febd69]">DROP SHOPPING</span>
                 <button onclick="closeMenu()" class="text-gray-400 font-bold text-lg hover:text-white">✕</button>
             </div>
             <nav class="space-y-3 font-bold text-sm">
@@ -222,25 +222,25 @@
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
         <div class="custom-card w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div class="flex justify-between items-center p-4 bg-gray-900 text-white border-b border-gray-800">
-                <h3 class="font-bold text-sm text-amber-400">⚙️ لوحة التحكم وإعدادات المالك</h3>
+                <h3 class="font-bold text-sm text-amber-400">⚙️ لوحة تحكم DROP SHOPPING</h3>
                 <button onclick="closeSecretModal()" class="text-gray-400 font-bold text-lg hover:text-white">✕</button>
             </div>
             <div class="p-5 overflow-y-auto space-y-4 text-xs">
                 <div class="inner-box p-3 rounded-xl border">
-                    <h4 class="font-bold text-sm text-amber-500 mb-2">🖼️ تغيير صورة بروفايل المالك:</h4>
+                    <h4 class="font-bold text-sm text-amber-500 mb-2">🖼️ تغيير لوجو / صورة المتجر الرسمية:</h4>
                     <div class="flex items-center gap-3">
                         <input type="file" id="owner-avatar-file" accept="image/*" class="w-full p-1 text-[10px] border rounded bg-white dark:bg-gray-800">
-                        <button onclick="uploadOwnerAvatar()" class="bg-blue-600 text-white px-3 py-1.5 rounded font-bold shrink-0">حفظ</button>
-                        <button onclick="deleteOwnerAvatar()" class="bg-red-600 text-white px-3 py-1.5 rounded font-bold shrink-0">مسح الصورة</button>
+                        <button onclick="uploadOwnerAvatar()" class="bg-blue-600 text-white px-3 py-1.5 rounded font-bold shrink-0">حفظ اللوجو</button>
+                        <button onclick="deleteOwnerAvatar()" class="bg-red-600 text-white px-3 py-1.5 rounded font-bold shrink-0">مسح</button>
                     </div>
                 </div>
 
                 <div class="inner-box p-3 rounded-xl border">
-                    <h4 class="font-bold text-sm text-amber-500 mb-3">➕ إضافة منتج جديد (مع كود الفاتورة والألوان):</h4>
+                    <h4 class="font-bold text-sm text-amber-500 mb-3">➕ إضافة منتج جديد:</h4>
                     <div class="space-y-2">
                         <div class="grid grid-cols-2 gap-2">
                             <input type="text" id="new-name" placeholder="اسم المنتج" class="w-full p-2 rounded border text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-                            <input type="text" id="new-sku" placeholder="كود المنتج / الفاتورة (مثال: D-101)" class="w-full p-2 rounded border text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold">
+                            <input type="text" id="new-sku" placeholder="كود المنتج (مثال: D-101)" class="w-full p-2 rounded border text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold">
                         </div>
 
                         <div class="grid grid-cols-2 gap-2">
@@ -254,7 +254,7 @@
                                 <option value="أحذية">أحذية 👟</option>
                                 <option value="إكسسوارات">إكسسوارات</option>
                             </select>
-                            <input type="text" id="new-colors" placeholder="الألوان المتاحة (مثال: أسود / أبيض / كحلي)" class="w-full p-2 rounded border text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                            <input type="text" id="new-colors" placeholder="الألوان المتاحة (مثال: أسود / أبيض)" class="w-full p-2 rounded border text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
                         </div>
 
                         <div class="grid grid-cols-2 gap-2">
@@ -267,7 +267,7 @@
                 </div>
 
                 <div class="inner-box p-3 rounded-xl border">
-                    <h4 class="font-bold text-sm text-amber-500 mb-2">📋 إدارة المنتجات الحالية (تعديل أو حذف):</h4>
+                    <h4 class="font-bold text-sm text-amber-500 mb-2">📋 إدارة المنتجات الحالية:</h4>
                     <div id="admin-products-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
             </div>
@@ -318,8 +318,8 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <div><label class="block text-[10px] mb-1 font-bold">تغيير الصورة الرئيسية (اختياري):</label><input type="file" id="edit-image1-file" accept="image/*" class="w-full p-1 text-[10px]"></div>
-                    <div><label class="block text-[10px] mb-1 font-bold">تغيير الصورة الثانية (اختياري):</label><input type="file" id="edit-image2-file" accept="image/*" class="w-full p-1 text-[10px]"></div>
+                    <div><label class="block text-[10px] mb-1 font-bold">تغيير الصورة الرئيسية:</label><input type="file" id="edit-image1-file" accept="image/*" class="w-full p-1 text-[10px]"></div>
+                    <div><label class="block text-[10px] mb-1 font-bold">تغيير الصورة الثانية:</label><input type="file" id="edit-image2-file" accept="image/*" class="w-full p-1 text-[10px]"></div>
                 </div>
                 <div>
                     <label class="block font-bold mb-1">وصف المنتج:</label>
@@ -331,11 +331,11 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
-        <!-- شريط البحث الفاخر بالتصميم الجديد -->
+        <!-- شريط البحث الفاخر -->
         <div id="home-search-section" class="mb-6 max-w-xl mx-auto">
             <div class="search-box-container p-1.5 flex items-center gap-2">
                 <span class="text-lg pr-3 pl-1 text-amber-500">🔍</span>
-                <input type="text" id="search-input" oninput="liveSearchProducts()" placeholder="ابحث عن اسم المنتج، الكود، أو القسم..." class="w-full py-2 bg-transparent text-xs sm:text-sm font-bold focus:outline-none placeholder-gray-400">
+                <input type="text" id="search-input" oninput="liveSearchProducts()" placeholder="ابحث في DROP SHOPPING..." class="w-full py-2 bg-transparent text-xs sm:text-sm font-bold focus:outline-none placeholder-gray-400">
                 <button onclick="liveSearchProducts()" class="bg-gradient-to-r from-amber-500 to-amber-400 text-gray-950 px-5 py-2 rounded-full font-black text-xs shadow-md hover:opacity-90 transition shrink-0">بحث</button>
             </div>
         </div>
@@ -413,7 +413,7 @@
         </div>
     </div>
 
-    <!-- نافذة تكبير الصورة ملء الشاشة -->
+    <!-- نافذة تكبير الصورة -->
     <div id="zoom-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md hidden z-[100] flex items-center justify-center p-4">
         <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-gray-800/80 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center">✕</button>
         <img id="zoomed-image" src="" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl">
@@ -447,7 +447,7 @@
             <div class="flex justify-between items-center p-4 bg-gray-900 text-white border-b border-gray-800">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">📦</span>
-                    <h3 class="font-bold text-sm text-amber-400">إتمام الشراء والطلب (DROP SHOPPING)</h3>
+                    <h3 class="font-bold text-sm text-amber-400">إتمام الشراء والطلب - DROP SHOPPING</h3>
                 </div>
                 <button onclick="closeCheckoutPage()" class="text-gray-400 font-bold text-lg hover:text-white">✕</button>
             </div>
@@ -502,7 +502,7 @@
     </div>
 
     <footer class="header-bg py-6 text-center text-xs mt-auto flex flex-col items-center gap-1.5">
-        <span class="fancy-italic-brand text-lg">Drop SHOPPING</span>
+        <span class="fancy-italic-brand text-lg">DROP SHOPPING</span>
         <p class="text-gray-400">جميع حقوق الطبع والنشر محفوظة © 2026</p>
     </footer>
 
@@ -526,7 +526,7 @@
         let products = [];
         let cart = [];
         let currentCategory = 'all';
-        let currentSpecialType = null; // لتتبع التبويب النشط (all, best, new)
+        let currentSpecialType = null;
         let currentModalProductId = null;
         let currentModalQty = 1;
         let logoClickCount = 0;
@@ -534,7 +534,6 @@
         let searchTimeout = null;
         let toastTimer = null;
 
-        // تهيئة خاصية سحب زِر السلة وتحريكه على الشاشة
         let isDragging = false;
         let hasDragged = false;
         let startX, startY, initialLeft, initialTop;
@@ -580,38 +579,26 @@
             cartBtn.style.bottom = 'auto';
         }
 
-        function onDragEnd() {
-            isDragging = false;
-        }
+        function onDragEnd() { isDragging = false; }
 
         cartBtn.addEventListener('mousedown', onDragStart);
         cartBtn.addEventListener('touchstart', onDragStart, { passive: true });
-
         window.addEventListener('mousemove', onDragMove);
         window.addEventListener('touchmove', onDragMove, { passive: true });
-
         window.addEventListener('mouseup', onDragEnd);
         window.addEventListener('touchend', onDragEnd);
 
         cartBtn.addEventListener('click', (e) => {
-            if (hasDragged) {
-                e.preventDefault();
-                return;
-            }
+            if (hasDragged) { e.preventDefault(); return; }
             triggerLoading(openCart);
         });
 
-        window.addEventListener('popstate', function(e) {
-            closeAllModals(false);
-        });
+        window.addEventListener('popstate', function(e) { closeAllModals(false); });
 
-        function pushModalState(modalName) {
-            history.pushState({ modal: modalName }, "");
-        }
+        function pushModalState(modalName) { history.pushState({ modal: modalName }, ""); }
 
         function closeAllModals(shouldGoBack = true) {
             let isAnyOpen = false;
-            
             const sideMenu = document.getElementById('side-menu');
             if (sideMenu && !sideMenu.classList.contains('translate-x-full')) {
                 sideMenu.classList.add('translate-x-full');
@@ -687,7 +674,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     db.collection("settings").doc("owner_profile").set({ avatarUrl: e.target.result })
-                    .then(() => showToast('✅ تم تحديث صورة البروفايل بنجاح!'))
+                    .then(() => showToast('✅ تم تحديث اللوجو بنجاح!'))
                     .catch(() => showToast('❌ حدث خطأ أثناء الحفظ!'));
                 };
                 reader.readAsDataURL(file);
@@ -696,7 +683,7 @@
 
         function deleteOwnerAvatar() {
             db.collection("settings").doc("owner_profile").delete()
-            .then(() => showToast('🗑️ تم حذف صورة البروفايل!'));
+            .then(() => showToast('🗑️ تم حذف اللوجو!'));
         }
 
         db.collection("products").onSnapshot((snapshot) => {
@@ -712,9 +699,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('product');
             if (productId) {
-                setTimeout(() => {
-                    openProductModal(productId);
-                }, 400);
+                setTimeout(() => { openProductModal(productId); }, 400);
             }
         }
 
@@ -723,9 +708,7 @@
             if (sideMenu.classList.contains('translate-x-full')) {
                 sideMenu.classList.remove('translate-x-full');
                 pushModalState('side-menu');
-            } else {
-                closeMenu();
-            }
+            } else { closeMenu(); }
         }
 
         function closeMenu() { closeAllModals(); }
@@ -796,9 +779,7 @@
 
         function liveSearchProducts() {
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                renderStore();
-            }, 150);
+            searchTimeout = setTimeout(() => { renderStore(); }, 150);
         }
 
         function renderStore() {
@@ -808,7 +789,6 @@
             
             let filtered = [...products];
 
-            // تصفية حسب القسم أو التبويب الخاص (الأكثر مبيعاً أو وصل حديثاً)
             if (currentSpecialType === 'best') {
                 filtered.sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
                 document.getElementById('section-title').innerText = '🔥 المنتجات الأكثر مبيعاً';
@@ -822,7 +802,6 @@
                 document.getElementById('section-title').innerText = 'جميع المنتجات المعروضة';
             }
 
-            // تطبيق البحث الفوري
             const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
             if (searchQuery) {
                 filtered = filtered.filter(p => 
@@ -1148,9 +1127,7 @@
                             finishUpdate();
                         };
                         reader2.readAsDataURL(img2File);
-                    } else {
-                        finishUpdate();
-                    }
+                    } else { finishUpdate(); }
                 };
                 reader1.readAsDataURL(img1File);
             } else if (img2File) {
@@ -1160,18 +1137,14 @@
                     finishUpdate();
                 };
                 reader2.readAsDataURL(img2File);
-            } else {
-                finishUpdate();
-            }
+            } else { finishUpdate(); }
         }
 
         async function deleteProductFromCloud(id) {
             try {
                 await db.collection("products").doc(String(id)).delete();
                 showToast('🗑️ تم حذف المنتج بنجاح!');
-            } catch(e) {
-                showToast('❌ خطأ أثناء الحذف!');
-            }
+            } catch(e) { showToast('❌ خطأ أثناء الحذف!'); }
         }
 
         function addToCartDirect(id) {
