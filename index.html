@@ -232,14 +232,19 @@
         </div>
     </div>
 
-    <!-- شريط خدمات الملاحظات مفصل في سطرين متميزين -->
-    <div class="bg-[#1c2430] text-white py-2 px-3 text-[11px] border-b border-amber-600/30 shadow-sm text-center">
-        <div class="max-w-7xl mx-auto flex flex-col gap-1 font-bold justify-center items-center">
-            <div class="flex items-center gap-1.5 text-amber-300">
-                <span>📦 المعاينة والمطابقة قبل الدفع</span>
+    <!-- البنر وشريط الخدمات الجديد المعدل بأسلوب شياكة فخم -->
+    <div class="bg-gradient-to-r from-[#131921] via-[#1c2430] to-[#131921] text-white py-2 px-3 text-[11px] border-b border-amber-500/40 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-1.5 sm:gap-6 font-bold text-center">
+            <div class="flex items-center gap-1 text-amber-400">
+                <span>🚚 شحن سريع لجميع المحافظات</span>
             </div>
-            <div class="flex items-center gap-1.5 text-green-400">
-                <span>🔄 المرتجع الجزئي الفوري عند الاستلام</span>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <div class="flex items-center gap-1 text-green-400">
+                <span>🤝 الدفع عند الاستلام</span>
+            </div>
+            <span class="hidden sm:inline text-gray-600">•</span>
+            <div class="flex items-center gap-1 text-amber-300">
+                <span>📦 المعاينة والمطابقة قبل الدفع</span>
             </div>
         </div>
     </div>
@@ -507,7 +512,6 @@
         let toastTimer = null;
         let userLocationLink = '';
 
-        // شريط التحميل الخاص بكروم
         function triggerLoading(action) {
             const bar = document.getElementById('chrome-progress-bar');
             if (bar) {
@@ -771,7 +775,7 @@
             document.getElementById('modal-qty').innerText = currentModalQty;
             document.getElementById('modal-name').innerText = p.name;
             document.getElementById('modal-sku').innerText = p.sku ? `كود: ${p.sku}` : '';
-            document.getElementById('modal-desc').innerText = p.desc || 'منتج خامات ممتازة عالي الجودة مع ضمان المعاينة المباشرة والمرتجع الجزئي عند الاستلام.';
+            document.getElementById('modal-desc').innerText = p.desc || 'منتج خامات ممتازة عالي الجودة مع ضمان المعاينة المباشرة والدفع عند الاستلام.';
 
             let finalPrice = calculateFinalPrice(p.price, p.discount);
             document.getElementById('modal-price').innerText = finalPrice + ' ج.م';
@@ -967,7 +971,6 @@
             }
         }
 
-        // إحالة العميل المباشرة لصفحة الشراء بدون الخروج للخارج
         function modalBuyNow() {
             addModalToCart();
             closeProductModal();
@@ -1114,7 +1117,6 @@
 
         function closeOrdersPage() { closeAllModals(); }
 
-        // أزرار التحكم في حالة الطلب من الشاشة
         function setOrderStatusInStore(orderId, newStatus) {
             let ord = myOrders.find(o => o.order_id === orderId);
             if (ord) {
@@ -1131,7 +1133,6 @@
         }
 
         function updateOrdersUI() {
-            // احتساب الطلبات النشطة فقط
             const activeOrders = myOrders.filter(o => o.status !== 'تم الاستلام ✅' && o.status !== 'تم التسليم بنجاح ✅');
             document.getElementById('orders-count-badge').innerText = activeOrders.length;
             
@@ -1158,7 +1159,6 @@
                             <span class="text-[10px] text-gray-400 font-normal">${ord.created_at}</span>
                         </div>
                         
-                        <!-- أزرار الإدارة والعميل للطلب -->
                         <div class="flex flex-wrap gap-1.5 pt-1 border-t">
                             ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-green-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">✅ تم الاستلام</button>` : ''}
                             ${ord.status === 'قيد الانتظار ⏳' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-blue-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">⏳ تغيير لـ قيد التنفيذ (أدمن)</button>` : ''}
