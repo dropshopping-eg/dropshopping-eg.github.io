@@ -26,6 +26,14 @@
         body.dark-theme .header-bg { background: #0d1117; color: #ffffff; border-bottom: 1px solid rgba(184, 134, 11, 0.3); }
         body.dark-theme .inner-box { background: #21262d; border-color: #30363d; color: #f3f4f6; }
 
+        /* شريط تحكم كروم العلوي الممتاز */
+        #chrome-progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3.5px;
+            background: linear-gradient(90deg, #b8860b, #ffd814, #d4af37);
+            z-index: 99999; transition: width 0.3s ease, opacity 0.3s ease; opacity: 0;
+            box-shadow: 0 0 10px #ffd814;
+        }
+
         /* تعديل ألوان الخانات لتكون واضحة وجذابة في كامل المتجر */
         select, input, textarea {
             background-color: #ffffff !important;
@@ -38,6 +46,22 @@
             color: #ffffff !important;
             border: 2px solid #d4af37 !important;
         }
+
+        /* توضيح خانة الكمية والموجب والسالب بقوة */
+        .qty-btn {
+            background-color: #febd69 !important;
+            color: #111827 !important;
+            border: 1.5px solid #b8860b !important;
+            font-weight: 900 !important;
+            font-size: 14px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 28px !important; height: 28px !important;
+            border-radius: 6px !important;
+            transition: all 0.15s ease;
+        }
+        .qty-btn:hover { background-color: #f3a847 !important; }
 
         .product-card { transition: all 0.2s ease-in-out; border-radius: 8px; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
@@ -55,7 +79,7 @@
 
         #toast-notification {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px);
-            background: #131921; color: #f3a847; border: 1px solid #b8860b;
+            background: #131921; color: #f3a847; border: 1.5px solid #b8860b;
             padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 13px; z-index: 10000;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;
         }
@@ -76,6 +100,9 @@
     </style>
 </head>
 <body class="light-theme flex flex-col min-h-screen overflow-x-hidden">
+
+    <!-- شريط تحميل كروم العلوي -->
+    <div id="chrome-progress-bar"></div>
 
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
 
@@ -99,12 +126,12 @@
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="openOrdersPage()" class="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-400 border border-amber-500/20">
+                <button onclick="triggerLoading(openOrdersPage)" class="flex items-center gap-1 bg-amber-500/10 hover:bg-amber-500/20 px-2.5 py-1.5 rounded-lg text-xs font-bold text-amber-400 border border-amber-500/20">
                     <span>📦 طلباتك</span>
                     <span class="bg-amber-500 text-gray-950 px-1.5 rounded-full text-[10px] font-black" id="orders-count-badge">0</span>
                 </button>
 
-                <button onclick="openCart()" class="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 px-3 py-1.5 rounded-lg text-xs font-bold text-amber-300 border border-amber-500/30">
+                <button onclick="triggerLoading(openCart)" class="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 px-3 py-1.5 rounded-lg text-xs font-bold text-amber-300 border border-amber-500/30">
                     <span>🛒 السلة</span>
                     <span class="bg-amber-400 text-gray-950 px-1.5 rounded-full text-[10px] font-black" id="header-cart-count">0</span>
                 </button>
@@ -126,7 +153,7 @@
             </div>
             <nav class="space-y-2 font-bold text-sm">
                 <button onclick="closeMenu(); goHome(); filterCategory('all');" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">📋 الرئيسية والأقسام</button>
-                <button onclick="closeMenu(); openOrdersPage();" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">📦 متابعة طلباتك وقيد التنفيذ</button>
+                <button onclick="closeMenu(); triggerLoading(openOrdersPage);" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">📦 متابعة طلباتك وقيد التنفيذ</button>
                 <button onclick="closeMenu(); goHome(); filterCategory('ملابس');" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">👕 قسم الملابس</button>
                 <button onclick="closeMenu(); goHome(); filterCategory('أحذية');" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">👟 قسم الأحذية</button>
                 <button onclick="closeMenu(); goHome(); filterCategory('إكسسوارات');" class="w-full text-right py-2 px-3 rounded-lg hover:bg-[#232f3e] hover:text-amber-400 transition">⌚ قسم الإكسسوارات</button>
@@ -193,7 +220,7 @@
                             <div><label class="block text-[10px] mb-1 font-bold">الصورة 2:</label><input type="file" id="image2-file" accept="image/*" class="w-full p-1 text-[10px]"></div>
                         </div>
                         <textarea id="new-desc" placeholder="وصف المنتج..." class="w-full p-2 rounded text-xs h-16"></textarea>
-                        <button onclick="addProduct()" class="w-full bg-[#b8860b] text-white py-2.5 rounded-lg font-black hover:bg-[#996515] transition">نشر المنتج فوراً 🚀</button>
+                        <button onclick="triggerLoading(addProduct)" class="w-full bg-[#b8860b] text-white py-2.5 rounded-lg font-black hover:bg-[#996515] transition">نشر المنتج فوراً 🚀</button>
                     </div>
                 </div>
 
@@ -329,19 +356,20 @@
                         </div>
                     </div>
 
+                    <!-- توضيح حقل الكمية بوضوح تام -->
                     <div class="space-y-2 border-t pt-2">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-xs">الكمية:</span>
-                            <div class="flex items-center gap-2 border rounded p-0.5 bg-gray-50 dark:bg-gray-800">
-                                <button onclick="changeModalQty(-1)" class="w-5 h-5 rounded border font-black">-</button>
-                                <span id="modal-qty" class="font-black w-4 text-center">1</span>
-                                <button onclick="changeModalQty(1)" class="w-5 h-5 rounded border font-black">+</button>
+                        <div class="flex items-center justify-between bg-amber-50 dark:bg-gray-800 p-2 rounded-lg border border-amber-300">
+                            <span class="font-black text-xs text-amber-900 dark:text-amber-300">الكمية المطلوبة:</span>
+                            <div class="flex items-center gap-3">
+                                <button onclick="changeModalQty(-1)" class="qty-btn">-</button>
+                                <span id="modal-qty" class="font-black text-sm text-gray-900 dark:text-white w-6 text-center">1</span>
+                                <button onclick="changeModalQty(1)" class="qty-btn">+</button>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
-                            <button id="modal-cart-btn" onclick="" class="amazon-btn-cart py-2 text-xs shadow-sm">إضافة للسلة 🛒</button>
-                            <button id="modal-buy-btn" onclick="" class="amazon-btn-buy py-2 text-xs shadow-sm">شراء الآن ⚡</button>
+                            <button id="modal-cart-btn" onclick="addModalToCart(); closeProductModal();" class="amazon-btn-cart py-2 text-xs shadow-sm">إضافة للسلة 🛒</button>
+                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="amazon-btn-buy py-2 text-xs shadow-sm">شراء الآن ⚡</button>
                         </div>
                     </div>
                 </div>
@@ -361,7 +389,7 @@
             <div class="flex justify-between items-center p-3.5 bg-gray-900 text-white border-b border-gray-800">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">📦</span>
-                    <h3 class="font-bold text-xs sm:text-sm text-amber-400">متابعة طلباتك الحالية وقيد التنفيذ</h3>
+                    <h3 class="font-bold text-xs sm:text-sm text-amber-400">متابعة طلباتك وقيد التنفيذ</h3>
                 </div>
                 <button onclick="closeOrdersPage()" class="text-gray-400 font-bold text-lg hover:text-white">✕</button>
             </div>
@@ -385,7 +413,7 @@
                     <span>الإجمالي الكلي:</span>
                     <span id="cart-total" class="text-[#b12704]">0 ج.م</span>
                 </div>
-                <button onclick="openCheckoutPage()" class="amazon-btn-buy w-full py-3 text-xs shadow transition text-center">الذهاب لإتمام الطلب والشراء 📦</button>
+                <button onclick="triggerLoading(openCheckoutPage)" class="amazon-btn-buy w-full py-3 text-xs shadow transition text-center">الذهاب لإتمام الطلب والشراء 📦</button>
             </div>
         </div>
     </div>
@@ -479,32 +507,27 @@
         let toastTimer = null;
         let userLocationLink = '';
 
+        // شريط التحميل الخاص بكروم
+        function triggerLoading(action) {
+            const bar = document.getElementById('chrome-progress-bar');
+            if (bar) {
+                bar.style.opacity = '1';
+                bar.style.width = '30%';
+                setTimeout(() => { bar.style.width = '70%'; }, 100);
+                setTimeout(() => {
+                    bar.style.width = '100%';
+                    if (typeof action === 'function') action();
+                    setTimeout(() => { bar.style.opacity = '0'; bar.style.width = '0%'; }, 200);
+                }, 250);
+            } else if (typeof action === 'function') { action(); }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             applyTheme(localStorage.getItem('store_theme') || 'light');
             loadOwnerAvatar();
             loadCartFromStorage();
             loadOrdersFromStorage();
-            checkUrlParameters();
         });
-
-        // التحقق من الرابط لرؤية ما إذا كان الأدمن ضغط "تم" من الواتساب للتاكيد
-        function checkUrlParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const confirmOrderId = urlParams.get('confirm_order');
-            const productId = urlParams.get('product');
-
-            if (confirmOrderId) {
-                db.collection("orders").doc(confirmOrderId).update({ status: "قيد التنفيذ ⏳" }).then(() => {
-                    showToast(`✅ تم تحديث حالة الطلب ${confirmOrderId} إلى قيد التنفيذ!`);
-                    // تحديث الطلبات المحلية
-                    let ord = myOrders.find(o => o.order_id === confirmOrderId);
-                    if(ord) ord.status = "قيد التنفيذ ⏳";
-                    saveOrdersToStorage();
-                });
-            } else if (productId) {
-                setTimeout(() => { openProductModal(productId); }, 300);
-            }
-        }
 
         function saveCartToStorage() {
             localStorage.setItem('drop_shopping_cart', JSON.stringify(cart));
@@ -721,7 +744,7 @@
                 container.innerHTML += `
                     <div class="product-card custom-card overflow-hidden flex flex-col justify-between p-2 border relative">
                         ${disc > 0 ? `<span class="absolute top-1.5 right-1.5 bg-red-600 text-white text-[8px] px-1 py-0.5 rounded font-bold">خصم ${disc}%</span>` : ''}
-                        <div class="cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <div class="cursor-pointer" onclick="triggerLoading(() => openProductModal('${p.id}'))">
                             <div class="h-32 sm:h-40 rounded-lg mb-1.5 flex items-center justify-center p-1 bg-white border">
                                 <img src="${p.image1 || ''}" alt="${p.name || ''}" class="w-full h-full object-contain">
                             </div>
@@ -732,8 +755,8 @@
                         <div>
                             <div class="my-0.5">${priceHtml}</div>
                             <div class="grid grid-cols-2 gap-1">
-                                <button onclick="addToCartDirect('${p.id}')" class="amazon-btn-cart py-1 text-[9px]">أضف 🛒</button>
-                                <button onclick="buyNowDirect('${p.id}')" class="amazon-btn-buy py-1 text-[9px]">شراء ⚡</button>
+                                <button onclick="triggerLoading(() => addToCartDirect('${p.id}'))" class="amazon-btn-cart py-1 text-[9px]">أضف 🛒</button>
+                                <button onclick="triggerLoading(() => buyNowDirect('${p.id}'))" class="amazon-btn-buy py-1 text-[9px]">شراء ⚡</button>
                             </div>
                         </div>
                     </div>
@@ -795,8 +818,6 @@
             document.getElementById('thumb2').src = p.image2 || p.image1;
             switchModalImage(p.image1, 1);
 
-            document.getElementById('modal-cart-btn').setAttribute('onclick', `addModalToCart(); closeProductModal();`);
-            document.getElementById('modal-buy-btn').setAttribute('onclick', `modalBuyNow();`);
             document.getElementById('product-modal').classList.remove('hidden');
             pushModalState('product-modal');
         }
@@ -946,7 +967,12 @@
             }
         }
 
-        function modalBuyNow() { addModalToCart(); closeProductModal(); openCheckoutPage(); }
+        // إحالة العميل المباشرة لصفحة الشراء بدون الخروج للخارج
+        function modalBuyNow() {
+            addModalToCart();
+            closeProductModal();
+            triggerLoading(openCheckoutPage);
+        }
 
         function increaseQty(index) { cart[index].quantity += 1; saveCartToStorage(); }
         function decreaseQty(index) {
@@ -982,9 +1008,9 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="decreaseQty(${index})" class="border w-5 h-5 rounded font-bold">-</button>
+                            <button onclick="decreaseQty(${index})" class="qty-btn">-</button>
                             <span class="w-4 text-center font-bold text-xs">${item.quantity}</span>
-                            <button onclick="increaseQty(${index})" class="border w-5 h-5 rounded font-bold">+</button>
+                            <button onclick="increaseQty(${index})" class="qty-btn">+</button>
                             <button onclick="removeFromCart(${index})" class="text-red-600 font-bold ml-1">حذف</button>
                         </div>
                     </div>`;
@@ -1056,9 +1082,6 @@
 
             try { await db.collection("orders").doc(orderId).set(orderData); } catch(e) {}
 
-            // رابط التاكيد للأدمن لتأكيد الطلب بضغطة واحدة من داخل الواتساب
-            let confirmAdminLink = `${baseUrl}?confirm_order=${orderId}`;
-
             let msg = `🛒 *طلب جديد من متجر DROP SHOPPING*\n`;
             msg += `🔖 *رقم الطلب:* ${orderId}\n\n`;
             msg += `👤 *الاسم:* ${name}\n📞 *الهاتف:* ${phone}\n📍 *العنوان:* ${address}\n`;
@@ -1076,8 +1099,7 @@
             });
 
             msg += `───────────────\n`;
-            msg += `💰 *الإجمالي الكلي:* ${totalPrice} ج.م\n\n`;
-            msg += `✅ *زر تأكيد الطلب وقيد التنفيذ للأدمن:*\n${confirmAdminLink}`;
+            msg += `💰 *الإجمالي الكلي:* ${totalPrice} ج.م`;
 
             cart = []; saveCartToStorage();
             closeCheckoutPage();
@@ -1092,8 +1114,27 @@
 
         function closeOrdersPage() { closeAllModals(); }
 
+        // أزرار التحكم في حالة الطلب من الشاشة
+        function setOrderStatusInStore(orderId, newStatus) {
+            let ord = myOrders.find(o => o.order_id === orderId);
+            if (ord) {
+                ord.status = newStatus;
+                saveOrdersToStorage();
+                showToast(`✅ تم تغيير حالة الطلب إلى: ${newStatus}`);
+            }
+        }
+
+        function deleteOrderFromStore(orderId) {
+            myOrders = myOrders.filter(o => o.order_id !== orderId);
+            saveOrdersToStorage();
+            showToast('🗑️ تم حذف الطلب من القائمة!');
+        }
+
         function updateOrdersUI() {
-            document.getElementById('orders-count-badge').innerText = myOrders.length;
+            // احتساب الطلبات النشطة فقط
+            const activeOrders = myOrders.filter(o => o.status !== 'تم الاستلام ✅' && o.status !== 'تم التسليم بنجاح ✅');
+            document.getElementById('orders-count-badge').innerText = activeOrders.length;
+            
             const container = document.getElementById('my-orders-list');
             if(!container) return;
             container.innerHTML = '';
@@ -1106,15 +1147,22 @@
             myOrders.forEach(ord => {
                 let itemsHtml = ord.items.map(it => `• ${it.product_name} (${it.selected_size}/${it.selected_color}) ×${it.quantity}`).join('<br>');
                 container.innerHTML += `
-                    <div class="inner-box p-3 rounded-xl border-2 border-amber-500/40 space-y-1.5 shadow-sm">
+                    <div class="inner-box p-3 rounded-xl border-2 border-amber-500/40 space-y-2 shadow-sm">
                         <div class="flex justify-between items-center font-bold text-xs border-b pb-1">
                             <span class="text-amber-600 font-black">${ord.order_id}</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-[10px] px-2 py-0.5 rounded-full font-black">${ord.status}</span>
+                            <span class="bg-amber-100 text-amber-900 text-[10px] px-2 py-0.5 rounded-full font-black">${ord.status}</span>
                         </div>
                         <p class="text-[11px] text-gray-700 dark:text-gray-300 leading-relaxed font-bold">${itemsHtml}</p>
                         <div class="flex justify-between items-center pt-1 border-t font-black text-xs">
                             <span>الإجمالي: <span class="text-[#b12704]">${ord.total_price} ج.م</span></span>
                             <span class="text-[10px] text-gray-400 font-normal">${ord.created_at}</span>
+                        </div>
+                        
+                        <!-- أزرار الإدارة والعميل للطلب -->
+                        <div class="flex flex-wrap gap-1.5 pt-1 border-t">
+                            ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-green-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">✅ تم الاستلام</button>` : ''}
+                            ${ord.status === 'قيد الانتظار ⏳' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-blue-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">⏳ تغيير لـ قيد التنفيذ (أدمن)</button>` : ''}
+                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600/80 text-white px-2 py-1 rounded-lg text-[10px] font-bold mr-auto">🗑️ حذف</button>
                         </div>
                     </div>`;
             });
