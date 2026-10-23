@@ -115,7 +115,7 @@
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
     <div id="menu-backdrop" onclick="closeMenu()"></div>
 
-    <!-- الهيدر (بدون أثر لتسجيل الدخول) -->
+    <!-- الهيدر -->
     <header class="store-header sticky top-0 z-40 shadow-sm w-full py-2.5">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 shrink-0">
@@ -356,6 +356,7 @@
             <span id="products-count" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">0 منتج</span>
         </div>
 
+        <!-- شبكة المنتجات (صورة مستقلة بدون إطار خلفي) -->
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
         <section class="mt-16 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
@@ -445,7 +446,7 @@
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
                             <button id="modal-cart-btn" onclick="addModalToCart(); closeProductModal();" class="store-btn-main py-2.5 text-xs shadow">إضافة للسلة 🛒</button>
-                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-2.5 rounded-12 font-black text-xs shadow">شراء الآن ⚡</button>
+                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-2.5 rounded-xl font-black text-xs shadow">شراء الآن ⚡</button>
                         </div>
                     </div>
                 </div>
@@ -819,14 +820,15 @@
             filtered.forEach(p => {
                 const finalPrice = p.discount > 0 ? Math.round(p.price * (1 - p.discount/100)) : p.price;
                 const card = document.createElement('div');
-                card.className = "store-card product-card p-2.5 flex flex-col justify-between cursor-pointer group";
+                card.className = "store-card product-card p-3 flex flex-col justify-between cursor-pointer group";
                 card.onclick = () => openProductModal(p.id);
 
+                // تم جعل صورة المنتج تظهر لوحدها تماماً بدون خلفية أو صندوق إطار داخلي
                 card.innerHTML = `
                     <div>
-                        <div class="relative w-full h-44 sm:h-52 bg-white rounded-xl overflow-hidden mb-2 border p-1 flex items-center justify-center">
-                            <img src="${p.image1}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300">
-                            ${p.discount > 0 ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black shadow">-${p.discount}%</span>` : ''}
+                        <div class="relative w-full h-48 sm:h-56 overflow-hidden mb-2.5 flex items-center justify-center">
+                            <img src="${p.image1}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300 drop-shadow-sm">
+                            ${p.discount > 0 ? `<span class="absolute top-1 right-1 bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black shadow">-${p.discount}%</span>` : ''}
                         </div>
                         <h4 class="font-black text-xs line-clamp-1 mb-1">${p.name}</h4>
                     </div>
@@ -911,7 +913,7 @@
 
             const thumbs = document.getElementById('modal-thumbs-container');
             thumbs.innerHTML = '';
-            [p.image1, p.image2].filter(Boolean.forEach(img => {
+            [p.image1, p.image2].filter(Boolean).forEach(img => {
                 const t = document.createElement('img');
                 t.src = img;
                 t.className = "w-12 h-12 object-contain rounded-xl border cursor-pointer hover:border-black dark:hover:border-white p-1 bg-white";
@@ -1232,7 +1234,6 @@
         }
         function closeOrdersPage() { document.getElementById('orders-modal').classList.add('hidden'); }
 
-        // آراء وتجارب العملاء
         let storeReviews = [
             { name: "محمد أحمد", rating: 5, comment: "متجر ممتاز جداً والتوصيل كان سريع والخامات عالية الجودة.", date: "منذ يومين" },
             { name: "محمود إبراهيم", rating: 5, comment: "تجربة شراء سهلة ومعاينة المنتج قبل الدفع ممتازة.", date: "منذ 3 أيام" },
@@ -1282,7 +1283,6 @@
             showToast("تم نشر تقييمك بنجاح ⭐");
         }
 
-        // دوال الأدمن (إضافة/تعديل المنتجات)
         function renderAdminProductsList() {
             const list = document.getElementById('admin-products-list');
             list.innerHTML = '';
