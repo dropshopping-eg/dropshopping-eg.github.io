@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DROP SHOPPING - المتجر الرسمي</title>
+    <title>DROP SHOPPING - متجرك المفضل</title>
     <meta name="google-site-verification" content="q0kfc7iiLj2Q5mgyORBqMmuuz7G2Z78RRJiLCb99uBY" />
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,64 +16,65 @@
     <style>
         * { font-family: 'Cairo', sans-serif; box-sizing: border-box; }
         
-        body.light-theme { background-color: #f8fafc; color: #0f172a; }
-        body.light-theme .custom-card { background: #ffffff; border-color: #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        body.light-theme .header-bg { background: #080c14; color: #ffffff; }
-        body.light-theme .inner-box { background: #f8fafc; border-color: #e2e8f0; color: #0f172a; }
-        body.light-theme .search-box-custom { background: #ffffff !important; color: #0f172a !important; border: 1.5px solid #cbd5e1 !important; }
+        /* طراز أمازون الفاتح والداكن */
+        body.light-theme { background-color: #eaeded; color: #0F1111; }
+        body.light-theme .amazon-header { background-color: #131921; color: #ffffff; }
+        body.light-theme .amazon-sub-header { background-color: #232f3e; color: #ffffff; }
+        body.light-theme .amazon-card { background: #ffffff; border: 1px solid #d5d9d9; box-shadow: 0 2px 5px rgba(213,217,217,.5); }
+        body.light-theme .search-box-custom { background: #ffffff !important; color: #0F1111 !important; border: 2px solid #febd69 !important; }
 
         body.dark-theme { background-color: #0b0f19; color: #f1f5f9; }
-        body.dark-theme .custom-card { background: #161e2e; border-color: #1e293b; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        body.dark-theme .header-bg { background: #060911; color: #ffffff; border-bottom: 1px solid #1e293b; }
-        body.dark-theme .inner-box { background: #111827; border-color: #1e293b; color: #f1f5f9; }
-        body.dark-theme .search-box-custom { background: #1e293b !important; color: #ffffff !important; border: 1.5px solid #475569 !important; }
+        body.dark-theme .amazon-header { background-color: #060911; color: #ffffff; border-bottom: 1px solid #1e293b; }
+        body.dark-theme .amazon-sub-header { background-color: #111827; color: #ffffff; }
+        body.dark-theme .amazon-card { background: #161e2e; border: 1px solid #1e293b; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        body.dark-theme .search-box-custom { background: #1e293b !important; color: #ffffff !important; border: 2px solid #d4af37 !important; }
 
         /* دائرة التحميل لتنقل الصفحات */
         #page-loading-spinner {
-            position: fixed; inset: 0; background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(8px);
+            position: fixed; inset: 0; background: rgba(15, 17, 17, 0.85); backdrop-filter: blur(8px);
             z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
         }
         #page-loading-spinner.active { opacity: 1; pointer-events: auto; }
         .spinner-ring {
-            width: 44px; height: 44px; border: 4px solid rgba(212, 175, 55, 0.2);
-            border-top-color: #d4af37; border-radius: 50%; animation: spin 0.7s linear infinite;
+            width: 44px; height: 44px; border: 4px solid rgba(254, 189, 105, 0.2);
+            border-top-color: #febd69; border-radius: 50%; animation: spin 0.7s linear infinite;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         select, input, textarea {
             background-color: #ffffff !important;
-            color: #0f172a !important;
-            border: 1.5px solid #cbd5e1 !important;
+            color: #0F1111 !important;
+            border: 1px solid #888c8c !important;
             font-weight: 700 !important;
-            border-radius: 10px !important;
+            border-radius: 8px !important;
         }
         body.dark-theme select, body.dark-theme input, body.dark-theme textarea {
             background-color: #1e293b !important;
             color: #f8fafc !important;
-            border: 1.5px solid #334155 !important;
+            border: 1px solid #475569 !important;
         }
 
         .qty-btn {
-            background-color: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; font-weight: 900;
+            background-color: #f0f2f2; color: #0F1111; border: 1px solid #d5d9d9; font-weight: 900;
             font-size: 14px; display: inline-flex; align-items: center; justify-content: center;
             width: 32px; height: 32px; border-radius: 8px; transition: all 0.15s ease;
         }
         body.dark-theme .qty-btn { background-color: #334155; color: #f8fafc; border-color: #475569; }
 
-        .product-card { transition: all 0.25s ease; border-radius: 16px; }
-        .product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .product-card { transition: all 0.2s ease; border-radius: 8px; }
+        .product-card:hover { box-shadow: 0 0 0 2px #febd69; transform: translateY(-2px); }
         
         .brand-dark-gold {
             font-family: 'Cinzel', serif; font-weight: 900;
-            background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7c11 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #febd69 0%, #f3e5ab 50%, #d4af37 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px;
         }
 
         #toast-notification {
             position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(120px);
-            background: #0f172a; color: #d4af37; border: 1px solid #d4af37;
-            padding: 10px 24px; border-radius: 30px; font-weight: 800; font-size: 13px; z-index: 10000;
+            background: #232f3e; color: #febd69; border: 1px solid #febd69;
+            padding: 10px 24px; border-radius: 20px; font-weight: 800; font-size: 13px; z-index: 10000;
             box-shadow: 0 10px 25px rgba(0,0,0,0.25); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); opacity: 0;
         }
         #toast-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
@@ -82,37 +83,34 @@
             width: 26px; height: 26px; border-radius: 50%; display: inline-block; cursor: pointer;
             border: 2px solid transparent; transition: all 0.2s; box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
         }
-        .color-dot.selected { border-color: #d4af37; transform: scale(1.18); box-shadow: 0 0 8px rgba(212, 175, 55, 0.6); }
+        .color-dot.selected { border-color: #febd69; transform: scale(1.18); box-shadow: 0 0 8px rgba(254, 189, 105, 0.6); }
 
         .size-badge {
-            padding: 5px 14px; border-radius: 8px; border: 1.5px solid #cbd5e1; font-weight: 800; font-size: 11px; cursor: pointer; transition: all 0.2s;
+            padding: 5px 14px; border-radius: 6px; border: 1px solid #d5d9d9; font-weight: 800; font-size: 11px; cursor: pointer; transition: all 0.2s;
         }
         body.dark-theme .size-badge { border-color: #334155; }
-        .size-badge.selected { background-color: #d4af37; color: #000; border-color: #d4af37; font-weight: 900; }
+        .size-badge.selected { background-color: #febd69; color: #0F1111; border-color: #e77600; font-weight: 900; }
 
-        .amazon-btn-cart { background: #d4af37; color: #0f172a; border-radius: 10px; font-weight: 800; }
-        .amazon-btn-cart:hover { background: #b89228; color: #fff; }
-        .amazon-btn-buy { background: #0f172a; color: #fff; border-radius: 10px; font-weight: 800; }
-        body.dark-theme .amazon-btn-buy { background: #1e293b; color: #d4af37; border: 1px solid #d4af37; }
+        .amazon-btn-cart { background: #ffd814; color: #0F1111; border-radius: 8px; font-weight: 800; border: 1px solid #fcd200; }
+        .amazon-btn-cart:hover { background: #f7ca00; }
+        .amazon-btn-buy { background: #ffa41c; color: #0F1111; border-radius: 8px; font-weight: 800; border: 1px solid #ff8f00; }
+        .amazon-btn-buy:hover { background: #fa8900; }
 
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #64748b; position: relative; }
-        .bottom-nav-item.active { color: #d4af37; }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #94a3b8; position: relative; }
+        .bottom-nav-item.active { color: #febd69; }
 
         .nav-badge {
-            position: absolute; top: -4px; right: 8px; background-color: #ef4444; color: #ffffff;
-            font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 9999px; border: 1.5px solid #080c14;
+            position: absolute; top: -4px; right: 8px; background-color: #cc0c39; color: #ffffff;
+            font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 9999px; border: 1.5px solid #131921;
         }
 
         .new-luxury-logo {
-            display: flex; align-items: center; gap: 10px; padding: 6px 14px;
-            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-            border: 1.5px solid #d4af37; border-radius: 14px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            display: flex; align-items: center; gap: 8px; padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(254, 189, 105, 0.4); border-radius: 8px;
             transition: all 0.2s ease;
         }
-        .new-luxury-logo:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35); }
+        .new-luxury-logo:hover { border-color: #febd69; }
 
-        /* طبقة خلفية لإغلاق القائمة عند النقر خارجها */
         #menu-backdrop {
             position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px);
             z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
@@ -129,55 +127,71 @@
 
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
 
-    <!-- طبقة خلفية القائمة الجانبية لإغلاقها عند النقر خارجها -->
     <div id="menu-backdrop" onclick="closeMenu()"></div>
 
-    <!-- الهيدر الرئيسي -->
-    <header class="header-bg sticky top-0 z-40 shadow-lg w-full">
-        <div class="max-w-7xl mx-auto px-3 py-2.5 flex flex-col gap-2">
+    <!-- الهيدر الرئيسي على طراز أمازون -->
+    <header class="amazon-header sticky top-0 z-40 shadow-md w-full">
+        <div class="max-w-7xl mx-auto px-3 py-2 flex flex-col gap-2">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 shrink-0">
-                    <button onclick="toggleMenu()" class="text-amber-400 text-2xl font-bold p-1 hover:opacity-80">☰</button>
+                    <button onclick="toggleMenu()" class="text-white text-2xl font-bold p-1 hover:text-amber-400">☰</button>
                     
                     <div class="new-luxury-logo cursor-pointer select-none" onclick="handleSecretAdminClick()">
-                        <div id="owner-avatar-container" class="w-9 h-9 rounded-xl overflow-hidden border border-amber-400 bg-slate-900 flex items-center justify-center shrink-0 shadow-inner">
+                        <div id="owner-avatar-container" class="w-8 h-8 rounded-lg overflow-hidden border border-amber-400 bg-slate-900 flex items-center justify-center shrink-0 shadow-inner">
                             <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DS">
                             <span id="owner-avatar-placeholder" class="text-xs font-black text-amber-400">DS</span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-sm sm:text-base brand-dark-gold leading-none">DROP SHOPPING</span>
-                            <span class="text-[8px] text-amber-200/70 tracking-widest font-black uppercase">LUXURY STORE</span>
+                            <span class="text-xs sm:text-sm brand-dark-gold leading-none">DROP SHOPPING</span>
+                            <span class="text-[7px] text-slate-300 tracking-wider font-bold">المتجر الرسمي</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex-grow max-w-xs sm:max-w-md relative">
-                    <div class="search-box-custom rounded-xl p-1 flex items-center shadow-inner">
-                        <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج أو كود..." class="w-full py-1 px-2.5 text-xs font-bold border-none !bg-transparent focus:outline-none">
-                        <button onclick="liveSearchProducts()" class="bg-[#d4af37] text-gray-950 px-3 py-1 rounded-lg font-black text-xs hover:bg-amber-500 transition shrink-0 shadow">بحث 🔍</button>
+                <!-- شريط البحث المريح بنمط أمازون -->
+                <div class="flex-grow max-w-xl relative">
+                    <div class="search-box-custom rounded-lg p-0.5 flex items-center shadow-inner">
+                        <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج أو كود (مثال: PROD)..." class="w-full py-1.5 px-2.5 text-xs font-bold border-none !bg-transparent focus:outline-none">
+                        <button onclick="liveSearchProducts()" class="bg-[#febd69] text-gray-950 px-4 py-1.5 rounded-md font-black text-xs hover:bg-[#f3a847] transition shrink-0 shadow">بحث 🔍</button>
                     </div>
-                    <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-b-xl shadow-2xl hidden z-50 max-h-60 overflow-y-auto mt-1"></div>
+                    <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-b-lg shadow-2xl hidden z-50 max-h-60 overflow-y-auto mt-1"></div>
+                </div>
+
+                <!-- أيقونات السلة والطلبات العلوية للشاشات الكبيرة -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="openOrdersPage()" class="flex flex-col items-start px-2 py-1 rounded hover:border hover:border-white/40 relative">
+                        <span id="orders-badge-top" class="nav-badge hidden">0</span>
+                        <span class="text-[9px] text-slate-300">تتبع</span>
+                        <span class="text-xs font-bold text-white">طلباتك 📦</span>
+                    </button>
+                    <button onclick="openCart()" class="flex items-center gap-1 px-2 py-1 rounded hover:border hover:border-white/40 relative">
+                        <span id="cart-badge-top" class="nav-badge hidden">0</span>
+                        <span class="text-xl">🛒</span>
+                        <span class="text-xs font-bold text-amber-400">السلة</span>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- شريط الخدمات والضمان -->
-    <div class="bg-slate-900 text-slate-300 py-1.5 px-3 text-[10px] sm:text-[11px] border-b border-slate-800 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center font-bold px-1">
-            <div class="flex items-center gap-1 text-amber-400">
-                <span>🚚 <span id="banner-shipping-text">شحن مجاني للطلبات بقيمة 1,299 ج.م فأكثر!</span></span>
-            </div>
-            <div class="flex items-center gap-1 text-emerald-400">
-                <span>🤝 <span id="banner-cod-text">الدفع عند الاستلام</span></span>
-            </div>
-            <div class="flex items-center gap-1 text-amber-300 hidden sm:flex">
-                <span>📦 <span id="banner-inspection-text">المعاينة قبل الدفع</span></span>
-            </div>
+    <!-- شريط الأقسام الفرعي على نمط أمازون -->
+    <div class="amazon-sub-header py-1.5 px-3 text-[11px] shadow-inner">
+        <div class="max-w-7xl mx-auto flex items-center gap-4 overflow-x-auto whitespace-nowrap font-bold scrollbar-none">
+            <button onclick="toggleMenu()" class="flex items-center gap-1 text-white hover:text-amber-400"><span>☰</span> الكل</button>
+            <button onclick="filterCategory('all')" class="text-white hover:text-amber-400">الرئيسية</button>
+            <button onclick="filterCategory('offers')" class="text-amber-400 hover:underline">🔥 العروض والخصومات</button>
+            <button onclick="filterCategory('ملابس')" class="text-white hover:text-amber-400">👕 ملابس</button>
+            <button onclick="filterCategory('أحذية')" class="text-white hover:text-amber-400">👟 أحذية</button>
+            <button onclick="filterCategory('إكسسوارات')" class="text-white hover:text-amber-400">⌚ إكسسوارات</button>
         </div>
     </div>
 
-    <!-- القائمة الجانبية المحدثة مع أيقونات السوشيال ميديا الواضحة -->
+    <!-- شريط الضمان والشحن -->
+    <div class="bg-[#131921] text-amber-400 py-1 px-3 text-[10px] border-t border-slate-800 text-center font-bold">
+        <span>🚚 شحن مجاني للطلبات بقيمة <span id="banner-limit-val">1299</span> ج.م فأكثر | 🤝 الدفع عند الاستلام والمعاينة قبل الدفع</span>
+    </div>
+
+    <!-- القائمة الجانبية -->
     <div id="side-menu" class="fixed inset-y-0 right-0 bg-slate-900 text-white w-[300px] max-w-[88vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-slate-800 overflow-y-auto">
         <div class="space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -222,7 +236,6 @@
                     </button>
                 </nav>
 
-                <!-- روابط السوشيال ميديا مع الأيقونات الواضحة بجوارها -->
                 <div class="pt-3 border-t border-slate-800 space-y-2">
                     <a href="https://www.facebook.com/share/1FMeiHaA3q/" target="_blank" class="w-full py-2 px-3 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition flex items-center justify-between font-bold text-xs block">
                         <span class="flex items-center gap-2">
@@ -253,37 +266,37 @@
 
     <!-- لوحة تحكم الأدمن -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
-        <div class="custom-card w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
-            <div class="flex justify-between items-center p-4 bg-slate-900 text-white border-b border-slate-800">
+        <div class="amazon-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="flex justify-between items-center p-4 amazon-header border-b border-slate-700">
                 <div class="flex items-center gap-3">
                     <span class="text-xl">⚙️</span>
                     <div>
                         <h3 class="font-black text-sm text-amber-400">لوحة تحكم الأدمن</h3>
-                        <span class="text-[10px] text-slate-400 font-bold">DROP SHOPPING Control Panel</span>
+                        <span class="text-[10px] text-slate-300 font-bold">DROP SHOPPING Control Panel</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-xl border border-amber-500/30">
+                <div class="flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-lg border border-amber-500/30">
                     <span class="text-base animate-bounce">🔔</span>
                     <span class="text-[10px] font-bold text-amber-400">إجمالي الزوار: <strong id="admin-visitor-count" class="text-white text-xs">1</strong></span>
                 </div>
-                <button onclick="closeSecretModal()" class="text-slate-400 font-bold text-xl hover:text-white">✕</button>
+                <button onclick="closeSecretModal()" class="text-slate-300 font-bold text-xl hover:text-white">✕</button>
             </div>
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
-                <div class="inner-box p-4 rounded-2xl border space-y-3">
+                <div class="amazon-card p-4 rounded-xl border space-y-3">
                     <h4 class="font-black text-xs text-amber-500 border-b pb-1.5 flex items-center justify-between">
                         <span>📦 إدارة طلبات العملاء:</span>
                     </h4>
                     <div id="admin-orders-manage-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
 
-                <div class="inner-box p-4 rounded-2xl border">
+                <div class="amazon-card p-4 rounded-xl border">
                     <h4 id="admin-form-title" class="font-black text-xs text-amber-500 mb-3">➕ إضافة منتج جديد إلى المتجر:</h4>
                     <input type="hidden" id="edit-product-id" value="">
                     <div class="space-y-3">
                         <div class="grid grid-cols-2 gap-2">
                             <input type="text" id="new-name" placeholder="اسم المنتج بالكامل" class="w-full p-2 text-xs">
-                            <input type="text" id="new-sku" placeholder="كود المنتج المميز (مثل: PROD-101)" class="w-full p-2 text-xs font-bold">
+                            <input type="text" id="new-sku" placeholder="كود المنتج (مثل: PROD-101)" class="w-full p-2 text-xs font-bold">
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <input type="number" id="new-price" placeholder="السعر الأساسي (ج.م)" class="w-full p-2 text-xs">
@@ -311,18 +324,18 @@
                         <textarea id="new-desc" placeholder="وصف تفصيلي للمنتج وخاماته..." class="w-full p-2 text-xs h-16"></textarea>
                         
                         <div class="flex gap-2">
-                            <button id="admin-submit-btn" onclick="triggerPageReload(addProduct)" class="w-full bg-[#d4af37] text-gray-950 py-2.5 rounded-xl font-black hover:bg-amber-500 transition shadow">نشر المنتج فوراً 🚀</button>
-                            <button id="admin-cancel-edit-btn" onclick="cancelProductEdit()" class="hidden bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold">إلغاء التعديل</button>
+                            <button id="admin-submit-btn" onclick="triggerPageReload(addProduct)" class="w-full bg-[#febd69] text-gray-950 py-2.5 rounded-lg font-black hover:bg-[#f3a847] transition shadow">نشر المنتج فوراً 🚀</button>
+                            <button id="admin-cancel-edit-btn" onclick="cancelProductEdit()" class="hidden bg-slate-700 text-white px-4 py-2.5 rounded-lg font-bold">إلغاء التعديل</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="inner-box p-4 rounded-2xl border">
+                <div class="amazon-card p-4 rounded-xl border">
                     <h4 class="font-black text-xs text-amber-500 mb-2">📋 المنتجات الحالية (تعديل وحذف):</h4>
                     <div id="admin-products-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
 
-                <div class="inner-box p-4 rounded-2xl border space-y-3">
+                <div class="amazon-card p-4 rounded-xl border space-y-3">
                     <h4 class="font-black text-xs text-amber-500 border-b pb-1.5">🛠️ إعدادات المتجر العامة:</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
@@ -334,17 +347,17 @@
                             <input type="file" id="owner-avatar-file" accept="image/*" class="w-full p-1 text-[10px]">
                         </div>
                     </div>
-                    <button onclick="saveAdminSettings()" class="w-full bg-slate-800 text-amber-400 py-2.5 rounded-xl font-bold border border-amber-500/30 hover:bg-slate-700">حفظ الإعدادات 💾</button>
+                    <button onclick="saveAdminSettings()" class="w-full bg-slate-800 text-amber-400 py-2 rounded-lg font-bold border border-amber-500/30 hover:bg-slate-700">حفظ الإعدادات 💾</button>
                 </div>
             </div>
         </div>
     </div>
 
     <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 flex-grow w-full">
-        <!-- شريط الفلترة المنظم -->
-        <div class="custom-card p-3 rounded-2xl mb-4 border space-y-2 text-xs">
+        <!-- شريط الفلترة بنمط أمازون -->
+        <div class="amazon-card p-3 rounded-xl mb-4 border space-y-2 text-xs">
             <div class="flex items-center justify-between border-b pb-1.5">
-                <span class="font-black text-xs text-amber-600 dark:text-amber-400">🔍 تصفية وتحديد الأسعار:</span>
+                <span class="font-black text-xs text-amber-600 dark:text-amber-400">🔍 تصفية المنتجات والأسعار:</span>
                 <button onclick="resetFilters()" class="text-[10px] text-slate-500 hover:text-amber-500 font-bold">إعادة ضبط 🔄</button>
             </div>
             
@@ -381,21 +394,22 @@
         </div>
 
         <div class="flex justify-between items-center mb-3">
-            <h2 id="section-title" class="text-xs sm:text-sm font-black border-r-4 border-amber-500 pr-2">جميع المنتجات المعروضة</h2>
+            <h2 id="section-title" class="text-xs sm:text-sm font-black border-r-4 border-amber-500 pr-2">جميع المنتجات المميزة</h2>
             <span id="products-count" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">0 منتج</span>
         </div>
 
+        <!-- شبكة المنتجات على نمط أمازون -->
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
 
-        <!-- قسم آراء وتقييمات العملاء (شكل شيك وناعم مثل أمازون، موضوع في الأسفل بخط هادئ) -->
-        <section class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
+        <!-- قسم آراء وتقييمات العملاء (نمط أمازون الراقي) -->
+        <section class="mt-12 pt-6 border-t border-slate-300 dark:border-slate-800 space-y-4">
             <div class="flex items-center justify-between">
-                <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400">آراء وتجارب عملاء متجرنا 🌟</h3>
+                <h3 class="text-xs font-bold text-slate-600 dark:text-slate-400">آراء وتجارب عملاء متجرنا 🌟</h3>
             </div>
             
             <div id="homepage-reviews-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
 
-            <div class="custom-card p-3 rounded-xl border max-w-xl mx-auto space-y-2 mt-4 text-xs">
+            <div class="amazon-card p-3 rounded-xl border max-w-xl mx-auto space-y-2 mt-4 text-xs">
                 <p class="font-bold text-[11px] text-slate-600 dark:text-slate-300">أضف تقييمك لتجربتك معنا:</p>
                 <div class="grid grid-cols-2 gap-2">
                     <input type="text" id="store-reviewer-name" placeholder="اسمك" class="p-1.5 text-xs">
@@ -405,23 +419,23 @@
                     </select>
                 </div>
                 <textarea id="store-reviewer-comment" placeholder="رأيك في المتجر وسرعة التوصيل..." class="w-full p-2 text-xs h-12"></textarea>
-                <button onclick="submitStoreReview()" class="w-full bg-slate-800 text-amber-400 py-1.5 rounded-lg font-bold text-[11px] hover:bg-slate-700 transition">إرسال التقييم</button>
+                <button onclick="submitStoreReview()" class="w-full bg-[#febd69] text-gray-950 py-1.5 rounded-lg font-bold text-[11px] hover:bg-[#f3a847] transition">إرسال التقييم</button>
             </div>
         </section>
     </main>
 
     <!-- صفحة تفاصيل المنتج -->
     <div id="product-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-        <div class="custom-card w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-800 max-h-[96vh]">
-            <div class="flex justify-between items-center p-3.5 border-b inner-box">
+        <div class="amazon-card w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-700 max-h-[96vh]">
+            <div class="flex justify-between items-center p-3.5 border-b amazon-header">
                 <span class="text-xs font-black text-amber-400">تفاصيل المنتج والمواصفات</span>
-                <button onclick="closeProductModal()" class="text-slate-400 font-black text-xl hover:text-white px-2">✕</button>
+                <button onclick="closeProductModal()" class="text-slate-300 font-black text-xl hover:text-white px-2">✕</button>
             </div>
             
             <div class="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
                 <div class="flex flex-col gap-3">
-                    <div class="relative w-full h-72 sm:h-96 bg-white rounded-2xl border p-2 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
-                        <img id="main-modal-img" src="" class="w-full h-full object-contain rounded-xl">
+                    <div class="relative w-full h-72 sm:h-96 bg-white rounded-xl border p-2 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
+                        <img id="main-modal-img" src="" class="w-full h-full object-contain rounded-lg">
                         <span class="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[9px] px-2.5 py-1 rounded-full backdrop-blur-sm font-bold">🔍 اضغط للتكبير</span>
                     </div>
                     <div class="flex gap-2 justify-center overflow-x-auto py-1" id="modal-thumbs-container"></div>
@@ -451,32 +465,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="block font-bold text-[10px] text-slate-500 mb-1">الألوان المتاحة (تستخرج تلقائياً):</label>
+                            <label class="block font-bold text-[10px] text-slate-500 mb-1">الألوان المتاحة:</label>
                             <div id="color-options-container" class="flex flex-wrap items-center gap-2"></div>
                         </div>
 
                         <div class="border-t pt-2 mb-3">
                             <p class="font-bold text-slate-400 text-[10px] mb-1">وصف المنتج وخاماته:</p>
                             <p id="modal-desc" class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300"></p>
-                        </div>
-
-                        <div class="border-t pt-2">
-                            <p class="font-bold text-amber-500 text-[11px] mb-2">💬 تقييمات هذا المنتج:</p>
-                            <div id="product-reviews-container" class="space-y-2 max-h-32 overflow-y-auto mb-2"></div>
-                            
-                            <div class="inner-box p-2 rounded-xl border space-y-1.5">
-                                <p class="text-[10px] font-bold text-slate-400">أضف تقييمك لهذا المنتج:</p>
-                                <div class="grid grid-cols-2 gap-1.5">
-                                    <input type="text" id="item-reviewer-name" placeholder="اسمك" class="p-1 text-[10px]">
-                                    <select id="item-reviewer-rating" class="p-1 text-[10px] font-bold">
-                                        <option value="5">⭐⭐⭐⭐⭐</option>
-                                        <option value="4">⭐⭐⭐⭐</option>
-                                        <option value="3">⭐⭐⭐</option>
-                                    </select>
-                                </div>
-                                <input type="text" id="item-reviewer-comment" placeholder="رأيك بخصوص الخامات أو التوصيل..." class="w-full p-1 text-[10px]">
-                                <button onclick="submitProductReview()" class="w-full bg-slate-800 text-amber-400 py-1 rounded-lg font-bold text-[10px] hover:bg-slate-700">إرسال التقييم 🌟</button>
-                            </div>
                         </div>
                     </div>
 
@@ -508,13 +503,13 @@
 
     <!-- نافذة تتبع الطلبات -->
     <div id="orders-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
-        <div class="custom-card w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[88vh]">
-            <div class="flex justify-between items-center p-4 bg-slate-900 text-white border-b border-slate-800">
+        <div class="amazon-card w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[88vh]">
+            <div class="flex justify-between items-center p-4 amazon-header border-b border-slate-700">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">📦</span>
                     <h3 class="font-black text-xs sm:text-sm text-amber-400">متابعة طلباتك وقيد التنفيذ</h3>
                 </div>
-                <button onclick="closeOrdersPage()" class="text-slate-400 font-bold text-lg hover:text-white">✕</button>
+                <button onclick="closeOrdersPage()" class="text-slate-300 font-bold text-lg hover:text-white">✕</button>
             </div>
             <div class="p-4 space-y-3 overflow-y-auto text-xs" id="my-orders-list"></div>
         </div>
@@ -522,7 +517,7 @@
 
     <!-- سلة المشتريات -->
     <div id="cart-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm hidden z-50 flex justify-end">
-        <div class="custom-card w-full max-w-md h-full p-4 flex flex-col justify-between shadow-2xl overflow-y-auto">
+        <div class="amazon-card w-full max-w-md h-full p-4 flex flex-col justify-between shadow-2xl overflow-y-auto">
             <div>
                 <div class="flex justify-between items-center mb-3 border-b pb-2">
                     <h3 class="text-base font-black">سلة المشتريات 🛍️</h3>
@@ -543,7 +538,7 @@
             </div>
             
             <div class="border-t pt-3 space-y-3">
-                <div class="flex justify-between items-center p-3 rounded-2xl border font-black text-sm inner-box">
+                <div class="flex justify-between items-center p-3 rounded-xl border font-black text-sm amazon-card">
                     <span>الإجمالي الكلي:</span>
                     <span id="cart-total" class="text-amber-500">0 ج.م</span>
                 </div>
@@ -554,17 +549,17 @@
 
     <!-- صفحة الشراء وإتمام الطلب -->
     <div id="checkout-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
-        <div class="custom-card w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border">
-            <div class="flex justify-between items-center p-4 bg-slate-900 text-white border-b border-slate-800">
+        <div class="amazon-card w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col my-auto border">
+            <div class="flex justify-between items-center p-4 amazon-header border-b border-slate-700">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">📦</span>
                     <h3 class="font-black text-xs sm:text-sm text-amber-400">إتمام الشراء واستلام الشحنة</h3>
                 </div>
-                <button onclick="closeCheckoutPage()" class="text-slate-400 font-bold text-lg hover:text-white">✕</button>
+                <button onclick="closeCheckoutPage()" class="text-slate-300 font-bold text-lg hover:text-white">✕</button>
             </div>
 
             <div class="p-4 space-y-3 text-xs overflow-y-auto max-h-[80vh]">
-                <div class="inner-box p-3 rounded-xl border space-y-2">
+                <div class="amazon-card p-3 rounded-xl border space-y-2">
                     <h4 class="font-black text-amber-500 mb-1">📋 ملخص الفاتورة:</h4>
                     <div id="checkout-summary-items" class="space-y-1.5 max-h-32 overflow-y-auto border-b pb-2"></div>
                     <div class="flex justify-between items-center font-black text-sm pt-1">
@@ -573,7 +568,7 @@
                     </div>
                 </div>
 
-                <div class="inner-box p-3 rounded-xl border space-y-2">
+                <div class="amazon-card p-3 rounded-xl border space-y-2">
                     <h4 class="font-black text-amber-500 mb-1">📍 بيانات التوصيل:</h4>
                     <div>
                         <label class="block font-bold mb-1">الاسم بالكامل <span class="text-red-500">*</span></label>
@@ -598,7 +593,7 @@
                     </div>
                 </div>
 
-                <button onclick="submitOrderWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 rounded-2xl font-black text-xs shadow-lg transition flex items-center justify-center gap-2">
+                <button onclick="submitOrderWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 rounded-xl font-black text-xs shadow-lg transition flex items-center justify-center gap-2">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.285-.143-1.687-.833-1.947-.928-.261-.095-.451-.143-.641.143-.19.285-.736.928-.902 1.118-.166.19-.333.214-.618.071-.285-.143-1.203-.443-2.292-1.414-.848-.756-1.421-1.69-1.587-1.975-.166-.285-.018-.439.125-.581.128-.128.285-.333.428-.499.143-.167.19-.285.285-.476.095-.19.048-.357-.024-.499-.071-.143-.641-1.545-.879-2.117-.231-.557-.467-.482-.641-.491-.166-.008-.357-.01-.547-.01-.19 0-.499.071-.76.357-.261.285-.998.975-.998 2.38 0 1.404 1.022 2.76 1.165 2.951.143.19 2.012 3.073 4.875 4.31.681.294 1.213.47 1.627.601.684.217 1.307.186 1.8.113.55-.082 1.687-.69 1.925-1.356.237-.666.237-1.237.166-1.356-.07-.119-.261-.19-.546-.333z"/></svg>
                     <span>تأكيد وإرسال الطلب عبر الواتساب</span>
                 </button>
@@ -606,27 +601,27 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي مع العدادات -->
-    <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 z-40 py-2 px-6 flex justify-around items-center">
+    <!-- شريط التنقل السفلي المطور -->
+    <div class="sm:hidden fixed bottom-0 left-0 right-0 amazon-header border-t border-slate-800 z-40 py-2 px-6 flex justify-around items-center">
         <button onclick="triggerPageReload(goHome)" class="bottom-nav-item active">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/></svg>
             <span class="mt-0.5">الرئيسية</span>
         </button>
         <button onclick="triggerPageReload(openCart)" class="bottom-nav-item">
-            <span id="cart-badge" class="nav-badge hidden">0</span>
+            <span id="cart-badge-bottom" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
             <span class="mt-0.5">السلة</span>
         </button>
         <button onclick="triggerPageReload(openOrdersPage)" class="bottom-nav-item">
-            <span id="orders-badge" class="nav-badge hidden">0</span>
+            <span id="orders-badge-bottom" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
             <span class="mt-0.5">طلباتك</span>
         </button>
     </div>
 
-    <footer class="header-bg py-5 text-center text-xs mt-auto flex flex-col items-center gap-1 border-t border-slate-800">
+    <footer class="amazon-header py-5 text-center text-xs mt-auto flex flex-col items-center gap-1 border-t border-slate-800">
         <span class="brand-dark-gold text-lg">DROP SHOPPING</span>
-        <p class="text-slate-500">جميع حقوق الطبع والنشر محفوظة © 2026</p>
+        <p class="text-slate-400">جميع حقوق الطبع والنشر محفوظة © 2026</p>
     </footer>
 
     <script>
@@ -732,7 +727,7 @@
                     const data = doc.data();
                     freeShippingLimit = data.freeShippingLimit || 1299;
                     document.getElementById('admin-free-shipping-limit').value = freeShippingLimit;
-                    document.getElementById('banner-shipping-text').innerText = `شحن مجاني للطلبات بقيمة ${freeShippingLimit} ج.م فأكثر!`;
+                    document.getElementById('banner-limit-val').innerText = freeShippingLimit;
                     updateCartUI();
                 }
             });
@@ -929,28 +924,29 @@
                 let disc = Number(p.discount) || 0;
                 let finalPrice = calculateFinalPrice(p.price, disc);
                 let priceHtml = disc > 0 ? `
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-amber-500 font-black text-xs sm:text-sm">${finalPrice} <span class="text-[9px]">ج.م</span></span>
-                        <span class="text-slate-400 line-through text-[9px]">${p.price}</span>
-                    </div>` : `<p class="text-amber-500 font-black text-xs sm:text-sm mb-1">${p.price || 0} <span class="text-[9px]">ج.م</span></p>`;
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="text-red-600 font-bold text-xs">-${disc}%</span>
+                        <span class="text-slate-900 dark:text-white font-black text-xs sm:text-sm">${finalPrice} <span class="text-[9px]">ج.م</span></span>
+                        <span class="text-slate-400 line-through text-[9px]">${p.price} ج.م</span>
+                    </div>` : `<p class="text-slate-900 dark:text-white font-black text-xs sm:text-sm mb-1">${p.price || 0} <span class="text-[9px]">ج.م</span></p>`;
 
                 let secondaryImg = (p.image2 && p.image2.length > 5) ? p.image2 : p.image1;
 
                 container.innerHTML += `
-                    <div class="product-card custom-card overflow-hidden flex flex-col justify-between p-2.5 border relative group shadow-sm">
-                        ${disc > 0 ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-[8px] px-1.5 py-0.5 rounded-full font-bold z-10 shadow">خصم ${disc}%</span>` : ''}
+                    <div class="product-card amazon-card overflow-hidden flex flex-col justify-between p-2.5 relative group">
                         <div class="cursor-pointer" onclick="triggerPageReload(() => openProductModal('${p.id}'))">
-                            <div class="h-44 sm:h-52 rounded-xl mb-2 flex items-center justify-center p-2 bg-white border border-slate-100 overflow-hidden relative">
+                            <div class="h-44 sm:h-52 rounded-lg mb-2 flex items-center justify-center p-2 bg-white border border-slate-200 overflow-hidden relative">
                                 <img src="${p.image1 || ''}" alt="${p.name || ''}" class="w-full h-full object-contain transition-all duration-300 group-hover:opacity-0">
                                 <img src="${secondaryImg || ''}" alt="${p.name || ''}" class="w-full h-full object-contain transition-all duration-300 absolute inset-0 p-2 opacity-0 group-hover:opacity-100">
                             </div>
-                            <span class="text-[8px] text-slate-400 font-bold block mb-0.5">${p.category || 'عام'}</span>
-                            <h4 class="font-bold text-xs line-clamp-2 leading-tight mb-1">${p.name || ''}</h4>
+                            <span class="text-[8px] text-slate-400 font-bold block mb-0.5">كود: ${p.sku || p.id}</span>
+                            <h4 class="font-bold text-xs line-clamp-2 leading-tight mb-1 hover:text-amber-500">${p.name || ''}</h4>
+                            <div class="text-[10px] text-amber-500 mb-1">⭐⭐⭐⭐⭐ (4.8)</div>
                         </div>
                         <div>
                             <div class="my-1">${priceHtml}</div>
                             <div class="grid grid-cols-2 gap-1.5 pt-1">
-                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="amazon-btn-cart py-1.5 text-[9px] shadow-sm">أضف 🛒</button>
+                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="amazon-btn-cart py-1.5 text-[9px] shadow-sm">أضف للسلة 🛒</button>
                                 <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="amazon-btn-buy py-1.5 text-[9px] shadow-sm">شراء ⚡</button>
                             </div>
                         </div>
@@ -989,7 +985,7 @@
 
             document.getElementById('modal-qty').innerText = currentModalQty;
             document.getElementById('modal-name').innerText = p.name;
-            document.getElementById('modal-sku').innerText = p.sku ? `كود: ${p.sku}` : '';
+            document.getElementById('modal-sku').innerText = p.sku ? `كود المنتج: ${p.sku}` : '';
             document.getElementById('modal-desc').innerText = p.desc || 'منتج عالي الجودة متوفر بمقاسات وألوان ممتازة مع ضمان المعاينة قبل الدفع.';
 
             let finalPrice = calculateFinalPrice(p.price, p.discount);
@@ -1023,7 +1019,7 @@
             mainImgEl.src = p.image1;
 
             extractDominantColor(mainImgEl, (extractedHex) => {
-                const colorsList = p.colors ? p.colors.split('/').map(c => c.trim()) : ['لون الصورة الأساسي'];
+                const colorsList = p.colors ? p.colors.split('/').map(c => c.trim()) : ['لون أساسي'];
                 selectedColor = colorsList[0] || 'أساسي';
                 colorsList.forEach((col, idx) => {
                     let dot = document.createElement('span');
@@ -1045,12 +1041,11 @@
             if (imagesList.length > 1) {
                 imagesList.forEach((imgUrl, i) => {
                     thumbsContainer.innerHTML += `
-                        <img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-contain rounded-xl border-2 ${i === 0 ? 'border-amber-500' : 'border-slate-300'} cursor-pointer p-0.5 bg-white shrink-0">
+                        <img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-contain rounded-lg border-2 ${i === 0 ? 'border-amber-500' : 'border-slate-300'} cursor-pointer p-0.5 bg-white shrink-0">
                     `;
                 });
             }
 
-            loadProductReviews(p.id);
             document.getElementById('product-modal').classList.remove('hidden');
             pushModalState('product-modal');
         }
@@ -1078,42 +1073,6 @@
             document.getElementById('modal-qty').innerText = currentModalQty;
         }
 
-        function loadProductReviews(productId) {
-            const container = document.getElementById('product-reviews-container');
-            container.innerHTML = '<p class="text-[10px] text-slate-400">جاري تحميل التقييمات...</p>';
-            db.collection("products").doc(productId).collection("reviews").get().then((snap) => {
-                container.innerHTML = '';
-                if(snap.empty) {
-                    container.innerHTML = '<p class="text-[10px] text-slate-400 font-bold">لا توجد تقييمات لهذا المنتج بعد، كن أول من يقيمه!</p>';
-                    return;
-                }
-                snap.forEach(doc => {
-                    let rev = doc.data();
-                    container.innerHTML += `
-                        <div class="inner-box p-2 rounded-xl text-[10px] border">
-                            <div class="flex justify-between font-bold text-amber-500"><span>${rev.name || 'عميل'}</span><span>${'⭐'.repeat(rev.rating || 5)}</span></div>
-                            <p class="text-slate-600 dark:text-slate-300 mt-0.5">${rev.comment}</p>
-                        </div>`;
-                });
-            });
-        }
-
-        function submitProductReview() {
-            const name = document.getElementById('item-reviewer-name').value.trim() || 'عميل المتجر';
-            const rating = Number(document.getElementById('item-reviewer-rating').value) || 5;
-            const comment = document.getElementById('item-reviewer-comment').value.trim();
-
-            if(!comment) return showToast('⚠️ يرجى كتابة التعليق أولاً');
-
-            db.collection("products").doc(currentModalProductId).collection("reviews").add({
-                name, rating, comment, date: new Date().toLocaleDateString('ar-EG')
-            }).then(() => {
-                showToast('✅ تم إضافة تقييمك بنجاح!');
-                document.getElementById('item-reviewer-comment').value = '';
-                loadProductReviews(currentModalProductId);
-            });
-        }
-
         function loadHomepageReviews() {
             const container = document.getElementById('homepage-reviews-list');
             if(!container) return;
@@ -1126,7 +1085,7 @@
                 snap.forEach(doc => {
                     let r = doc.data();
                     container.innerHTML += `
-                        <div class="custom-card p-3 rounded-xl border text-xs space-y-1">
+                        <div class="amazon-card p-3 rounded-xl border text-xs space-y-1">
                             <div class="flex justify-between items-center font-bold text-slate-600 dark:text-slate-300">
                                 <span class="text-amber-500">${r.name}</span>
                                 <span class="text-[10px]">${'⭐'.repeat(r.rating)}</span>
@@ -1238,9 +1197,9 @@
             products.forEach(p => {
                 let finalP = calculateFinalPrice(p.price, p.discount);
                 list.innerHTML += `
-                    <div class="flex justify-between items-center inner-box p-2 rounded-xl border gap-2">
+                    <div class="flex justify-between items-center amazon-card p-2 rounded-lg border gap-2">
                         <div class="flex items-center gap-2">
-                            <img src="${p.image1 || ''}" class="w-8 h-8 object-contain rounded-lg border bg-white p-0.5 shrink-0">
+                            <img src="${p.image1 || ''}" class="w-8 h-8 object-contain rounded border bg-white p-0.5 shrink-0">
                             <div>
                                 <span class="truncate w-28 sm:w-36 font-bold text-xs block">${p.name}</span>
                                 <span class="text-[10px] text-amber-500 font-bold">${p.sku}</span>
@@ -1248,8 +1207,8 @@
                         </div>
                         <div class="flex items-center gap-1">
                             <span class="text-amber-500 font-black text-xs">${finalP} ج.م</span>
-                            <button onclick="editProductInAdmin('${p.id}')" class="bg-blue-600 text-white px-2 py-1 rounded-lg text-[10px] font-bold">تعديل ✏️</button>
-                            <button onclick="deleteProductFromCloud('${p.id}')" class="bg-red-600 text-white px-2 py-1 rounded-lg text-[10px] font-bold">حذف</button>
+                            <button onclick="editProductInAdmin('${p.id}')" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold">تعديل ✏️</button>
+                            <button onclick="deleteProductFromCloud('${p.id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold">حذف</button>
                         </div>
                     </div>`;
             });
@@ -1294,14 +1253,16 @@
 
         function updateCartUI() {
             const itemsContainer = document.getElementById('cart-items');
-            const cartBadge = document.getElementById('cart-badge');
+            const cartBadgeTop = document.getElementById('cart-badge-top');
+            const cartBadgeBottom = document.getElementById('cart-badge-bottom');
             
             let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
             if (totalQty > 0) {
-                cartBadge.innerText = totalQty;
-                cartBadge.classList.remove('hidden');
+                cartBadgeTop.innerText = totalQty; cartBadgeTop.classList.remove('hidden');
+                cartBadgeBottom.innerText = totalQty; cartBadgeBottom.classList.remove('hidden');
             } else {
-                cartBadge.classList.add('hidden');
+                cartBadgeTop.classList.add('hidden');
+                cartBadgeBottom.classList.add('hidden');
             }
 
             if (!itemsContainer) return; itemsContainer.innerHTML = '';
@@ -1323,7 +1284,7 @@
                 itemsContainer.innerHTML += `
                     <div class="flex justify-between items-center border-b pb-2 text-xs gap-2">
                         <div class="flex items-center gap-2">
-                            <img src="${item.product.image1 || ''}" class="w-10 h-10 rounded-lg object-contain border bg-white p-0.5">
+                            <img src="${item.product.image1 || ''}" class="w-10 h-10 rounded object-contain border bg-white p-0.5">
                             <div>
                                 <p class="font-bold text-xs truncate w-28 sm:w-36">${item.product.name}</p>
                                 <p class="text-[9px] text-amber-500 font-bold">كود: ${item.product.sku || 'عام'} | مقاس: ${item.size} | لون: ${item.color}</p>
@@ -1478,7 +1439,7 @@
             }
             myOrders.forEach(ord => {
                 list.innerHTML += `
-                    <div class="inner-box p-2.5 rounded-xl border flex flex-col gap-1.5">
+                    <div class="amazon-card p-2.5 rounded-xl border flex flex-col gap-1.5">
                         <div class="flex justify-between items-center font-bold text-xs">
                             <span class="text-amber-500 font-black">${ord.order_id}</span>
                             <span class="text-[10px] text-slate-400">${ord.customer_info.name} - ${ord.total_price} ج.م</span>
@@ -1495,13 +1456,15 @@
 
         function updateOrdersUI() {
             const activeOrders = myOrders.filter(o => o.status !== 'تم الاستلام ✅' && o.status !== 'تم التسليم بنجاح ✅');
-            const ordersBadge = document.getElementById('orders-badge');
+            const ordersBadgeTop = document.getElementById('orders-badge-top');
+            const ordersBadgeBottom = document.getElementById('orders-badge-bottom');
 
             if (activeOrders.length > 0) {
-                ordersBadge.innerText = activeOrders.length;
-                ordersBadge.classList.remove('hidden');
+                ordersBadgeTop.innerText = activeOrders.length; ordersBadgeTop.classList.remove('hidden');
+                ordersBadgeBottom.innerText = activeOrders.length; ordersBadgeBottom.classList.remove('hidden');
             } else {
-                ordersBadge.classList.add('hidden');
+                ordersBadgeTop.classList.add('hidden');
+                ordersBadgeBottom.classList.add('hidden');
             }
 
             const container = document.getElementById('my-orders-list');
@@ -1515,7 +1478,7 @@
             myOrders.forEach(ord => {
                 let itemsHtml = ord.items.map(it => `• ${it.product_name} <span class="text-amber-500 font-bold">[كود: ${it.product_sku || 'عام'}]</span> (${it.selected_size}/${it.selected_color}) ×${it.quantity}`).join('<br>');
                 container.innerHTML += `
-                    <div class="inner-box p-3.5 rounded-2xl border space-y-2.5 shadow-sm">
+                    <div class="amazon-card p-3.5 rounded-xl border space-y-2.5 shadow-sm">
                         <div class="flex justify-between items-center font-bold text-xs border-b pb-1.5">
                             <span class="text-amber-500 font-black">${ord.order_id}</span>
                             <span class="bg-amber-500/10 text-amber-500 text-[10px] px-2.5 py-0.5 rounded-full font-black border border-amber-500/20">${ord.status}</span>
@@ -1527,8 +1490,8 @@
                         </div>
                         
                         <div class="flex justify-between items-center pt-1.5 border-t">
-                            ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-3 py-1 rounded-xl text-[10px] font-bold">✅ تم الاستلام</button>` : '<span class="text-emerald-500 font-bold text-[10px]">✨ تم الاستلام بنجاح</span>'}
-                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600/80 text-white px-2.5 py-1 rounded-xl text-[10px] font-bold">🗑️ مسح من القائمة</button>
+                            ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[10px] font-bold">✅ تم الاستلام</button>` : '<span class="text-emerald-500 font-bold text-[10px]">✨ تم الاستلام بنجاح</span>'}
+                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600/80 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">🗑️ مسح من القائمة</button>
                         </div>
                     </div>`;
             });
