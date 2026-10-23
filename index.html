@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DROP SHOPPING - المتجر الرسمي المطور</title>
+    <title>DROP SHOPPING - المتجر الرسمي الفاخر</title>
     <meta name="google-site-verification" content="q0kfc7iiLj2Q5mgyORBqMmuuz7G2Z78RRJiLCb99uBY" />
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,12 +18,12 @@
         
         body.light-theme { background-color: #f8fafc; color: #0f172a; }
         body.light-theme .custom-card { background: #ffffff; border-color: #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        body.light-theme .header-bg { background: #0f172a; color: #ffffff; }
+        body.light-theme .header-bg { background: #0b0f19; color: #ffffff; }
         body.light-theme .inner-box { background: #f8fafc; border-color: #e2e8f0; color: #0f172a; }
 
         body.dark-theme { background-color: #0b0f19; color: #f1f5f9; }
         body.dark-theme .custom-card { background: #161e2e; border-color: #1e293b; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        body.dark-theme .header-bg { background: #0b0f19; color: #ffffff; border-bottom: 1px solid #1e293b; }
+        body.dark-theme .header-bg { background: #070a12; color: #ffffff; border-bottom: 1px solid #1e293b; }
         body.dark-theme .inner-box { background: #111827; border-color: #1e293b; color: #f1f5f9; }
 
         #chrome-progress-bar {
@@ -59,13 +59,25 @@
         body.dark-theme .qty-btn { background-color: #334155; color: #f8fafc; border-color: #475569; }
         .qty-btn:hover { background-color: #e2e8f0; }
 
-        .product-card { transition: all 0.25s ease; border-radius: 16px; }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(0,0,0,0.08); }
+        .product-card { transition: all 0.25s ease; border-radius: 18px; }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
         
+        /* شارة اللوجو المستطيلة الفخمة */
+        .rectangular-logo-badge {
+            background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+            border: 1.5px solid #d4af37;
+            border-radius: 12px;
+            padding: 6px 16px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .brand-dark-gold {
             font-family: 'Cinzel', serif; font-weight: 900;
             background: linear-gradient(135deg, #f59e0b 0%, #d4af37 50%, #b8860b 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1.5px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px;
         }
 
         #toast-notification {
@@ -114,43 +126,43 @@
     <div id="chrome-progress-bar"></div>
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
 
-    <!-- الهيدر الرئيسي المطور بمواصفات عالمية -->
-    <header class="header-bg sticky top-0 z-40 shadow-md w-full">
-        <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-col gap-2">
+    <!-- الهيدر الرئيسي مع اللوجو المستطيل الفخم -->
+    <header class="header-bg sticky top-0 z-40 shadow-lg w-full border-b border-amber-500/20">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-col gap-2.5">
             <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
                     <button onclick="toggleMenu()" class="text-amber-400 text-2xl font-bold p-1 hover:opacity-80">☰</button>
-                    <!-- اللوجو الأكبر والأوضح للمتجر -->
-                    <div class="flex items-center gap-2 cursor-pointer select-none" onclick="handleSecretAdminClick()">
-                        <div id="owner-avatar-container" class="w-11 h-11 rounded-full overflow-hidden border-2 border-amber-500 bg-slate-900 flex items-center justify-center shrink-0 shadow-md">
+                    
+                    <!-- واجهة اللوجو المستطيلة الفخمة -->
+                    <div class="rectangular-logo-badge cursor-pointer select-none" onclick="handleSecretAdminClick()">
+                        <div id="owner-avatar-container" class="w-10 h-10 rounded-lg overflow-hidden border border-amber-400 bg-slate-900 flex items-center justify-center shrink-0 shadow">
                             <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DROP SHOPPING">
-                            <span id="owner-avatar-placeholder" class="text-lg font-bold text-amber-400">👑</span>
+                            <span id="owner-avatar-placeholder" class="text-base font-bold text-amber-400">👑</span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-xl sm:text-2xl brand-dark-gold leading-none">DROP</span>
-                            <span class="text-[9px] uppercase tracking-[0.3em] text-amber-500 font-black">SHOPPING</span>
+                            <span class="text-lg sm:text-xl brand-dark-gold leading-none">DROP</span>
+                            <span class="text-[8px] uppercase tracking-[0.25em] text-amber-400 font-black">SHOPPING</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <span class="text-xs text-amber-400 font-bold hidden sm:inline">مرحباً بك في متجرك المفضل ✨</span>
+                    <span class="text-xs text-amber-400 font-bold hidden sm:inline">أهلاً بك في المتجر الرسمي ✨</span>
                 </div>
             </div>
 
-            <!-- شريط البحث الفوري المُنزل بأسفل اللوجو بتنسيق أمازون الفخم -->
+            <!-- شريط البحث الفوري المطور -->
             <div class="w-full relative">
                 <div class="bg-white dark:bg-slate-800 rounded-xl p-1 flex items-center border border-slate-200 dark:border-slate-700 shadow-inner">
                     <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج، كود، أو قسم..." class="w-full py-1.5 px-3 text-xs font-bold border-none !bg-transparent focus:outline-none">
                     <button onclick="liveSearchProducts()" class="bg-[#d4af37] text-gray-950 px-5 py-1.5 rounded-lg font-black text-xs hover:bg-amber-500 transition shadow">بحث 🔍</button>
                 </div>
-                <!-- قائمة الاقتراحات الذكية الشبيهة بمحرك جوجل/أمازون -->
                 <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-b-xl shadow-2xl hidden z-50 max-h-60 overflow-y-auto mt-1"></div>
             </div>
         </div>
     </header>
 
-    <!-- شريط الخدمات والشحن المجاني لـ 1,499 ج.م -->
+    <!-- شريط الخدمات والشحن المجاني -->
     <div class="bg-slate-900 text-slate-300 py-2 px-3 text-[11px] border-b border-slate-800 shadow-sm text-center">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-8 font-bold">
             <div class="flex items-center gap-1.5 text-amber-400">
@@ -167,7 +179,7 @@
         </div>
     </div>
 
-    <!-- القائمة الجانبية المحشية والمليئة بأسلوب أمازون -->
+    <!-- القائمة الجانبية -->
     <div id="side-menu" class="fixed inset-y-0 right-0 bg-slate-900 text-white w-[300px] max-w-[88vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-slate-800 overflow-y-auto">
         <div class="space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -236,7 +248,7 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن الجديدة والمطورة مع جرس الزوار وتعديل المنتجات -->
+    <!-- لوحة تحكم الأدمن -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="custom-card w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="flex justify-between items-center p-4 bg-slate-900 text-white border-b border-slate-800">
@@ -247,7 +259,6 @@
                         <span class="text-[10px] text-slate-400 font-bold">DROP SHOPPING Control Panel</span>
                     </div>
                 </div>
-                <!-- أيقونة الجرس الخاصة بإحصائيات وعدد الزوار -->
                 <div class="flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-xl border border-amber-500/30">
                     <span class="text-base animate-bounce">🔔</span>
                     <span class="text-[10px] font-bold text-amber-400">إجمالي الزوار: <strong id="admin-visitor-count" class="text-white text-xs">1</strong></span>
@@ -256,16 +267,13 @@
             </div>
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
-                <!-- قسم إدارة الطلبات والحالات -->
                 <div class="inner-box p-4 rounded-2xl border space-y-3">
                     <h4 class="font-black text-xs text-amber-500 border-b pb-1.5 flex items-center justify-between">
-                        <span>📦 إدارة طلبات العملاء (حاضرين):</span>
-                        <span class="text-[10px] text-slate-400 font-normal">تحكم وحسابات الأدمن</span>
+                        <span>📦 إدارة طلبات العملاء:</span>
                     </h4>
                     <div id="admin-orders-manage-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
 
-                <!-- إضافة / تعديل منتج -->
                 <div class="inner-box p-4 rounded-2xl border">
                     <h4 id="admin-form-title" class="font-black text-xs text-amber-500 mb-3">➕ إضافة منتج جديد إلى المتجر:</h4>
                     <input type="hidden" id="edit-product-id" value="">
@@ -306,13 +314,11 @@
                     </div>
                 </div>
 
-                <!-- قائمة إدارة المنتجات والتعديل عليها -->
                 <div class="inner-box p-4 rounded-2xl border">
                     <h4 class="font-black text-xs text-amber-500 mb-2">📋 المنتجات الحالية (تعديل وحذف):</h4>
                     <div id="admin-products-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
 
-                <!-- إعدادات المتجر العامة -->
                 <div class="inner-box p-4 rounded-2xl border space-y-3">
                     <h4 class="font-black text-xs text-amber-500 border-b pb-1.5">🛠️ إعدادات المتجر العامة:</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -378,10 +384,11 @@
             <span id="products-count" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-black">0 منتج</span>
         </div>
 
+        <!-- شبكة المنتجات ذات البطاقات المستطيلة المودرن -->
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"></div>
     </main>
 
-    <!-- نافذة تفاصيل المنتج المتقدمة مع تقييمات العملاء وتعدد الصور والتمرير السلس -->
+    <!-- نافذة تفاصيل المنتج -->
     <div id="product-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
         <div class="custom-card w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[95vh]">
             <div class="flex justify-between items-center p-3.5 border-b inner-box">
@@ -391,11 +398,11 @@
             
             <div class="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div class="flex flex-col gap-2">
-                    <div class="relative w-full h-64 sm:h-80 bg-white rounded-2xl border p-2 flex items-center justify-center cursor-zoom-in" onclick="openZoomModal()">
+                    <!-- الصورة المستطيلة الفخمة بداخل تفاصيل المنتج -->
+                    <div class="relative w-full h-72 sm:h-88 bg-white rounded-2xl border p-2 flex items-center justify-center cursor-zoom-in overflow-hidden shadow-inner" onclick="openZoomModal()">
                         <img id="main-modal-img" src="" class="w-full h-full object-contain rounded-xl">
                         <span class="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[9px] px-2.5 py-1 rounded-full backdrop-blur-sm font-bold">🔍 تكبير</span>
                     </div>
-                    <!-- شريط الصور المصغرة الممتد لاستعراض كافة الزوايا والصور -->
                     <div class="flex gap-2 justify-center overflow-x-auto py-1" id="modal-thumbs-container"></div>
                 </div>
 
@@ -423,16 +430,15 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="block font-bold text-[10px] text-slate-500 mb-1.5">الألوان المتاحة (تتغير أوتوماتيكياً):</label>
+                            <label class="block font-bold text-[10px] text-slate-500 mb-1.5">الألوان المتاحة:</label>
                             <div id="color-options-container" class="flex flex-wrap items-center gap-2"></div>
                         </div>
 
                         <div class="border-t pt-2 mb-3">
-                            <p class="font-bold text-slate-400 text-[10px] mb-1">وصف المنتج الخامات:</p>
+                            <p class="font-bold text-slate-400 text-[10px] mb-1">وصف المنتج والخامات:</p>
                             <p id="modal-desc" class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300"></p>
                         </div>
 
-                        <!-- قسم تقييمات وآراء العملاء العالمية -->
                         <div class="border-t pt-2">
                             <p class="font-bold text-amber-500 text-[11px] mb-2 flex items-center gap-1">
                                 <span>💬 آراء وتقييمات العملاء:</span>
@@ -572,7 +578,7 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الاحترافي - إلغاء الأقسام وتعديل أيقونة الرئيسية -->
+    <!-- شريط التنقل السفلي الاحترافي -->
     <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 z-40 py-2 px-6 flex justify-around items-center">
         <button onclick="triggerPageReload(goHome)" class="bottom-nav-item active">
             <span class="text-xl">🏪</span>
@@ -625,7 +631,6 @@
         let userLocationLink = '';
         let freeShippingLimit = 1499;
 
-        // خريطة توليد دوائر الألوان الملونة تلقائياً
         const colorHexMap = {
             'أسود': '#000000', 'أبيض': '#ffffff', 'أحمر': '#ef4444',
             'أزرق': '#3b82f6', 'أخضر': '#10b981', 'أصفر': '#f59e0b',
@@ -633,7 +638,6 @@
             'كحلي': '#1e3a8a', 'زيتوني': '#3f6212', 'ذهبي': '#d4af37'
         };
 
-        // محاكاة تحريك شريط التحميل العلوي للمتجر (Page Reloading Progress Bar)
         function triggerPageReload(action) {
             const bar = document.getElementById('chrome-progress-bar');
             if (bar) {
@@ -656,7 +660,6 @@
             registerVisitor();
         });
 
-        // تسجيل وحساب عدد زوار الموقع لحظياً عبر Firebase
         function registerVisitor() {
             const visitorDoc = db.collection("settings").doc("analytics");
             visitorDoc.get().then((doc) => {
@@ -819,7 +822,6 @@
 
         function applyFilters() { renderStore(); }
 
-        // البحث الفوري مع قائمة الاقتراحات الذكية (Auto-complete Suggestions)
         function liveSearchProducts() {
             clearTimeout(searchTimeout);
             const query = document.getElementById('header-search-input').value.toLowerCase().trim();
@@ -906,6 +908,7 @@
             renderAdminTable();
         }
 
+        // عرض بطاقات المنتجات المستطيلة
         function renderProductsList(listData, container) {
             listData.forEach(p => {
                 let disc = Number(p.discount) || 0;
@@ -917,12 +920,13 @@
                     </div>` : `<p class="text-amber-600 dark:text-amber-400 font-black text-xs sm:text-sm mb-1">${p.price || 0} <span class="text-[9px]">ج.م</span></p>`;
 
                 container.innerHTML += `
-                    <div class="product-card custom-card overflow-hidden flex flex-col justify-between p-2.5 border relative group">
+                    <div class="product-card custom-card overflow-hidden flex flex-col justify-between p-2.5 border relative group shadow-sm">
                         ${disc > 0 ? `<span class="absolute top-2 right-2 bg-red-600 text-white text-[8px] px-1.5 py-0.5 rounded-full font-bold z-10 shadow">خصم ${disc}%</span>` : ''}
                         <div class="cursor-pointer" onclick="triggerPageReload(() => openProductModal('${p.id}'))">
-                            <div class="h-36 sm:h-44 rounded-xl mb-2 flex items-center justify-center p-1.5 bg-white border border-slate-100 overflow-hidden relative">
+                            <!-- مستطيل صورة المنتج بنسب أبعاد متناسقة فاخرة -->
+                            <div class="h-44 sm:h-52 rounded-xl mb-2 flex items-center justify-center p-2 bg-white border border-slate-100 overflow-hidden relative shadow-inner">
                                 <img src="${p.image1 || ''}" alt="${p.name || ''}" class="w-full h-full object-contain transition-all duration-300 group-hover:opacity-0">
-                                <img src="${p.image2 || p.image1 || ''}" alt="${p.name || ''}" class="w-full h-full object-contain transition-all duration-300 absolute inset-0 p-1.5 opacity-0 group-hover:opacity-100">
+                                <img src="${p.image2 || p.image1 || ''}" alt="${p.name || ''}" class="w-full h-full object-contain transition-all duration-300 absolute inset-0 p-2 opacity-0 group-hover:opacity-100">
                             </div>
                             <span class="text-[8px] text-slate-400 font-bold block mb-0.5">${p.category || 'عام'}</span>
                             <h4 class="font-bold text-xs line-clamp-2 leading-tight mb-1">${p.name || ''}</h4>
@@ -939,12 +943,11 @@
             });
         }
 
-        // إظهار صور تفاعلية متعددة وتمرير الألوان
         function openProductModal(id) {
             const p = products.find(item => String(item.id) === String(id));
             if(!p) return;
             currentModalProductId = p.id; currentModalQty = 1;
-            location.hash = `product-${p.id}`; // تحديث الرابط للتنقل السلس
+            location.hash = `product-${p.id}`;
 
             document.getElementById('modal-qty').innerText = currentModalQty;
             document.getElementById('modal-name').innerText = p.name;
@@ -977,7 +980,6 @@
                 sizeContainer.appendChild(btn);
             });
 
-            // دوائر الألوان الأوتوماتيكية
             const colorsList = p.colors ? p.colors.split('/').map(c => c.trim()) : ['أسود', 'أبيض'];
             const colorContainer = document.getElementById('color-options-container'); colorContainer.innerHTML = '';
             selectedColor = colorsList[0] || 'أسود';
@@ -994,7 +996,6 @@
                 colorContainer.appendChild(dot);
             });
 
-            // توليد قائمة الصور المصغرة للتنقل بين أربع صور
             const thumbsContainer = document.getElementById('modal-thumbs-container'); thumbsContainer.innerHTML = '';
             const imagesList = [p.image1, p.image2, p.image3, p.image4].filter(Boolean);
             document.getElementById('main-modal-img').src = imagesList[0];
@@ -1030,7 +1031,6 @@
             document.getElementById('modal-qty').innerText = currentModalQty;
         }
 
-        // إضافة أو تعديل منتج بداخل الأدمن
         function addProduct() {
             const editId = document.getElementById('edit-product-id').value;
             const name = document.getElementById('new-name').value;
@@ -1080,7 +1080,6 @@
             });
         }
 
-        // زر تحرير المنتج للأدمن
         function editProductInAdmin(id) {
             const p = products.find(item => String(item.id) === String(id));
             if(!p) return;
