@@ -20,13 +20,15 @@
         body.light-theme .custom-card { background: #ffffff; border-color: #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         body.light-theme .header-bg { background: #080c14; color: #ffffff; }
         body.light-theme .inner-box { background: #f8fafc; border-color: #e2e8f0; color: #0f172a; }
+        body.light-theme .search-box-custom { background: #ffffff !important; color: #0f172a !important; border: 1.5px solid #cbd5e1 !important; }
 
         body.dark-theme { background-color: #0b0f19; color: #f1f5f9; }
         body.dark-theme .custom-card { background: #161e2e; border-color: #1e293b; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         body.dark-theme .header-bg { background: #060911; color: #ffffff; border-bottom: 1px solid #1e293b; }
         body.dark-theme .inner-box { background: #111827; border-color: #1e293b; color: #f1f5f9; }
+        body.dark-theme .search-box-custom { background: #1e293b !important; color: #ffffff !important; border: 1.5px solid #475569 !important; }
 
-        /* دائرة التحميل المخصصة لتنقل الصفحات */
+        /* دائرة التحميل لتنقل الصفحات */
         #page-loading-spinner {
             position: fixed; inset: 0; background: rgba(7, 10, 18, 0.85); backdrop-filter: blur(8px);
             z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -93,20 +95,33 @@
         .amazon-btn-buy { background: #0f172a; color: #fff; border-radius: 10px; font-weight: 800; }
         body.dark-theme .amazon-btn-buy { background: #1e293b; color: #d4af37; border: 1px solid #d4af37; }
 
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #64748b; }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #64748b; position: relative; }
         .bottom-nav-item.active { color: #d4af37; }
 
-        .rectangular-logo-container {
-            display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-            padding: 4px 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 12px; transition: all 0.2s;
+        .nav-badge {
+            position: absolute; top: -4px; right: 8px; background-color: #ef4444; color: #ffffff;
+            font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 9999px; border: 1.5px solid #080c14;
         }
-        .rectangular-logo-container:hover { border-color: #d4af37; }
+
+        .new-luxury-logo {
+            display: flex; align-items: center; gap: 10px; padding: 6px 14px;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border: 1.5px solid #d4af37; border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            transition: all 0.2s ease;
+        }
+        .new-luxury-logo:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35); }
+
+        /* طبقة خلفية لإغلاق القائمة عند النقر خارجها */
+        #menu-backdrop {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px);
+            z-index: 45; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        #menu-backdrop.active { opacity: 1; pointer-events: auto; }
     </style>
 </head>
 <body class="light-theme flex flex-col min-h-screen overflow-x-hidden pb-16 sm:pb-0">
 
-    <!-- نافذة التحميل الشفافة والمباشرة -->
     <div id="page-loading-spinner">
         <div class="spinner-ring"></div>
         <span class="text-amber-400 font-bold text-xs mt-3">جاري التحميل...</span>
@@ -114,33 +129,32 @@
 
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
 
-    <!-- الهيدر الرئيسي مع شريط البحث المودرن والأنيق -->
+    <!-- طبقة خلفية القائمة الجانبية لإغلاقها عند النقر خارجها -->
+    <div id="menu-backdrop" onclick="closeMenu()"></div>
+
+    <!-- الهيدر الرئيسي -->
     <header class="header-bg sticky top-0 z-40 shadow-lg w-full">
-        <div class="max-w-7xl mx-auto px-3 py-2 flex flex-col gap-2">
+        <div class="max-w-7xl mx-auto px-3 py-2.5 flex flex-col gap-2">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="toggleMenu()" class="text-amber-400 text-2xl font-bold p-1 hover:opacity-80">☰</button>
                     
-                    <!-- اللوجو المستطيل الفخم -->
-                    <div class="rectangular-logo-container cursor-pointer select-none" onclick="handleSecretAdminClick()">
-                        <div class="flex items-center gap-2">
-                            <div id="owner-avatar-container" class="w-10 h-7 rounded-md overflow-hidden border border-amber-500/50 bg-slate-900 flex items-center justify-center shrink-0">
-                                <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DROP SHOPPING">
-                                <span id="owner-avatar-placeholder" class="text-[10px] font-black text-amber-400">DS</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="text-xs sm:text-sm brand-dark-gold leading-none">DROP SHOPPING</span>
-                                <span class="text-[7px] text-slate-400 font-bold">المتجر الرسمي</span>
-                            </div>
+                    <div class="new-luxury-logo cursor-pointer select-none" onclick="handleSecretAdminClick()">
+                        <div id="owner-avatar-container" class="w-9 h-9 rounded-xl overflow-hidden border border-amber-400 bg-slate-900 flex items-center justify-center shrink-0 shadow-inner">
+                            <img id="owner-avatar-img" src="" class="w-full h-full object-cover hidden" alt="DS">
+                            <span id="owner-avatar-placeholder" class="text-xs font-black text-amber-400">DS</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm sm:text-base brand-dark-gold leading-none">DROP SHOPPING</span>
+                            <span class="text-[8px] text-amber-200/70 tracking-widest font-black uppercase">LUXURY STORE</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- شريط البحث المطور والمدمج بأناقة عالية ومساحة متناسقة -->
                 <div class="flex-grow max-w-xs sm:max-w-md relative">
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-0.5 flex items-center border border-slate-200 dark:border-slate-700 shadow-inner">
-                        <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج..." class="w-full py-1 px-2 text-[11px] font-bold border-none !bg-transparent focus:outline-none">
-                        <button onclick="liveSearchProducts()" class="bg-[#d4af37] text-gray-950 px-2.5 py-1 rounded-md font-black text-[10px] hover:bg-amber-500 transition shrink-0">بحث 🔍</button>
+                    <div class="search-box-custom rounded-xl p-1 flex items-center shadow-inner">
+                        <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج أو كود..." class="w-full py-1 px-2.5 text-xs font-bold border-none !bg-transparent focus:outline-none">
+                        <button onclick="liveSearchProducts()" class="bg-[#d4af37] text-gray-950 px-3 py-1 rounded-lg font-black text-xs hover:bg-amber-500 transition shrink-0 shadow">بحث 🔍</button>
                     </div>
                     <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-b-xl shadow-2xl hidden z-50 max-h-60 overflow-y-auto mt-1"></div>
                 </div>
@@ -148,7 +162,7 @@
         </div>
     </header>
 
-    <!-- شريط الضمان والخدمات -->
+    <!-- شريط الخدمات والضمان -->
     <div class="bg-slate-900 text-slate-300 py-1.5 px-3 text-[10px] sm:text-[11px] border-b border-slate-800 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center font-bold px-1">
             <div class="flex items-center gap-1 text-amber-400">
@@ -163,7 +177,7 @@
         </div>
     </div>
 
-    <!-- القائمة الجانبية -->
+    <!-- القائمة الجانبية المحدثة مع أيقونات السوشيال ميديا الواضحة -->
     <div id="side-menu" class="fixed inset-y-0 right-0 bg-slate-900 text-white w-[300px] max-w-[88vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-slate-800 overflow-y-auto">
         <div class="space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -208,13 +222,20 @@
                     </button>
                 </nav>
 
+                <!-- روابط السوشيال ميديا مع الأيقونات الواضحة بجوارها -->
                 <div class="pt-3 border-t border-slate-800 space-y-2">
                     <a href="https://www.facebook.com/share/1FMeiHaA3q/" target="_blank" class="w-full py-2 px-3 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition flex items-center justify-between font-bold text-xs block">
-                        <span>📘 صفحتنا على الفيسبوك</span>
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4 fill-current text-blue-500" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            صفحتنا على الفيسبوك
+                        </span>
                         <span>↗</span>
                     </a>
                     <a href="https://www.instagram.com/dropshopping552?rpxt=MXViMWtscnYydGs4Mw==" target="_blank" class="w-full py-2 px-3 rounded-xl bg-pink-600/20 text-pink-400 border border-pink-500/30 hover:bg-pink-600/30 transition flex items-center justify-between font-bold text-xs block">
-                        <span>📸 حسابنا على الإنستجرام</span>
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4 fill-current text-pink-500" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            حسابنا على الإنستجرام
+                        </span>
                         <span>↗</span>
                     </a>
                 </div>
@@ -309,7 +330,7 @@
                             <input type="number" id="admin-free-shipping-limit" value="1299" class="w-full p-2 text-xs font-bold">
                         </div>
                         <div>
-                            <label class="block font-bold mb-1 text-[11px]">لوجو صاحب المتجر المستطيل:</label>
+                            <label class="block font-bold mb-1 text-[11px]">لوجو صاحب المتجر:</label>
                             <input type="file" id="owner-avatar-file" accept="image/*" class="w-full p-1 text-[10px]">
                         </div>
                     </div>
@@ -320,7 +341,7 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 flex-grow w-full">
-        <!-- شريط الفلترة المنظم بنظام الشركات العالمية -->
+        <!-- شريط الفلترة المنظم -->
         <div class="custom-card p-3 rounded-2xl mb-4 border space-y-2 text-xs">
             <div class="flex items-center justify-between border-b pb-1.5">
                 <span class="font-black text-xs text-amber-600 dark:text-amber-400">🔍 تصفية وتحديد الأسعار:</span>
@@ -366,31 +387,30 @@
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
 
-        <!-- قسم إضافة واستعراض آراء العملاء في الصفحة الرئيسية -->
-        <section class="mt-8 custom-card p-4 rounded-2xl border space-y-3">
-            <h3 class="text-xs sm:text-sm font-black text-amber-500 flex items-center gap-1.5 border-b pb-2">
-                <span>💬 آراء وتقييمات العملاء في المتجر:</span>
-            </h3>
+        <!-- قسم آراء وتقييمات العملاء (شكل شيك وناعم مثل أمازون، موضوع في الأسفل بخط هادئ) -->
+        <section class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400">آراء وتجارب عملاء متجرنا 🌟</h3>
+            </div>
             
-            <div id="homepage-reviews-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto p-1"></div>
+            <div id="homepage-reviews-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
 
-            <div class="inner-box p-3 rounded-xl border mt-3 space-y-2">
-                <p class="font-bold text-xs text-amber-400">شاركونا رأيكم بالمتجر 🌟:</p>
+            <div class="custom-card p-3 rounded-xl border max-w-xl mx-auto space-y-2 mt-4 text-xs">
+                <p class="font-bold text-[11px] text-slate-600 dark:text-slate-300">أضف تقييمك لتجربتك معنا:</p>
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="store-reviewer-name" placeholder="اسمك بالكامل" class="p-1.5 text-xs">
+                    <input type="text" id="store-reviewer-name" placeholder="اسمك" class="p-1.5 text-xs">
                     <select id="store-reviewer-rating" class="p-1.5 text-xs font-bold">
                         <option value="5">⭐⭐⭐⭐⭐ (ممتاز)</option>
                         <option value="4">⭐⭐⭐⭐ (جيد جداً)</option>
-                        <option value="3">⭐⭐⭐ (جيد)</option>
                     </select>
                 </div>
-                <textarea id="store-reviewer-comment" placeholder="اكتب رأيك وتجربتك بالتفصيل..." class="w-full p-2 text-xs h-16"></textarea>
-                <button onclick="submitStoreReview()" class="w-full bg-[#d4af37] text-gray-950 py-2 rounded-xl font-bold text-xs hover:bg-amber-500 transition">نشر تقييمك للجميع ✨</button>
+                <textarea id="store-reviewer-comment" placeholder="رأيك في المتجر وسرعة التوصيل..." class="w-full p-2 text-xs h-12"></textarea>
+                <button onclick="submitStoreReview()" class="w-full bg-slate-800 text-amber-400 py-1.5 rounded-lg font-bold text-[11px] hover:bg-slate-700 transition">إرسال التقييم</button>
             </div>
         </section>
     </main>
 
-    <!-- صفحة تفاصيل المنتج الكاملة المستقلة -->
+    <!-- صفحة تفاصيل المنتج -->
     <div id="product-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="custom-card w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-800 max-h-[96vh]">
             <div class="flex justify-between items-center p-3.5 border-b inner-box">
@@ -480,7 +500,7 @@
         </div>
     </div>
 
-    <!-- نافذة تكبير الصورة (تغلق وتعود لصفحة التفاصيل) -->
+    <!-- نافذة تكبير الصورة -->
     <div id="zoom-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden z-[100] flex items-center justify-center p-4">
         <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center border border-amber-500/50">✕</button>
         <img id="zoomed-image" src="" class="max-w-full max-h-[90vh] object-contain rounded-2xl">
@@ -586,17 +606,19 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي المطور مع أيقونة الرئيسية الخطيّة 🏠 -->
+    <!-- شريط التنقل السفلي مع العدادات -->
     <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 z-40 py-2 px-6 flex justify-around items-center">
         <button onclick="triggerPageReload(goHome)" class="bottom-nav-item active">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/></svg>
             <span class="mt-0.5">الرئيسية</span>
         </button>
-        <button onclick="triggerPageReload(openCart)" class="bottom-nav-item relative">
+        <button onclick="triggerPageReload(openCart)" class="bottom-nav-item">
+            <span id="cart-badge" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
             <span class="mt-0.5">السلة</span>
         </button>
-        <button onclick="triggerPageReload(openOrdersPage)" class="bottom-nav-item relative">
+        <button onclick="triggerPageReload(openOrdersPage)" class="bottom-nav-item">
+            <span id="orders-badge" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
             <span class="mt-0.5">طلباتك</span>
         </button>
@@ -729,8 +751,12 @@
         function closeAllModals(shouldGoBack = true) {
             let isAnyOpen = false;
             const sideMenu = document.getElementById('side-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            
             if (sideMenu && !sideMenu.classList.contains('translate-x-full')) {
-                sideMenu.classList.add('translate-x-full'); isAnyOpen = true;
+                sideMenu.classList.add('translate-x-full');
+                if(backdrop) backdrop.classList.remove('active');
+                isAnyOpen = true;
             }
             ['cart-modal', 'product-modal', 'admin-secret-modal', 'checkout-modal', 'orders-modal'].forEach(mId => {
                 const el = document.getElementById(mId);
@@ -769,8 +795,11 @@
 
         function toggleMenu() {
             const sideMenu = document.getElementById('side-menu');
+            const backdrop = document.getElementById('menu-backdrop');
             if (sideMenu.classList.contains('translate-x-full')) {
-                sideMenu.classList.remove('translate-x-full'); pushModalState('side-menu');
+                sideMenu.classList.remove('translate-x-full');
+                if(backdrop) backdrop.classList.add('active');
+                pushModalState('side-menu');
             } else { closeMenu(); }
         }
 
@@ -1088,21 +1117,21 @@
         function loadHomepageReviews() {
             const container = document.getElementById('homepage-reviews-list');
             if(!container) return;
-            db.collection("store_reviews").limit(6).get().then((snap) => {
+            db.collection("store_reviews").limit(3).get().then((snap) => {
                 container.innerHTML = '';
                 if(snap.empty) {
-                    container.innerHTML = '<p class="col-span-full text-center text-slate-400 text-xs font-bold py-2">كن أول من يشارك رأيه بالمتجر ✨</p>';
+                    container.innerHTML = '<p class="col-span-full text-center text-slate-400 text-xs font-bold py-2">لا توجد آراء مسجلة بعد</p>';
                     return;
                 }
                 snap.forEach(doc => {
                     let r = doc.data();
                     container.innerHTML += `
-                        <div class="inner-box p-2.5 rounded-xl border text-xs">
-                            <div class="flex justify-between items-center font-bold text-amber-500">
-                                <span>${r.name}</span>
-                                <span>${'⭐'.repeat(r.rating)}</span>
+                        <div class="custom-card p-3 rounded-xl border text-xs space-y-1">
+                            <div class="flex justify-between items-center font-bold text-slate-600 dark:text-slate-300">
+                                <span class="text-amber-500">${r.name}</span>
+                                <span class="text-[10px]">${'⭐'.repeat(r.rating)}</span>
                             </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-[11px] mt-1">${r.comment}</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">"${r.comment}"</p>
                         </div>`;
                 });
             });
@@ -1118,7 +1147,7 @@
             db.collection("store_reviews").add({
                 name, rating, comment, date: new Date().toLocaleDateString('ar-EG')
             }).then(() => {
-                showToast('✨ شكراً لمشاركتك رأيك القيمة!');
+                showToast('✨ شكراً لمشاركتك رأيك!');
                 document.getElementById('store-reviewer-comment').value = '';
                 loadHomepageReviews();
             });
@@ -1265,6 +1294,16 @@
 
         function updateCartUI() {
             const itemsContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            
+            let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalQty > 0) {
+                cartBadge.innerText = totalQty;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
             if (!itemsContainer) return; itemsContainer.innerHTML = '';
             let grandTotal = 0;
 
@@ -1368,7 +1407,7 @@
                     product_url: `${baseUrl}#product-${item.product.id}`
                 })),
                 total_price: totalPrice,
-                status: "قيد الانتظار ⏳",
+                status: "قيد التنفيذ ⏳",
                 created_at: new Date().toLocaleDateString('ar-EG')
             };
 
@@ -1455,6 +1494,16 @@
         }
 
         function updateOrdersUI() {
+            const activeOrders = myOrders.filter(o => o.status !== 'تم الاستلام ✅' && o.status !== 'تم التسليم بنجاح ✅');
+            const ordersBadge = document.getElementById('orders-badge');
+
+            if (activeOrders.length > 0) {
+                ordersBadge.innerText = activeOrders.length;
+                ordersBadge.classList.remove('hidden');
+            } else {
+                ordersBadge.classList.add('hidden');
+            }
+
             const container = document.getElementById('my-orders-list');
             if(!container) return; container.innerHTML = '';
 
