@@ -20,23 +20,23 @@
         * { font-family: 'Cairo', sans-serif; box-sizing: border-box; }
         
         body { background-color: #f8fafc; color: #0f172a; transition: background 0.3s, color 0.3s; }
-        .dark body { background-color: #0f172a; color: #f8fafc; }
+        .dark body { background-color: #050505; color: #f8fafc; }
 
-        /* شريط التحميل العلوي للمتصفح مثل أمازون وكروم */
+        /* شريط التحميل العلوي للمتصفح باللون الأسود والأبيض */
         #top-progress-bar {
             position: fixed; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #f59e0b, #3b82f6, #ef4444);
+            background: linear-gradient(90deg, #000000, #64748b, #ffffff);
             z-index: 999999; width: 0%; transition: width 0.3s ease, opacity 0.3s ease; opacity: 0;
         }
 
         .store-header { background-color: #ffffff; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
         .dark .store-header { background-color: #000000; color: #ffffff; border-bottom: 1px solid #1e293b; }
 
-        .store-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border-radius: 16px; color: #0f172a; }
-        .dark .store-card { background: #1e293b; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3); color: #f8fafc; }
+        .store-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 16px; color: #0f172a; }
+        .dark .store-card { background: #121212; border: 1px solid #262626; box-shadow: 0 4px 12px rgba(0,0,0,0.4); color: #f8fafc; }
 
         #page-loading-spinner {
-            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
             z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
         }
@@ -52,8 +52,8 @@
             border: 1px solid #cbd5e1 !important; font-weight: 700 !important; border-radius: 12px !important;
         }
         .dark select, .dark input, .dark textarea {
-            background-color: #0f172a !important; color: #ffffff !important;
-            border: 1px solid #334155 !important;
+            background-color: #121212 !important; color: #ffffff !important;
+            border: 1px solid #262626 !important;
         }
 
         .qty-btn {
@@ -61,14 +61,16 @@
             font-size: 14px; display: inline-flex; align-items: center; justify-content: center;
             width: 32px; height: 32px; border-radius: 8px; transition: all 0.15s ease;
         }
-        .dark .qty-btn { background-color: #334155; color: #ffffff; border: 1px solid #475569; }
+        .dark .qty-btn { background-color: #262626; color: #ffffff; border: 1px solid #404040; }
 
         .product-card { transition: all 0.25s ease; border-radius: 16px; overflow: hidden; }
-        .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1); }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.12); }
 
-        /* تأثير السلو موشن لصور المنتجات */
+        /* حركات تبديل الصور الناعمة العصرية */
+        .prod-slide-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
         .prod-slide-img {
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
         #toast-notification {
@@ -81,26 +83,32 @@
         #toast-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         .size-badge, .color-badge {
-            padding: 5px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 800; font-size: 11px; cursor: pointer; transition: all 0.2s; background: #f8fafc; color: #0f172a;
+            padding: 6px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 800; font-size: 11px; cursor: pointer; transition: all 0.2s; background: #ffffff; color: #0f172a;
         }
-        .dark .size-badge, .dark .color-badge { background: #0f172a; color: #f8fafc; border: 1px solid #334155; }
+        .dark .size-badge, .dark .color-badge { background: #121212; color: #f8fafc; border: 1px solid #262626; }
         .size-badge.selected, .color-badge.selected { background-color: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 900; }
         .dark .size-badge.selected, .dark .color-badge.selected { background-color: #ffffff; color: #000000; border-color: #ffffff; }
 
-        .store-btn-main { background: #0f172a; color: #ffffff; border-radius: 12px; font-weight: 800; border: 1px solid #1e293b; }
-        .dark .store-btn-main { background: #ffffff; color: #000000; }
-        .store-btn-main:hover { opacity: 0.9; }
+        /* الأزرار الرئيسية أبيض وأسود */
+        .btn-black { background: #0f172a; color: #ffffff; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; }
+        .btn-black:hover { opacity: 0.85; }
+        .dark .btn-black { background: #ffffff; color: #000000; border: 1px solid #ffffff; }
+
+        .btn-outline-black { background: transparent; color: #0f172a; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; }
+        .btn-outline-black:hover { background: #0f172a; color: #ffffff; }
+        .dark .btn-outline-black { color: #ffffff; border: 1px solid #404040; }
+        .dark .btn-outline-black:hover { background: #ffffff; color: #000000; }
 
         .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #64748b; position: relative; cursor: pointer; }
         .bottom-nav-item.active { color: #0f172a; font-weight: 900; }
-        .dark .bottom-nav-item { color: #94a3b8; }
+        .dark .bottom-nav-item { color: #a3a3a3; }
         .dark .bottom-nav-item.active { color: #ffffff; }
 
         .nav-badge {
-            position: absolute; top: -4px; right: 8px; background-color: #ef4444; color: #ffffff;
+            position: absolute; top: -4px; right: 8px; background-color: #0f172a; color: #ffffff;
             font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 9999px; border: 1.5px solid #ffffff;
         }
-        .dark .nav-badge { border: 1.5px solid #000000; }
+        .dark .nav-badge { background-color: #ffffff; color: #000000; border: 1.5px solid #000000; }
 
         #menu-backdrop {
             position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(3px);
@@ -134,20 +142,21 @@
                 </div>
             </div>
 
+            <!-- تبديل أيقونة البحث والدارك مود + تصغير أيقونة الدارك مود -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 text-base transition hover:scale-105">
-                    <span id="theme-icon">🌙</span>
-                </button>
-
                 <div class="relative">
                     <button onclick="toggleSearchInput()" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 hover:opacity-75 transition text-base" title="بحث">
                         🔍
                     </button>
-                    <div id="search-popup-box" class="absolute left-0 mt-2 w-72 sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl hidden z-50 p-2">
+                    <div id="search-popup-box" class="absolute left-0 mt-2 w-72 sm:w-80 bg-white dark:bg-black border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl hidden z-50 p-2">
                         <input type="text" id="header-search-input" oninput="syncAndSearch(this.value)" placeholder="ابحث عن منتج..." class="w-full py-2 px-3 text-xs font-bold border rounded-xl focus:outline-none">
                         <div id="search-suggestions" class="mt-2 max-h-52 overflow-y-auto space-y-1"></div>
                     </div>
                 </div>
+
+                <button onclick="toggleDarkMode()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 text-xs transition hover:scale-105" title="الوضع الداكن/الفاتح">
+                    <span id="theme-icon">🌙</span>
+                </button>
 
                 <div class="hidden sm:flex items-center gap-2">
                     <button onclick="triggerPageReload(openOrdersPage)" class="flex flex-col items-start px-2 py-1 rounded hover:bg-black/5 dark:hover:bg-white/5 transition relative">
@@ -155,7 +164,7 @@
                         <span class="text-[9px] text-slate-500 font-bold">متابعة</span>
                         <span class="text-xs font-black">طلباتك 📦</span>
                     </button>
-                    <button onclick="triggerPageReload(openCart)" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black text-xs hover:opacity-90 transition relative shadow">
+                    <button onclick="triggerPageReload(openCart)" class="flex items-center gap-1.5 px-3 py-1.5 bg-black dark:bg-white text-white dark:text-black rounded-xl font-black text-xs hover:opacity-90 transition relative shadow">
                         <span id="cart-badge-top" class="nav-badge hidden">0</span>
                         <span>🛒</span>
                         <span>السلة</span>
@@ -165,35 +174,35 @@
         </div>
     </header>
 
-    <!-- بانر عروض -->
+    <!-- بانر عروض أبيض وأسود فخم -->
     <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
-        <div class="relative rounded-2xl overflow-hidden shadow-md bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-7 min-h-[140px] flex items-center justify-between border border-slate-700 transition-all duration-700" id="global-hero-banner">
+        <div class="relative rounded-2xl overflow-hidden shadow-md bg-black text-white p-5 sm:p-7 min-h-[140px] flex items-center justify-between border border-slate-800 transition-all duration-700" id="global-hero-banner">
             <div class="space-y-2 max-w-lg z-10">
-                <span id="hero-badge" class="bg-amber-400 text-slate-950 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider shadow">عروض التميز ⚡</span>
+                <span id="hero-badge" class="bg-white text-black text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider shadow">DROP SHOPPING ⚡</span>
                 <h3 id="hero-title" class="text-base sm:text-2xl font-black">تشكيلة واسعة من أحدث المنتجات العالمية</h3>
                 <p id="hero-desc" class="text-xs sm:text-sm text-slate-300 font-bold">دفع عند الاستلام مع ضمان الجودة والمعاينة قبل الدفع</p>
             </div>
             <div class="hidden sm:flex z-10 flex-col items-end gap-2">
-                <button onclick="filterCategory('offers')" class="bg-white text-slate-950 font-black px-5 py-2.5 rounded-xl text-xs shadow-lg hover:bg-slate-100 transition">تسوق الآن 🛒</button>
+                <button onclick="filterCategory('offers')" class="bg-white text-black font-black px-5 py-2.5 rounded-xl text-xs shadow-lg hover:bg-slate-200 transition">تسوق الآن 🛒</button>
             </div>
         </div>
     </div>
 
-    <!-- شريط الشحن المجاني -->
+    <!-- شريط الشحن المجاني (أسود وأبيض) -->
     <div class="max-w-7xl mx-auto px-3 mt-2.5 w-full">
-        <div class="store-card p-3 border border-slate-200 dark:border-slate-700 space-y-1.5">
+        <div class="store-card p-3 border border-slate-200 dark:border-slate-800 space-y-1.5">
             <div class="flex justify-between items-center text-xs font-black">
                 <span id="free-shipping-banner-text">🚚 أضف منتجات بقيمة لتستحق الشحن المجاني!</span>
-                <span id="free-shipping-banner-percent" class="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">0%</span>
+                <span id="free-shipping-banner-percent" class="text-xs bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full">0%</span>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden shadow-inner">
-                <div id="free-shipping-banner-bar" class="bg-slate-900 dark:bg-white h-full w-0 transition-all duration-500"></div>
+            <div class="w-full bg-slate-200 dark:bg-neutral-800 h-1.5 rounded-full overflow-hidden shadow-inner">
+                <div id="free-shipping-banner-bar" class="bg-black dark:bg-white h-full w-0 transition-all duration-500"></div>
             </div>
         </div>
     </div>
 
     <!-- القائمة الجانبية -->
-    <div id="side-menu" class="fixed inset-y-0 right-0 bg-white dark:bg-slate-900 text-slate-900 dark:text-white w-[300px] max-w-[88vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-slate-200 dark:border-slate-800 overflow-y-auto">
+    <div id="side-menu" class="fixed inset-y-0 right-0 bg-white dark:bg-black text-slate-900 dark:text-white w-[300px] max-w-[88vw] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-5 border-l border-slate-200 dark:border-slate-800 overflow-y-auto">
         <div class="space-y-4">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
                 <img id="side-menu-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" alt="Logo" class="h-9 w-auto object-contain rounded">
@@ -203,23 +212,23 @@
             <div class="space-y-3">
                 <p class="text-[10px] uppercase font-black text-slate-400 tracking-wider">الأقسام والفئات</p>
                 <nav class="space-y-1.5 font-bold text-xs">
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('all'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between">
+                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('all'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
                         <span>🏠 الرئيسية وجميع المنتجات</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('offers'); });" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 transition flex items-center justify-between">
+                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('offers'); });" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:bg-neutral-900 transition flex items-center justify-between">
                         <span>🔥 العروض والخصومات</span>
                         <span>💥</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('ملابس'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between">
+                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('ملابس'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
                         <span>👕 قسم الملابس العصرية</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('أحذية'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between">
+                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('أحذية'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
                         <span>👟 قسم الأحذية والرياضة</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('إكسسوارات'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-between">
+                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('إكسسوارات'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
                         <span>⌚ قسم الإكسسوارات</span>
                         <span>←</span>
                     </button>
@@ -231,19 +240,19 @@
         </div>
     </div>
 
-    <!-- نافذة الفئات -->
+    <!-- نافذة الفئات الشغالة تماماً -->
     <div id="categories-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h3 class="font-black text-sm">📂 تصفح أقسام المتجر</h3>
                 <button onclick="closeCategoriesModal()" class="text-slate-500 font-bold text-lg">✕</button>
             </div>
             <div class="space-y-2 text-xs font-bold">
-                <button onclick="closeCategoriesModal(); filterCategory('all');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:opacity-75 transition flex items-center justify-between"><span>🌟 جميع المنتجات</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:opacity-75 transition flex items-center justify-between"><span>🔥 العروض والخصومات</span><span>💥</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('ملابس');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:opacity-75 transition flex items-center justify-between"><span>👕 قسم الملابس</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('أحذية');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:opacity-75 transition flex items-center justify-between"><span>👟 قسم الأحذية</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('إكسسوارات');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:opacity-75 transition flex items-center justify-between"><span>⌚ قسم الإكسسوارات</span><span>←</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('all');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>🌟 جميع المنتجات</span><span>←</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>🔥 العروض والخصومات</span><span>💥</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('ملابس');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👕 قسم الملابس</span><span>←</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('أحذية');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👟 قسم الأحذية</span><span>←</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('إكسسوارات');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>⌚ قسم الإكسسوارات</span><span>←</span></button>
             </div>
         </div>
     </div>
@@ -251,7 +260,7 @@
     <!-- نافذة الفلتر المتقدمة -->
     <div id="filter-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4 text-xs">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h3 class="font-black text-sm">🎛️ تصفية المنتجات والأسعار</h3>
                 <button onclick="closeFilterModal()" class="text-slate-500 font-bold text-lg">✕</button>
             </div>
@@ -274,17 +283,17 @@
                     </select>
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button onclick="applyFiltersFromModal()" class="w-full store-btn-main py-2.5 text-xs shadow">تطبيق الفلتر 🔍</button>
-                    <button onclick="resetFiltersModal()" class="w-full bg-slate-200 dark:bg-slate-800 py-2.5 rounded-xl font-bold">إعادة ضبط 🔄</button>
+                    <button onclick="applyFiltersFromModal()" class="w-full btn-black py-2.5 text-xs shadow">تطبيق الفلتر 🔍</button>
+                    <button onclick="resetFiltersModal()" class="w-full bg-slate-200 dark:bg-neutral-800 py-2.5 rounded-xl font-bold">إعادة ضبط 🔄</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن -->
+    <!-- لوحة تحكم الأدمن (مع أداة التحكم في آراء العملاء) -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
-            <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-3">
                     <span class="text-xl">⚙️</span>
                     <div>
@@ -293,7 +302,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold">
+                    <div class="bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold">
                         الزيارات: <strong id="admin-visitor-count" class="text-xs">1</strong>
                     </div>
                 </div>
@@ -302,16 +311,22 @@
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
                 <div class="store-card p-4 rounded-xl border space-y-2">
-                    <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-700 pb-1.5">🖼️ تغيير شعار (لوجو) المتجر:</h4>
+                    <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-800 pb-1.5">🖼️ تغيير شعار (لوجو) المتجر:</h4>
                     <div class="flex items-center gap-3">
                         <input type="file" id="admin-store-logo-file" accept="image/*" class="w-full p-1 text-[10px]">
-                        <button onclick="updateStoreLogo()" class="store-btn-main px-4 py-2 rounded-xl font-bold shrink-0">حفظ اللوجو</button>
+                        <button onclick="updateStoreLogo()" class="btn-black px-4 py-2 rounded-xl font-bold shrink-0">حفظ اللوجو</button>
                     </div>
                 </div>
 
+                <!-- التحكم الكامل في آراء وتقييمات العملاء (حذف وتعديل) -->
                 <div class="store-card p-4 rounded-xl border space-y-3">
-                    <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-700 pb-1.5">📦 إدارة طلبات العملاء:</h4>
-                    <div id="admin-orders-manage-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
+                    <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-800 pb-1.5">💬 التحكم في آراء العملاء والكومنتات:</h4>
+                    <div id="admin-reviews-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                </div>
+
+                <div class="store-card p-4 rounded-xl border space-y-3">
+                    <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-800 pb-1.5">📦 إدارة طلبات العملاء:</h4>
+                    <div id="admin-orders-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
                 </div>
 
                 <div class="store-card p-4 rounded-xl border">
@@ -344,7 +359,7 @@
                         <textarea id="new-desc" placeholder="وصف تفصيلي للمنتج وخاماته..." class="w-full p-2 text-xs h-16"></textarea>
                         
                         <div class="flex gap-2">
-                            <button id="admin-submit-btn" onclick="triggerPageReload(addProduct)" class="w-full store-btn-main py-2.5 rounded-xl font-black shadow">نشر المنتج فوراً 🚀</button>
+                            <button id="admin-submit-btn" onclick="triggerPageReload(addProduct)" class="w-full btn-black py-2.5 rounded-xl font-black shadow">نشر المنتج فوراً 🚀</button>
                             <button id="admin-cancel-edit-btn" onclick="cancelProductEdit()" class="hidden bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold">إلغاء</button>
                         </div>
                     </div>
@@ -352,7 +367,7 @@
 
                 <div class="store-card p-4 rounded-xl border">
                     <h4 class="font-black text-xs mb-2">📋 المنتجات الحالية:</h4>
-                    <div id="admin-products-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
+                    <div id="admin-products-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
                 </div>
             </div>
         </div>
@@ -360,13 +375,13 @@
 
     <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 flex-grow w-full">
         <div class="flex justify-between items-center mb-3">
-            <h2 id="section-title" class="text-xs sm:text-sm font-black border-r-4 border-slate-900 dark:border-white pr-2">جميع المنتجات المميزة</h2>
-            <span id="products-count" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">0 منتج</span>
+            <h2 id="section-title" class="text-xs sm:text-sm font-black border-r-4 border-black dark:border-white pr-2">جميع المنتجات المميزة</h2>
+            <span id="products-count" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-neutral-800">0 منتج</span>
         </div>
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
-        <!-- قسم آراء العملاء المصغر والمدمج -->
+        <!-- قسم آراء العملاء المصغر والمدمج أبيض وأسود -->
         <section class="mt-12 pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
                 <h3 class="text-xs font-bold text-slate-500">آراء وتجارب العملاء 🌟</h3>
@@ -381,16 +396,16 @@
                 <div class="flex items-center gap-1 py-0.5">
                     <span class="text-[9px] font-bold text-slate-500">تقييمك:</span>
                     <div id="store-interactive-stars" class="flex gap-0.5 cursor-pointer text-sm">
-                        <span onclick="setStoreRating(1)" data-star="1" class="text-slate-300 hover:text-amber-500 transition">★</span>
-                        <span onclick="setStoreRating(2)" data-star="2" class="text-slate-300 hover:text-amber-500 transition">★</span>
-                        <span onclick="setStoreRating(3)" data-star="3" class="text-slate-300 hover:text-amber-500 transition">★</span>
-                        <span onclick="setStoreRating(4)" data-star="4" class="text-slate-300 hover:text-amber-500 transition">★</span>
-                        <span onclick="setStoreRating(5)" data-star="5" class="text-slate-300 hover:text-amber-500 transition">★</span>
+                        <span onclick="setStoreRating(1)" data-star="1" class="text-slate-300 hover:text-black dark:hover:text-white transition">★</span>
+                        <span onclick="setStoreRating(2)" data-star="2" class="text-slate-300 hover:text-black dark:hover:text-white transition">★</span>
+                        <span onclick="setStoreRating(3)" data-star="3" class="text-slate-300 hover:text-black dark:hover:text-white transition">★</span>
+                        <span onclick="setStoreRating(4)" data-star="4" class="text-slate-300 hover:text-black dark:hover:text-white transition">★</span>
+                        <span onclick="setStoreRating(5)" data-star="5" class="text-slate-300 hover:text-black dark:hover:text-white transition">★</span>
                     </div>
                 </div>
 
                 <textarea id="store-reviewer-comment" placeholder="رأيك في المتجر وسرعة التوصيل..." class="w-full p-1.5 text-xs h-10"></textarea>
-                <button onclick="submitStoreReview()" class="w-full store-btn-main py-1.5 rounded-xl font-bold text-[10px] transition">إرسال التقييم</button>
+                <button onclick="submitStoreReview()" class="w-full btn-black py-1.5 rounded-xl font-bold text-[10px] transition">إرسال التقييم</button>
             </div>
         </section>
     </main>
@@ -398,7 +413,7 @@
     <!-- صفحة تفاصيل المنتج -->
     <div id="product-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="store-card w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[96vh]">
-            <div class="flex justify-between items-center p-3.5 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center p-3.5 border-b border-slate-200 dark:border-slate-800">
                 <span class="text-xs font-black">تفاصيل المنتج والمواصفات</span>
                 <button onclick="closeProductModal()" class="text-slate-500 font-black text-xl hover:opacity-75 px-2">✕</button>
             </div>
@@ -414,15 +429,15 @@
 
                 <div class="flex flex-col justify-between space-y-3">
                     <div>
-                        <div class="border-b border-slate-200 dark:border-slate-700 pb-2 mb-2">
+                        <div class="border-b border-slate-200 dark:border-slate-800 pb-2 mb-2">
                             <h3 id="modal-name" class="font-black text-sm sm:text-lg leading-snug"></h3>
                         </div>
 
-                        <div class="bg-slate-100 dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 mb-3">
+                        <div class="bg-slate-100 dark:bg-neutral-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 mb-3">
                             <div class="flex items-baseline gap-2">
                                 <span id="modal-price" class="text-2xl font-black"></span>
                                 <span id="modal-old-price" class="text-xs text-slate-400 line-through hidden"></span>
-                                <span id="modal-discount-badge" class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-bold hidden"></span>
+                                <span id="modal-discount-badge" class="bg-black text-white dark:bg-white dark:text-black text-[9px] px-2 py-0.5 rounded-full font-bold hidden"></span>
                             </div>
                         </div>
 
@@ -436,14 +451,14 @@
                             <div id="color-options-container" class="flex flex-wrap gap-1.5"></div>
                         </div>
 
-                        <div class="border-t border-slate-200 dark:border-slate-700 pt-2 mb-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-2xl border">
+                        <div class="border-t border-slate-200 dark:border-slate-800 pt-2 mb-3 bg-slate-50 dark:bg-neutral-900/50 p-3 rounded-2xl border">
                             <p class="font-black text-[11px] mb-1">📝 وصف المنتج وخاماته:</p>
                             <p id="modal-desc" class="text-xs font-bold leading-relaxed whitespace-pre-line"></p>
                         </div>
                     </div>
 
-                    <div class="space-y-2 border-t border-slate-200 dark:border-slate-700 pt-2">
-                        <div class="flex items-center justify-between bg-slate-100 dark:bg-slate-800 p-2 rounded-xl border">
+                    <div class="space-y-2 border-t border-slate-200 dark:border-slate-800 pt-2">
+                        <div class="flex items-center justify-between bg-slate-100 dark:bg-neutral-900 p-2 rounded-xl border">
                             <span class="font-bold text-xs">الكمية:</span>
                             <div class="flex items-center gap-3">
                                 <button onclick="changeModalQty(-1)" class="qty-btn">-</button>
@@ -453,8 +468,8 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
-                            <button id="modal-cart-btn" onclick="addModalToCart(); closeProductModal();" class="store-btn-main py-2.5 text-xs shadow">إضافة للسلة 🛒</button>
-                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-2.5 rounded-12 font-black text-xs shadow">شراء الآن ⚡</button>
+                            <button id="modal-cart-btn" onclick="addModalToCart(); closeProductModal();" class="btn-outline-black py-2.5 text-xs shadow">إضافة للسلة 🛒</button>
+                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="btn-black py-2.5 text-xs shadow">شراء الآن ⚡</button>
                         </div>
                     </div>
                 </div>
@@ -464,14 +479,14 @@
 
     <!-- نافذة تكبير الصورة -->
     <div id="zoom-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden z-[100] flex items-center justify-center p-4">
-        <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-slate-800 w-10 h-10 rounded-full flex items-center justify-center border border-slate-700">✕</button>
+        <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-neutral-800 w-10 h-10 rounded-full flex items-center justify-center border border-neutral-700">✕</button>
         <img id="zoomed-image" src="" class="max-w-full max-h-[90vh] object-contain rounded-2xl">
     </div>
 
     <!-- نافذة تتبع الطلبات -->
     <div id="orders-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
         <div class="store-card w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[88vh]">
-            <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center gap-2">
                     <span class="text-xl">📦</span>
                     <h3 class="font-black text-xs sm:text-sm">متابعة طلباتك وقيد التنفيذ</h3>
@@ -486,7 +501,7 @@
     <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex justify-end">
         <div class="store-card w-full max-w-md h-full p-5 flex flex-col justify-between shadow-2xl overflow-y-auto rounded-none sm:rounded-r-3xl border-l">
             <div>
-                <div class="flex justify-between items-center mb-4 border-b border-slate-200 dark:border-slate-700 pb-3">
+                <div class="flex justify-between items-center mb-4 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <div class="flex items-center gap-2">
                         <span class="text-lg">🛍️</span>
                         <h3 class="text-base font-black">عربة التسوق الاحترافية</h3>
@@ -494,58 +509,56 @@
                     <button onclick="closeCart()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
                 </div>
 
-                <div class="bg-slate-100 dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 mb-4 text-xs shadow-inner">
+                <div class="bg-slate-100 dark:bg-neutral-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 mb-4 text-xs shadow-inner">
                     <div class="flex justify-between font-bold text-[10px] mb-1.5">
                         <span id="free-shipping-msg">جاري حساب الشحن...</span>
                         <span id="free-shipping-percent">0%</span>
                     </div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                        <div id="free-shipping-bar" class="bg-slate-900 dark:bg-white h-full w-0 transition-all duration-300"></div>
+                    <div class="w-full bg-slate-200 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
+                        <div id="free-shipping-bar" class="bg-black dark:bg-white h-full w-0 transition-all duration-300"></div>
                     </div>
                 </div>
 
                 <div id="cart-items" class="space-y-3 mb-4 max-h-[50vh] overflow-y-auto pr-1"></div>
             </div>
             
-            <div class="border-t border-slate-200 dark:border-slate-700 pt-4 space-y-3">
+            <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-3">
                 <div class="flex justify-between items-center p-3.5 rounded-2xl border font-black text-sm store-card shadow-sm">
                     <span>الإجمالي الكلي:</span>
                     <span id="cart-total" class="text-base">0 ج.م</span>
                 </div>
-                <button onclick="triggerPageReload(openCheckoutPage)" class="store-btn-main w-full py-3.5 text-xs shadow-lg transition text-center rounded-2xl">الذهاب لإتمام الطلب والشراء 📦</button>
+                <button onclick="triggerPageReload(openCheckoutPage)" class="btn-black w-full py-3.5 text-xs shadow-lg transition text-center rounded-2xl">الذهاب لإتمام الطلب والشراء 📦</button>
             </div>
         </div>
     </div>
 
-    <!-- نافذة إتمام الطلب بتصميم حديث وأنيق جداً -->
+    <!-- نافذة إتمام الطلب الشيك أبيض وأسود -->
     <div id="checkout-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
-        <div class="store-card w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-200 dark:border-slate-700">
-            <div class="flex justify-between items-center px-5 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-100/60 dark:bg-slate-800/60 backdrop-blur">
+        <div class="store-card w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-200 dark:border-slate-800">
+            <div class="flex justify-between items-center px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-neutral-900/80 backdrop-blur">
                 <div class="flex items-center gap-2.5">
-                    <span class="p-2 bg-emerald-500/10 text-emerald-600 rounded-xl text-lg font-bold">⚡</span>
+                    <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة المعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
-                <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
+                <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
             </div>
 
             <div class="p-5 space-y-4 text-xs overflow-y-auto max-h-[78vh]">
-                <!-- ملخص الفاتورة -->
-                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 space-y-2">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-neutral-900/40 border border-slate-200 dark:border-slate-800 space-y-2">
                     <div class="flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-wider">
                         <span>📦 المنتجات المختارة</span>
                         <span>السعر الكلي</span>
                     </div>
-                    <div id="checkout-summary-items" class="space-y-2 max-h-32 overflow-y-auto border-b border-slate-200 dark:border-slate-700 pb-2"></div>
+                    <div id="checkout-summary-items" class="space-y-2 max-h-32 overflow-y-auto border-b border-slate-200 dark:border-slate-800 pb-2"></div>
                     <div class="flex justify-between items-center font-black text-sm pt-1 text-slate-900 dark:text-white">
                         <span>المبلغ الإجمالي المطلـوب:</span>
-                        <span id="checkout-grand-total" class="text-base text-emerald-600 dark:text-emerald-400">0 ج.م</span>
+                        <span id="checkout-grand-total" class="text-base text-black dark:text-white">0 ج.م</span>
                     </div>
                 </div>
 
-                <!-- نموذج الإدخال العصرية -->
                 <div class="space-y-3">
                     <h4 class="font-black text-[11px] text-slate-500">📍 بيانات توصيل الطلب:</h4>
                     <div>
@@ -559,7 +572,7 @@
                     <div>
                         <div class="flex justify-between items-center mb-1">
                             <label class="font-bold text-[11px]">العنوان التفصيلي <span class="text-red-500">*</span></label>
-                            <button type="button" onclick="getLocation()" class="text-[10px] text-blue-500 font-bold flex items-center gap-1 hover:underline">
+                            <button type="button" onclick="getLocation()" class="text-[10px] text-black dark:text-white underline font-bold flex items-center gap-1">
                                 <span>📍 تحديد موقعي تلقائياً</span>
                             </button>
                         </div>
@@ -571,7 +584,7 @@
                     </div>
                 </div>
 
-                <button onclick="submitOrderWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 rounded-2xl font-black text-xs shadow-xl transition flex items-center justify-center gap-2 hover:scale-[1.01]">
+                <button onclick="submitOrderWhatsApp()" class="w-full btn-black py-3.5 rounded-2xl font-black text-xs shadow-xl transition flex items-center justify-center gap-2">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.285-.143-1.687-.833-1.947-.928-.261-.095-.451-.143-.641.143-.19.285-.736.928-.902 1.118-.166.19-.333.214-.618.071-.285-.143-1.203-.443-2.292-1.414-.848-.756-1.421-1.69-1.587-1.975-.166-.285-.018-.439.125-.581.128-.128.285-.333.428-.499.143-.167.19-.285.285-.476.095-.19.048-.357-.024-.499-.071-.143-.641-1.545-.879-2.117-.231-.557-.467-.482-.641-.491-.166-.008-.357-.01-.547-.01-.19 0-.499.071-.76.357-.261.285-.998.975-.998 2.38 0 1.404 1.022 2.76 1.165 2.951.143.19 2.012 3.073 4.875 4.31.681.294 1.213.47 1.627.601.684.217 1.307.186 1.8.113.55-.082 1.687-.69 1.925-1.356.237-.666.237-1.237.166-1.356-.07-.119-.261-.19-.546-.333z"/></svg>
                     <span>تأكيد وإرسال الطلب عبر الواتساب</span>
                 </button>
@@ -606,16 +619,16 @@
     </div>
 
     <!-- الـ Footer -->
-    <footer class="store-header py-6 text-center text-xs mt-auto flex flex-col items-center gap-3 border-t">
+    <footer class="store-header py-6 text-center text-xs mt-auto flex flex-col items-center gap-3 border-t border-slate-200 dark:border-slate-800">
         <img id="store-footer-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" alt="Logo" class="h-10 w-auto object-contain rounded">
         
         <div class="flex items-center gap-4">
-            <a href="https://www.facebook.com/share/1FMeiHaA3q/" target="_blank" class="flex items-center gap-1.5 font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 transition">
+            <a href="https://www.facebook.com/share/1FMeiHaA3q/" target="_blank" class="flex items-center gap-1.5 font-bold text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white transition">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 <span>فيسبوك</span>
             </a>
             <span class="text-slate-400">|</span>
-            <a href="https://www.instagram.com/dropshopping552?rpxt=MXViMWtscnYydGs4Mw==" target="_blank" class="flex items-center gap-1.5 font-bold text-slate-600 dark:text-slate-300 hover:text-pink-600 transition">
+            <a href="https://www.instagram.com/dropshopping552?rpxt=MXViMWtscnYydGs4Mw==" target="_blank" class="flex items-center gap-1.5 font-bold text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white transition">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 <span>إنستجرام</span>
             </a>
@@ -659,7 +672,6 @@
         let activeSortFilter = 'default';
         let activeCategoryFilter = 'all';
 
-        // محاكة شريط التحميل العلوي للمتصفح
         function triggerPageReload(action) {
             const bar = document.getElementById('top-progress-bar');
             if (bar) {
@@ -711,6 +723,42 @@
                 localStorage.setItem('drop_shopping_theme', 'dark');
                 document.getElementById('theme-icon').innerText = '☀️';
             }
+        }
+
+        function openCategoriesModal() {
+            document.getElementById('categories-modal').classList.remove('hidden');
+            pushModalState('categories-modal');
+        }
+
+        function closeCategoriesModal() {
+            document.getElementById('categories-modal').classList.add('hidden');
+        }
+
+        function openFilterModal() {
+            document.getElementById('filter-modal').classList.remove('hidden');
+            pushModalState('filter-modal');
+        }
+
+        function closeFilterModal() {
+            document.getElementById('filter-modal').classList.add('hidden');
+        }
+
+        function applyFiltersFromModal() {
+            activePriceFilter = document.getElementById('filter-price-modal').value;
+            activeSortFilter = document.getElementById('filter-sort-modal').value;
+            closeFilterModal();
+            renderStore();
+            showToast('✅ تم تطبيق الفلتر!');
+        }
+
+        function resetFiltersModal() {
+            document.getElementById('filter-price-modal').value = 'all';
+            document.getElementById('filter-sort-modal').value = 'default';
+            activePriceFilter = 'all';
+            activeSortFilter = 'default';
+            closeFilterModal();
+            renderStore();
+            showToast('🔄 تم إعادة الضبط');
         }
 
         function loadStoreLogo() {
@@ -783,7 +831,6 @@
             });
         }
 
-        /* إصلاح إيماءات الهواتف بزرار الرجوع للخلف */
         window.addEventListener('popstate', function() { closeAllModals(false); });
         function pushModalState(modalName) { history.pushState({ modal: modalName }, ""); }
 
@@ -834,6 +881,7 @@
                 let pass = prompt("أدخل كلمة مرور الأدمن السرية:");
                 if (pass === ADMIN_PASSWORD) {
                     renderAdminOrdersManageList();
+                    renderAdminReviewsManageList();
                     document.getElementById('admin-secret-modal').classList.remove('hidden');
                     pushModalState('admin-modal');
                 } else if (pass !== null) { showToast("❌ كلمة المرور غير صحيحة!"); }
@@ -866,7 +914,7 @@
                     suggBox.innerHTML = '';
                     matches.slice(0, 5).forEach(m => {
                         suggBox.innerHTML += `
-                            <div onclick="triggerPageReload(() => { openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden'); })" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer border-b text-xs font-bold">
+                            <div onclick="triggerPageReload(() => { openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden'); })" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
                                 <img src="${m.image1}" class="w-8 h-8 object-contain rounded border bg-white p-0.5">
                                 <div class="flex flex-col">
                                     <span>${m.name}</span>
@@ -914,51 +962,59 @@
             renderAdminTable();
         }
 
-        /* عرض المنتجات مع الصورة الكاملة (أمازون ستايل) وحركة تحريك الصور الناعمة */
         function renderProductsList(listData, container) {
             listData.forEach(p => {
                 let disc = Number(p.discount) || 0;
                 let finalPrice = calculateFinalPrice(p.price, disc);
                 let priceHtml = disc > 0 ? `
                     <div class="flex items-center gap-1.5 flex-wrap my-1">
-                        <span class="bg-red-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded-md">-${disc}%</span>
+                        <span class="bg-black text-white dark:bg-white dark:text-black font-black text-[9px] px-1.5 py-0.5 rounded-md">-${disc}%</span>
                         <span class="font-black text-xs sm:text-sm">${finalPrice} <span class="text-[9px]">ج.م</span></span>
                         <span class="text-slate-400 line-through text-[9px]">${p.price} ج.م</span>
                     </div>` : `<p class="font-black text-xs sm:text-sm my-1">${p.price || 0} <span class="text-[9px]">ج.م</span></p>`;
 
                 let img1 = p.image1 || '';
                 let img2 = (p.image2 && p.image2.length > 5) ? p.image2 : img1;
-                let cardId = `prod-img-${p.id}`;
+                let imgAId = `prod-imgA-${p.id}`;
+                let imgBId = `prod-imgB-${p.id}`;
 
                 if (p.image2 && p.image2.length > 5) {
                     if (!window.slideshowIntervals) window.slideshowIntervals = {};
                     if (window.slideshowIntervals[p.id]) clearInterval(window.slideshowIntervals[p.id]);
+                    
+                    let showingA = true;
                     window.slideshowIntervals[p.id] = setInterval(() => {
-                        const imgEl = document.getElementById(cardId);
-                        if (imgEl) {
-                            imgEl.style.opacity = '0.3';
-                            setTimeout(() => {
-                                imgEl.src = imgEl.src.includes(img1) ? img2 : img1;
-                                imgEl.style.opacity = '1';
-                            }, 300);
+                        const imgA = document.getElementById(imgAId);
+                        const imgB = document.getElementById(imgBId);
+                        if (imgA && imgB) {
+                            if (showingA) {
+                                imgA.style.opacity = '0';
+                                imgB.style.opacity = '1';
+                            } else {
+                                imgA.style.opacity = '1';
+                                imgB.style.opacity = '0';
+                            }
+                            showingA = !showingA;
                         }
-                    }, 2500);
+                    }, 2800);
                 }
 
                 container.innerHTML += `
                     <div class="product-card store-card flex flex-col justify-between p-2.5 relative group border">
                         <div class="cursor-pointer" onclick="triggerPageReload(() => openProductModal('${p.id}'))">
-                            <!-- عرض الصورة كاملة بدون حواف (أمازون ستايل) -->
-                            <div class="w-full h-44 sm:h-56 rounded-xl mb-2 flex items-center justify-center overflow-hidden relative bg-slate-50 dark:bg-slate-800/40">
-                                <img id="${cardId}" src="${img1}" alt="${p.name || ''}" class="prod-slide-img w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
+                            <div class="w-full h-44 sm:h-56 rounded-xl mb-2 overflow-hidden relative bg-slate-50 dark:bg-neutral-900/50">
+                                <div class="prod-slide-container">
+                                    <img id="${imgAId}" src="${img1}" alt="${p.name || ''}" class="prod-slide-img opacity-100">
+                                    <img id="${imgBId}" src="${img2}" alt="${p.name || ''}" class="prod-slide-img opacity-0">
+                                </div>
                             </div>
                             <h4 class="font-bold text-xs line-clamp-2 leading-tight mt-1">${p.name || ''}</h4>
                         </div>
                         <div>
                             ${priceHtml}
                             <div class="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-slate-100 dark:border-slate-800">
-                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="store-btn-main py-2 text-[10px] shadow">سلة 🛒</button>
-                                <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-12 text-[10px] font-black shadow transition">شراء ⚡</button>
+                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="btn-outline-black py-2 text-[10px]">سلة 🛒</button>
+                                <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="btn-black py-2 text-[10px] font-black shadow">شراء ⚡</button>
                             </div>
                         </div>
                     </div>
@@ -1002,7 +1058,6 @@
                 sizeContainer.appendChild(btn);
             });
 
-            /* الألوان كأزرار نصية وبادجات أنيقة بدون دواير */
             const colorContainer = document.getElementById('color-options-container'); colorContainer.innerHTML = '';
             const colorsList = p.colors ? p.colors.split('/').map(c => c.trim()) : ['أساسي'];
             selectedColor = colorsList[0] || 'أساسي';
@@ -1025,7 +1080,7 @@
             const imagesList = [p.image1, p.image2].filter(img => img && img.length > 5);
             if (imagesList.length > 1) {
                 imagesList.forEach((imgUrl, i) => {
-                    thumbsContainer.innerHTML += `<img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-contain rounded-xl border-2 ${i === 0 ? 'border-slate-900 dark:border-white' : 'border-slate-200'} cursor-pointer p-0.5 bg-white shrink-0">`;
+                    thumbsContainer.innerHTML += `<img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-contain rounded-xl border-2 ${i === 0 ? 'border-black dark:border-white' : 'border-slate-200'} cursor-pointer p-0.5 bg-white shrink-0">`;
                 });
             }
 
@@ -1035,8 +1090,8 @@
 
         function switchModalImage(src, el) {
             document.getElementById('main-modal-img').src = src;
-            document.querySelectorAll('.modal-thumb-img').forEach(img => img.classList.replace('border-slate-900', 'border-slate-200'));
-            if(el) el.classList.replace('border-slate-200', 'border-slate-900');
+            document.querySelectorAll('.modal-thumb-img').forEach(img => img.classList.replace('border-black', 'border-slate-200'));
+            if(el) el.classList.replace('border-slate-200', 'border-black');
         }
 
         function openZoomModal() {
@@ -1058,9 +1113,9 @@
             stars.forEach((star, index) => {
                 if (index < rating) {
                     star.classList.remove('text-slate-300');
-                    star.classList.add('text-amber-500');
+                    star.classList.add('text-black', 'dark:text-white');
                 } else {
-                    star.classList.remove('text-amber-500');
+                    star.classList.remove('text-black', 'dark:text-white');
                     star.classList.add('text-slate-300');
                 }
             });
@@ -1080,8 +1135,8 @@
                     container.innerHTML += `
                         <div class="store-card p-2.5 rounded-xl border text-[10px] space-y-0.5">
                             <div class="flex justify-between items-center font-bold">
-                                <span class="text-amber-600 dark:text-amber-400">${r.name}</span>
-                                <span class="text-[9px] text-amber-500">${'★'.repeat(r.rating)}</span>
+                                <span class="font-black text-slate-900 dark:text-white">${r.name}</span>
+                                <span class="text-[9px]">${'★'.repeat(r.rating || 5)}</span>
                             </div>
                             <p class="text-slate-500 leading-tight">"${r.comment}"</p>
                         </div>`;
@@ -1103,7 +1158,56 @@
                 document.getElementById('store-reviewer-name').value = '';
                 setStoreRating(5);
                 loadHomepageReviews();
+                renderAdminReviewsManageList();
             });
+        }
+
+        /* ووظائف التحكم والتعديل والحذف للكومنتات في لوحة الأدمن */
+        function renderAdminReviewsManageList() {
+            const list = document.getElementById('admin-reviews-manage-list');
+            if(!list) return; list.innerHTML = '';
+            db.collection("store_reviews").get().then((snap) => {
+                if(snap.empty) {
+                    list.innerHTML = '<p class="text-center text-slate-400 py-3 font-bold">لا توجد كومنتات حالية</p>';
+                    return;
+                }
+                snap.forEach(doc => {
+                    let r = doc.data();
+                    list.innerHTML += `
+                        <div class="store-card p-2 rounded-xl border space-y-1">
+                            <div class="flex justify-between items-center font-bold">
+                                <span class="font-black">${r.name}</span>
+                                <span class="text-[9px] text-slate-400">${r.date || ''}</span>
+                            </div>
+                            <p class="text-slate-500 font-bold">${r.comment}</p>
+                            <div class="flex gap-1.5 pt-1 border-t border-slate-200 dark:border-slate-800">
+                                <button onclick="editReviewInAdmin('${doc.id}', '${r.comment.replace(/'/g, "\\'")}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold">تعديل النص ✏️</button>
+                                <button onclick="deleteReviewFromAdmin('${doc.id}')" class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">حذف الكومنت 🗑️</button>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        function editReviewInAdmin(docId, oldComment) {
+            let newText = prompt("تعديل نص الكومنت/الرأي:", oldComment);
+            if(newText !== null && newText.trim() !== "") {
+                db.collection("store_reviews").doc(docId).update({ comment: newText.trim() }).then(() => {
+                    showToast('✅ تم تعديل الكومنت بنجاح!');
+                    loadHomepageReviews();
+                    renderAdminReviewsManageList();
+                });
+            }
+        }
+
+        function deleteReviewFromAdmin(docId) {
+            if(confirm("هل أنت تأكد من حذف هذا الكومنت نهائياً؟")) {
+                db.collection("store_reviews").doc(docId).delete().then(() => {
+                    showToast('🗑️ تم حذف الكومنت!');
+                    loadHomepageReviews();
+                    renderAdminReviewsManageList();
+                });
+            }
         }
 
         function addProduct() {
@@ -1189,7 +1293,7 @@
                             <span class="truncate w-32 font-bold text-xs">${p.name}</span>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="editProductInAdmin('${p.id}')" class="bg-blue-600 text-white px-2 py-1 rounded text-[10px] font-bold">تعديل</button>
+                            <button onclick="editProductInAdmin('${p.id}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded text-[10px] font-bold">تعديل</button>
                             <button onclick="deleteProductFromCloud('${p.id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold">حذف</button>
                         </div>
                     </div>`;
@@ -1265,7 +1369,7 @@
                 let itemTotal = unitPrice * item.quantity;
                 grandTotal += itemTotal;
                 itemsContainer.innerHTML += `
-                    <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2.5 text-xs gap-2">
+                    <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2.5 text-xs gap-2">
                         <div class="flex items-center gap-2">
                             <img src="${item.product.image1 || ''}" class="w-12 h-12 rounded-xl object-contain border bg-white p-0.5">
                             <div>
@@ -1414,8 +1518,8 @@
                             <span class="font-black">${ord.order_id}</span>
                             <span class="text-[10px] text-slate-400">${ord.customer_info.name} - ${ord.total_price} ج.م</span>
                         </div>
-                        <div class="flex items-center gap-1.5 pt-1 border-t border-slate-200 dark:border-slate-700">
-                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-blue-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">⏳ قيد التنفيذ</button>
+                        <div class="flex items-center gap-1.5 pt-1 border-t border-slate-200 dark:border-slate-800">
+                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold">⏳ قيد التنفيذ</button>
                             <button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">✅ تم التسليم</button>
                             <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold mr-auto">حذف</button>
                         </div>
@@ -1441,16 +1545,16 @@
                 let itemsHtml = ord.items.map(it => `• ${it.product_name} (${it.selected_size}/${it.selected_color}) ×${it.quantity}`).join('<br>');
                 container.innerHTML += `
                     <div class="store-card p-3 rounded-xl border space-y-2 shadow-sm text-xs">
-                        <div class="flex justify-between items-center font-bold border-b border-slate-200 dark:border-slate-700 pb-1">
+                        <div class="flex justify-between items-center font-bold border-b border-slate-200 dark:border-slate-800 pb-1">
                             <span class="font-black">${ord.order_id}</span>
-                            <span class="bg-slate-100 dark:bg-slate-800 text-[10px] px-2 py-0.5 rounded font-black">${ord.status}</span>
+                            <span class="bg-slate-100 dark:bg-neutral-800 text-[10px] px-2 py-0.5 rounded font-black">${ord.status}</span>
                         </div>
                         <p class="text-[11px] font-bold text-slate-500">${itemsHtml}</p>
-                        <div class="flex justify-between items-center pt-1 border-t border-slate-200 dark:border-slate-700 font-black">
+                        <div class="flex justify-between items-center pt-1 border-t border-slate-200 dark:border-slate-800 font-black">
                             <span>الإجمالي: <span>${ord.total_price} ج.م</span></span>
                             <span class="text-[10px] text-slate-400">${ord.created_at}</span>
                         </div>
-                        <div class="flex justify-between items-center pt-1 border-t border-slate-200 dark:border-slate-700">
+                        <div class="flex justify-between items-center pt-1 border-t border-slate-200 dark:border-slate-800">
                             ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-[10px] font-bold">✅ تم الاستلام</button>` : '<span class="text-emerald-500 font-bold text-[10px]">✨ تم الاستلام</span>'}
                             <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold">حذف</button>
                         </div>
