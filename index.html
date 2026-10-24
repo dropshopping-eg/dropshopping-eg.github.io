@@ -575,7 +575,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاستلم الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
@@ -1120,14 +1120,15 @@
             });
         }
 
-        /* كارت المنتج الجديد المصمم بالضبط مثل الصورة التي أرسلتها */
+        /* كارت المنتج مع رجوع شارة الخصم للشكل البسيط الأصلي (كلمة خصم بالإضافة للنسبة) */
         function renderProductsList(listData, container) {
             listData.forEach(p => {
                 let disc = Number(p.discount) || 0;
                 let finalPrice = calculateFinalPrice(p.price, disc);
                 
+                // شارة الخصم البسيطة بالشكل الكلاسيكي
                 let discountBadgeHtml = disc > 0 ? `
-                    <span class="absolute top-2.5 left-2.5 z-20 bg-red-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shadow-md">
+                    <span class="absolute top-2.5 right-2.5 z-20 bg-red-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shadow-md">
                         خصم ${disc}%
                     </span>
                 ` : '';
