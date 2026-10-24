@@ -70,11 +70,11 @@
             transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
-        /* تنسيقات البانر التلقائي المتحرك */
+        /* تنسيق السلايدر بمقاس التيك توك الأقصر والأنيق */
         .banner-slide {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            opacity: 0; transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            pointer-events: none; z-index: 1; transform: scale(0.98);
+            opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none; z-index: 1; transform: scale(0.96);
         }
         .banner-slide.active {
             opacity: 1; pointer-events: auto; z-index: 2; transform: scale(1);
@@ -173,44 +173,46 @@
         </div>
     </header>
 
-    <!-- قسم السلايدر المتحرك التلقائي للبانرات -->
+    <!-- البانر الطولي المظبوط بمقاس التيك توك الأقصر مع الانتقال التلقائي -->
     <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
-        <div id="hero-slider-container" class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 min-h-[160px] sm:min-h-[180px] bg-black" onmouseenter="pauseBannerSlider()" onmouseleave="startBannerSlider()">
+        <div id="hero-slider-container" class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-60 sm:h-72 bg-black" onmouseenter="pauseBannerSlider()" onmouseleave="startBannerSlider()">
             
             <!-- البانر الأول: أحدث منتج أضيف تلقائياً -->
-            <div id="slide-banner-1" class="banner-slide active bg-black text-white p-4 sm:p-6 flex items-center justify-between">
-                <div class="space-y-1.5 max-w-[65%] z-10">
-                    <span class="bg-white text-black text-[9px] px-2.5 py-0.5 rounded-full font-black uppercase">وصل حديثاً 🔥</span>
-                    <h3 id="banner-latest-title" class="text-xs sm:text-lg font-black truncate">جاري التحميل...</h3>
-                    <p id="banner-latest-price" class="text-xs font-extrabold text-slate-300"></p>
-                    <button id="banner-latest-buy-btn" class="mt-2 btn-black bg-white text-black text-[10px] sm:text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition">اشترِ الآن ⚡</button>
+            <div id="slide-banner-1" class="banner-slide active bg-gradient-to-r from-black via-neutral-900 to-black text-white p-5 sm:p-7 flex items-center justify-between">
+                <div class="space-y-2 max-w-[62%] z-10">
+                    <span class="bg-white text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">وصل حديثاً 🔥</span>
+                    <h3 id="banner-latest-title" class="text-sm sm:text-xl font-black truncate leading-snug">جاري التحميل...</h3>
+                    <p id="banner-latest-price" class="text-xs sm:text-sm font-extrabold text-slate-300"></p>
+                    <button id="banner-latest-buy-btn" class="mt-1 btn-black bg-white text-black text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition">اشتري الآن ⚡</button>
                 </div>
-                <div class="w-28 h-28 sm:w-36 sm:h-36 shrink-0 relative bg-neutral-900 rounded-xl p-1 border border-neutral-800 flex items-center justify-center overflow-hidden">
-                    <img id="banner-latest-img" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
-                </div>
-            </div>
-
-            <!-- البانر الثاني: العروض والخصومات والشعار -->
-            <div id="slide-banner-2" class="banner-slide bg-neutral-900 text-white p-4 sm:p-6 flex items-center justify-between">
-                <div class="space-y-1.5 max-w-[65%] z-10">
-                    <span class="bg-amber-400 text-black text-[9px] px-2.5 py-0.5 rounded-full font-black uppercase">خصومات حصرية 💥</span>
-                    <h3 class="text-xs sm:text-lg font-black">DROP SHOPPING</h3>
-                    <p class="text-[10px] sm:text-xs text-neutral-300 font-bold">خصومات تصل حتى 40% ومعاينة قبل الدفع</p>
-                    <button onclick="filterCategory('offers')" class="mt-2 btn-black bg-white text-black text-[10px] sm:text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition">تصفح العروض 🛒</button>
-                </div>
-                <div class="w-28 h-28 sm:w-36 sm:h-36 shrink-0 relative bg-black rounded-xl p-2 border border-neutral-800 flex items-center justify-center overflow-hidden">
-                    <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
+                <div class="w-32 h-44 sm:w-40 sm:h-52 shrink-0 relative bg-neutral-900 rounded-2xl p-1.5 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <img id="banner-latest-img" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-xl">
                 </div>
             </div>
 
-            <!-- أزرار التبديل اليدوي أسهم (يمين ويسار) -->
-            <button onclick="prevBannerSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black text-white w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-sm border border-white/20">❯</button>
-            <button onclick="nextBannerSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black text-white w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-sm border border-white/20">❮</button>
+            <!-- البانر الثاني: العروض والخصومات وقائمة الأقسام عند الضغط -->
+            <div id="slide-banner-2" class="banner-slide bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white p-5 sm:p-7 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
+                <div class="space-y-2 max-w-[62%] z-10">
+                    <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض المتجر 💥</span>
+                    <h3 class="text-sm sm:text-xl font-black">DROP SHOPPING</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-300 font-bold leading-relaxed">تصفح أقسام العروض والخصومات الحصرية مع خدمة معاينة المنتجات قبل الدفع</p>
+                    <button onclick="event.stopPropagation(); handleOffersBannerClick();" class="mt-1 btn-black bg-white text-black text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition flex items-center gap-1">
+                        <span>تصفح العروض والقائمة 📂</span>
+                    </button>
+                </div>
+                <div class="w-32 h-44 sm:w-40 sm:h-52 shrink-0 relative bg-black rounded-2xl p-2 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-xl">
+                </div>
+            </div>
 
-            <!-- نقاط المؤشر السفلية (Dots) -->
-            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
-                <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2 h-2 rounded-full bg-white transition-all"></button>
-                <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2 h-2 rounded-full bg-white/40 transition-all"></button>
+            <!-- أزرار الأسهم للتبديل اليدوي -->
+            <button onclick="prevBannerSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-md border border-white/20 shadow-lg">❯</button>
+            <button onclick="nextBannerSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-md border border-white/20 shadow-lg">❮</button>
+
+            <!-- مؤشرات النقط السفلي -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
+                <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/40 transition-all"></button>
             </div>
         </div>
     </div>
@@ -271,12 +273,12 @@
     <div id="categories-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
-                <h3 class="font-black text-sm">📂 تصفح أقسام المتجر</h3>
+                <h3 class="font-black text-sm">📂 تصفح أقسام المتجر والعروض</h3>
                 <button onclick="closeCategoriesModal()" class="text-slate-500 font-bold text-lg">✕</button>
             </div>
             <div class="space-y-2 text-xs font-bold">
                 <button onclick="closeCategoriesModal(); filterCategory('all');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>🌟 جميع المنتجات</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>🔥 العروض والخصومات</span><span>💥</span></button>
+                <button onclick="closeCategoriesModal(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-black text-white dark:bg-white dark:text-black hover:opacity-75 transition flex items-center justify-between"><span>🔥 العروض والخصومات الخاصة</span><span>💥</span></button>
                 <button onclick="closeCategoriesModal(); filterCategory('ملابس');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👕 قسم الملابس</span><span>←</span></button>
                 <button onclick="closeCategoriesModal(); filterCategory('أحذية');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👟 قسم الأحذية</span><span>←</span></button>
                 <button onclick="closeCategoriesModal(); filterCategory('إكسسوارات');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>⌚ قسم الإكسسوارات</span><span>←</span></button>
@@ -725,7 +727,7 @@
             stopBannerSlider();
             bannerTimer = setInterval(() => {
                 nextBannerSlide();
-            }, 4000); // يبدل تلقائياً كل 4 ثواني
+            }, 4000); // تبديل تلقائي كل 4 ثواني
         }
 
         function stopBannerSlider() {
@@ -743,10 +745,10 @@
                     if (i === currentBannerIndex) {
                         slide.classList.add('active');
                         dot.classList.remove('bg-white/40');
-                        dot.classList.add('bg-white', 'w-4');
+                        dot.classList.add('bg-white', 'w-5');
                     } else {
                         slide.classList.remove('active');
-                        dot.classList.remove('bg-white', 'w-4');
+                        dot.classList.remove('bg-white', 'w-5');
                         dot.classList.add('bg-white/40');
                     }
                 }
@@ -761,6 +763,12 @@
         function prevBannerSlide() {
             let prev = (currentBannerIndex - 1 + TOTAL_BANNERS) % TOTAL_BANNERS;
             setBannerSlide(prev);
+        }
+
+        // تفاعلية الضغط على بانر العروض تفتح نافذة الفئات وتفعل خصم العروض
+        function handleOffersBannerClick() {
+            filterCategory('offers');
+            openCategoriesModal();
         }
 
         function triggerPageReload(action) {
