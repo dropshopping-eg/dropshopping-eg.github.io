@@ -173,13 +173,13 @@
         </div>
     </header>
 
-    <!-- البانر الطولي المظبوط بمقاس التيك توك الأقصر مع الانتقال التلقائي -->
+    <!-- البانر الطولي المظبوط بمقاس التيك توك مع إصلاح مكان أسرار التبديل -->
     <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
         <div id="hero-slider-container" class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-60 sm:h-72 bg-black" onmouseenter="pauseBannerSlider()" onmouseleave="startBannerSlider()">
             
             <!-- البانر الأول: أحدث منتج أضيف تلقائياً -->
-            <div id="slide-banner-1" class="banner-slide active bg-gradient-to-r from-black via-neutral-900 to-black text-white p-5 sm:p-7 flex items-center justify-between">
-                <div class="space-y-2 max-w-[62%] z-10">
+            <div id="slide-banner-1" class="banner-slide active bg-gradient-to-r from-black via-neutral-900 to-black text-white px-8 py-5 sm:px-12 sm:py-7 flex items-center justify-between">
+                <div class="space-y-2 max-w-[60%] z-10">
                     <span class="bg-white text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">وصل حديثاً 🔥</span>
                     <h3 id="banner-latest-title" class="text-sm sm:text-xl font-black truncate leading-snug">جاري التحميل...</h3>
                     <p id="banner-latest-price" class="text-xs sm:text-sm font-extrabold text-slate-300"></p>
@@ -190,14 +190,14 @@
                 </div>
             </div>
 
-            <!-- البانر الثاني: العروض والخصومات وقائمة الأقسام عند الضغط -->
-            <div id="slide-banner-2" class="banner-slide bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white p-5 sm:p-7 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
-                <div class="space-y-2 max-w-[62%] z-10">
+            <!-- البانر الثاني: تعرض المنتجات التي عليها خصم فوراً عند الضغط -->
+            <div id="slide-banner-2" class="banner-slide bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-8 py-5 sm:px-12 sm:py-7 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
+                <div class="space-y-2 max-w-[60%] z-10">
                     <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض المتجر 💥</span>
                     <h3 class="text-sm sm:text-xl font-black">DROP SHOPPING</h3>
-                    <p class="text-[11px] sm:text-xs text-neutral-300 font-bold leading-relaxed">تصفح أقسام العروض والخصومات الحصرية مع خدمة معاينة المنتجات قبل الدفع</p>
+                    <p class="text-[11px] sm:text-xs text-neutral-300 font-bold leading-relaxed">اضغط هنا لتصفح أحدث العروض والخصومات فوراً!</p>
                     <button onclick="event.stopPropagation(); handleOffersBannerClick();" class="mt-1 btn-black bg-white text-black text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition flex items-center gap-1">
-                        <span>تصفح العروض والقائمة 📂</span>
+                        <span>عرض منتجات الخصومات 💥</span>
                     </button>
                 </div>
                 <div class="w-32 h-44 sm:w-40 sm:h-52 shrink-0 relative bg-black rounded-2xl p-2 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
@@ -205,14 +205,14 @@
                 </div>
             </div>
 
-            <!-- أزرار الأسهم للتبديل اليدوي -->
-            <button onclick="prevBannerSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-md border border-white/20 shadow-lg">❯</button>
-            <button onclick="nextBannerSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black text-white w-8 h-8 rounded-full flex items-center justify-center text-xs backdrop-blur-md border border-white/20 shadow-lg">❮</button>
+            <!-- أزرار الأسهم: تم تحسين مكانها وحجمها لكي لا تغطي على النصوص -->
+            <button onclick="prevBannerSlide()" class="absolute right-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-l-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❯</button>
+            <button onclick="nextBannerSlide()" class="absolute left-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-r-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❮</button>
 
-            <!-- مؤشرات النقط السفلي -->
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
-                <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/40 transition-all"></button>
+            <!-- مؤشرات النقاط السفلية -->
+            <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-30 flex gap-1.5">
+                <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2 h-2 rounded-full bg-white transition-all"></button>
+                <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2 h-2 rounded-full bg-white/40 transition-all"></button>
             </div>
         </div>
     </div>
@@ -727,7 +727,7 @@
             stopBannerSlider();
             bannerTimer = setInterval(() => {
                 nextBannerSlide();
-            }, 4000); // تبديل تلقائي كل 4 ثواني
+            }, 4000);
         }
 
         function stopBannerSlider() {
@@ -745,10 +745,10 @@
                     if (i === currentBannerIndex) {
                         slide.classList.add('active');
                         dot.classList.remove('bg-white/40');
-                        dot.classList.add('bg-white', 'w-5');
+                        dot.classList.add('bg-white', 'w-4');
                     } else {
                         slide.classList.remove('active');
-                        dot.classList.remove('bg-white', 'w-5');
+                        dot.classList.remove('bg-white', 'w-4');
                         dot.classList.add('bg-white/40');
                     }
                 }
@@ -765,10 +765,16 @@
             setBannerSlide(prev);
         }
 
-        // تفاعلية الضغط على بانر العروض تفتح نافذة الفئات وتفعل خصم العروض
+        // الضغط على البانر يعرض المنتجات التي عليها خصومات فوراً ويركز عليها
         function handleOffersBannerClick() {
-            filterCategory('offers');
-            openCategoriesModal();
+            triggerPageReload(() => {
+                filterCategory('offers');
+                showToast('🔥 تم تصفية عروض الخصومات!');
+                const titleEl = document.getElementById('section-title');
+                if (titleEl) {
+                    titleEl.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
 
         function triggerPageReload(action) {
@@ -1017,8 +1023,23 @@
         }
 
         function syncAndSearch(val) { liveSearchProducts(); }
-        function goHome() { activeCategoryFilter = 'all'; activePriceFilter = 'all'; activeSortFilter = 'default'; currentPage = 1; window.scrollTo({ top: 0, behavior: 'smooth' }); renderStore(); }
-        function filterCategory(cat) { activeCategoryFilter = cat; currentPage = 1; renderStore(); }
+        
+        function goHome() { 
+            activeCategoryFilter = 'all'; activePriceFilter = 'all'; activeSortFilter = 'default'; 
+            currentPage = 1; 
+            document.getElementById('section-title').innerText = 'جميع المنتجات المميزة';
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            renderStore(); 
+        }
+
+        function filterCategory(cat) { 
+            activeCategoryFilter = cat; currentPage = 1; 
+            const titleEl = document.getElementById('section-title');
+            if(cat === 'offers') titleEl.innerText = '🔥 عروض المنتجات والخصومات الحصرية';
+            else if(cat !== 'all') titleEl.innerText = `قسم الـ ${cat}`;
+            else titleEl.innerText = 'جميع المنتجات المميزة';
+            renderStore(); 
+        }
 
         function liveSearchProducts() {
             clearTimeout(searchTimeout);
@@ -1073,7 +1094,7 @@
 
             document.getElementById('products-count').innerText = filtered.length + ' منتج';
             if(filtered.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-slate-400 py-12 text-xs font-bold">لا توجد منتجات مطابقة</p>';
+                grid.innerHTML = '<p class="col-span-full text-center text-slate-400 py-12 text-xs font-bold">لا توجد منتجات مطابقة لهذا القسم حالياً</p>';
                 document.getElementById('pagination-container').classList.add('hidden');
                 renderAdminTable(); return;
             }
