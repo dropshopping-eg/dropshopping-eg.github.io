@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DROP SHOPPING - المتجر الرسمي</title>
     
-    <!-- إعدادات أرشفة وصورة الموقع في محرك بحث جوجل (SEO & Open Graph) -->
+    <!-- إعدادات SEO و Schema لجوجل والفيسبوك والواتساب -->
     <meta name="google-site-verification" content="q0kfc7iiLj2Q5mgyORBqMmuuz7G2Z78RRJiLCb99uBY" />
     <meta name="description" content="تسوق أحدث المنتجات من ملابس وأحذية وإكسسوارات مع خدمة الدفع عند الاستلام والمعاينة." />
-    
-    <!-- أيقونة الموقع (Favicon) لنتائج بحث جوجل والمتصفح -->
     <link rel="icon" type="image/jpeg" href="https://i.ibb.co/3ykVz2t/1000429427.jpg">
     <link rel="apple-touch-icon" href="https://i.ibb.co/3ykVz2t/1000429427.jpg">
 
-    <!-- وسوم Open Graph لمشاركة الرابط وصورة الموقع -->
     <meta property="og:title" content="DROP SHOPPING - المتجر الرسمي">
     <meta property="og:description" content="تسوق أحدث المنتجات مع الدفع عند الاستلام وشحن سريع وضمان الجودة.">
     <meta property="og:image" content="https://i.ibb.co/3ykVz2t/1000429427.jpg">
     <meta property="og:type" content="website">
 
-    <!-- كود البيانات المنظمة (Organization Schema) لربط الصورة والشعار بجوجل -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -46,7 +42,6 @@
         body { background-color: #f8fafc; color: #0f172a; transition: background 0.3s, color 0.3s; }
         .dark body { background-color: #050505; color: #f8fafc; }
 
-        /* شريط التحميل العلوي للمتصفح باللون الأسود والأبيض */
         #top-progress-bar {
             position: fixed; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, #000000, #64748b, #ffffff);
@@ -58,27 +53,6 @@
 
         .store-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 16px; color: #0f172a; }
         .dark .store-card { background: #121212; border: 1px solid #262626; box-shadow: 0 4px 12px rgba(0,0,0,0.4); color: #f8fafc; }
-
-        #page-loading-spinner {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
-            z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
-        }
-        #page-loading-spinner.active { opacity: 1; pointer-events: auto; }
-        .spinner-ring {
-            width: 36px; height: 36px; border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #ffffff; border-radius: 50%; animation: spin 0.6s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        select, input, textarea {
-            background-color: #ffffff !important; color: #0f172a !important;
-            border: 1px solid #cbd5e1 !important; font-weight: 700 !important; border-radius: 12px !important;
-        }
-        .dark select, .dark input, .dark textarea {
-            background-color: #121212 !important; color: #ffffff !important;
-            border: 1px solid #262626 !important;
-        }
 
         .qty-btn {
             background-color: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; font-weight: 900;
@@ -143,11 +117,6 @@
 
     <div id="top-progress-bar"></div>
 
-    <div id="page-loading-spinner">
-        <div class="spinner-ring"></div>
-        <span class="text-white font-bold text-xs mt-2.5">جاري التحميل...</span>
-    </div>
-
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
     <div id="menu-backdrop" onclick="closeMenu()"></div>
 
@@ -194,16 +163,31 @@
         </div>
     </header>
 
-    <!-- بانر عروض أبيض وأسود فخم -->
-    <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
-        <div class="relative rounded-2xl overflow-hidden shadow-md bg-black text-white p-5 sm:p-7 min-h-[140px] flex items-center justify-between border border-slate-800 transition-all duration-700" id="global-hero-banner">
-            <div class="space-y-2 max-w-lg z-10">
-                <span id="hero-badge" class="bg-white text-black text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-wider shadow">DROP SHOPPING ⚡</span>
-                <h3 id="hero-title" class="text-base sm:text-2xl font-black">تشكيلة واسعة من أحدث المنتجات العالمية</h3>
-                <p id="hero-desc" class="text-xs sm:text-sm text-slate-300 font-bold">دفع عند الاستلام مع ضمان الجودة والمعاينة قبل الدفع</p>
+    <!-- قسم البانرات المزدوجة (أحدث منتج + عروض المتجر) -->
+    <div class="max-w-7xl mx-auto px-3 mt-3 w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- البانر الأول: يعرض أحدث منتج أضيف تلقائياً -->
+        <div id="latest-product-banner" class="relative rounded-2xl overflow-hidden bg-black text-white p-4 sm:p-5 flex items-center justify-between border border-slate-800 shadow-md min-h-[150px]">
+            <div class="space-y-1.5 max-w-[60%] z-10">
+                <span class="bg-white text-black text-[9px] px-2.5 py-0.5 rounded-full font-black uppercase">وصل حديثاً 🔥</span>
+                <h3 id="banner-latest-title" class="text-xs sm:text-base font-black truncate">جاري التحميل...</h3>
+                <p id="banner-latest-price" class="text-xs font-extrabold text-slate-300"></p>
+                <button id="banner-latest-buy-btn" class="mt-2 btn-black bg-white text-black text-[10px] px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition">اشترِ الآن ⚡</button>
             </div>
-            <div class="hidden sm:flex z-10 flex-col items-end gap-2">
-                <button onclick="filterCategory('offers')" class="bg-white text-black font-black px-5 py-2.5 rounded-xl text-xs shadow-lg hover:bg-slate-200 transition">تسوق الآن 🛒</button>
+            <div class="w-28 h-28 sm:w-36 sm:h-36 shrink-0 relative bg-neutral-900 rounded-xl p-1 border border-neutral-800 flex items-center justify-center overflow-hidden">
+                <img id="banner-latest-img" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
+            </div>
+        </div>
+
+        <!-- البانر الثاني: عروض المتجر وشعار الماركة -->
+        <div class="relative rounded-2xl overflow-hidden bg-neutral-900 text-white p-4 sm:p-5 flex items-center justify-between border border-neutral-800 shadow-md min-h-[150px]">
+            <div class="space-y-1.5 max-w-[60%] z-10">
+                <span class="bg-amber-400 text-black text-[9px] px-2.5 py-0.5 rounded-full font-black uppercase">خصومات حصرية 💥</span>
+                <h3 class="text-xs sm:text-base font-black">DROP SHOPPING</h3>
+                <p class="text-[10px] sm:text-xs text-neutral-300 font-bold">خصومات تصل حتى 40% ومعاينة قبل الدفع</p>
+                <button onclick="filterCategory('offers')" class="mt-2 btn-black bg-white text-black text-[10px] px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition">تصفح العروض 🛒</button>
+            </div>
+            <div class="w-28 h-28 sm:w-36 sm:h-36 shrink-0 relative bg-black rounded-xl p-2 border border-neutral-800 flex items-center justify-center overflow-hidden">
+                <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
             </div>
         </div>
     </div>
@@ -400,7 +384,22 @@
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
-        <section class="mt-12 pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
+        <!-- أزرار التنقل بين الصفحات (Pagination) - 15 منتج في الصفحة -->
+        <div id="pagination-container" class="flex justify-center items-center gap-3 mt-8">
+            <button id="prev-page-btn" onclick="changePage(-1)" class="btn-outline-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">← السابق</button>
+            <span id="page-number-indicator" class="text-xs font-black px-3 py-1 bg-slate-100 dark:bg-neutral-800 rounded-lg">صفحة 1</span>
+            <button id="next-page-btn" onclick="changePage(1)" class="btn-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">التالي →</button>
+        </div>
+
+        <!-- شريط مميزات الثقة (Trust Badges) -->
+        <div class="grid grid-cols-3 gap-2 mt-10 text-center text-[10px] sm:text-xs font-bold store-card p-3 rounded-2xl border">
+            <div class="p-1"><span class="block text-base sm:text-lg mb-0.5">🔍</span> المعاينة قبل الدفع</div>
+            <div class="p-1 border-r border-l border-slate-200 dark:border-slate-800"><span class="block text-base sm:text-lg mb-0.5">🚚</span> شحن سريع للمحافظات</div>
+            <div class="p-1"><span class="block text-base sm:text-lg mb-0.5">💵</span> الدفع عند الاستلام</div>
+        </div>
+
+        <!-- قسم آراء العملاء -->
+        <section class="mt-10 pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
                 <h3 class="text-xs font-bold text-slate-500">آراء وتجارب العملاء 🌟</h3>
             </div>
@@ -558,7 +557,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاستلم الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
@@ -690,6 +689,10 @@
         let activeSortFilter = 'default';
         let activeCategoryFilter = 'all';
 
+        // إعدادات نظام الصفحات (15 منتج لكل صفحة)
+        let currentPage = 1;
+        const ITEMS_PER_PAGE = 15;
+
         function triggerPageReload(action) {
             const bar = document.getElementById('top-progress-bar');
             if (bar) {
@@ -764,6 +767,7 @@
         function applyFiltersFromModal() {
             activePriceFilter = document.getElementById('filter-price-modal').value;
             activeSortFilter = document.getElementById('filter-sort-modal').value;
+            currentPage = 1;
             closeFilterModal();
             renderStore();
             showToast('✅ تم تطبيق الفلتر!');
@@ -774,6 +778,7 @@
             document.getElementById('filter-sort-modal').value = 'default';
             activePriceFilter = 'all';
             activeSortFilter = 'default';
+            currentPage = 1;
             closeFilterModal();
             renderStore();
             showToast('🔄 تم إعادة الضبط');
@@ -786,6 +791,7 @@
                     document.getElementById('store-header-logo').src = u;
                     document.getElementById('side-menu-logo').src = u;
                     document.getElementById('store-footer-logo').src = u;
+                    document.getElementById('side-banner-logo').src = u;
                 }
             });
         }
@@ -872,8 +878,23 @@
         db.collection("products").onSnapshot((snapshot) => {
             products = [];
             snapshot.forEach((doc) => { products.push({ id: doc.id, ...doc.data() }); });
+            renderLatestProductBanner();
             renderStore();
         });
+
+        // تحضير بانر أحدث منتج تلقائياً
+        function renderLatestProductBanner() {
+            if (products.length === 0) return;
+            let latest = products[products.length - 1]; // المنتج الأخير المضاف
+            let finalP = calculateFinalPrice(latest.price, latest.discount);
+
+            document.getElementById('banner-latest-title').innerText = latest.name;
+            document.getElementById('banner-latest-price').innerText = finalP + ' ج.م';
+            if(latest.image1) document.getElementById('banner-latest-img').src = latest.image1;
+
+            const buyBtn = document.getElementById('banner-latest-buy-btn');
+            buyBtn.onclick = () => triggerPageReload(() => openProductModal(latest.id));
+        }
 
         function toggleMenu() {
             const sideMenu = document.getElementById('side-menu');
@@ -917,8 +938,8 @@
         }
 
         function syncAndSearch(val) { liveSearchProducts(); }
-        function goHome() { activeCategoryFilter = 'all'; activePriceFilter = 'all'; activeSortFilter = 'default'; window.scrollTo({ top: 0, behavior: 'smooth' }); renderStore(); }
-        function filterCategory(cat) { activeCategoryFilter = cat; renderStore(); }
+        function goHome() { activeCategoryFilter = 'all'; activePriceFilter = 'all'; activeSortFilter = 'default'; currentPage = 1; window.scrollTo({ top: 0, behavior: 'smooth' }); renderStore(); }
+        function filterCategory(cat) { activeCategoryFilter = cat; currentPage = 1; renderStore(); }
 
         function liveSearchProducts() {
             clearTimeout(searchTimeout);
@@ -974,10 +995,41 @@
             document.getElementById('products-count').innerText = filtered.length + ' منتج';
             if(filtered.length === 0) {
                 grid.innerHTML = '<p class="col-span-full text-center text-slate-400 py-12 text-xs font-bold">لا توجد منتجات مطابقة</p>';
+                document.getElementById('pagination-container').classList.add('hidden');
                 renderAdminTable(); return;
             }
-            renderProductsList(filtered, grid);
+
+            // اقتطاع 15 منتج لكل صفحة
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const pageProducts = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+            renderProductsList(pageProducts, grid);
+            updatePaginationUI(totalPages);
             renderAdminTable();
+        }
+
+        function updatePaginationUI(totalPages) {
+            const paginationBox = document.getElementById('pagination-container');
+            if (totalPages <= 1) {
+                paginationBox.classList.add('hidden');
+                return;
+            }
+            paginationBox.classList.remove('hidden');
+            document.getElementById('page-number-indicator').innerText = `صفحة ${currentPage} من ${totalPages}`;
+            document.getElementById('prev-page-btn').disabled = (currentPage === 1);
+            document.getElementById('next-page-btn').disabled = (currentPage === totalPages);
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            triggerPageReload(() => {
+                renderStore();
+                window.scrollTo({ top: 300, behavior: 'smooth' });
+            });
         }
 
         function renderProductsList(listData, container) {
