@@ -4,7 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DROP SHOPPING - المتجر الرسمي</title>
+    
+    <!-- إعدادات أرشفة وصورة الموقع في محرك بحث جوجل (SEO & Open Graph) -->
     <meta name="google-site-verification" content="q0kfc7iiLj2Q5mgyORBqMmuuz7G2Z78RRJiLCb99uBY" />
+    <meta name="description" content="تسوق أحدث المنتجات من ملابس وأحذية وإكسسوارات مع خدمة الدفع عند الاستلام والمعاينة." />
+    
+    <!-- أيقونة الموقع (Favicon) لنتائج بحث جوجل والمتصفح -->
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/3ykVz2t/1000429427.jpg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/3ykVz2t/1000429427.jpg">
+
+    <!-- وسوم Open Graph لمشاركة الرابط وصورة الموقع -->
+    <meta property="og:title" content="DROP SHOPPING - المتجر الرسمي">
+    <meta property="og:description" content="تسوق أحدث المنتجات مع الدفع عند الاستلام وشحن سريع وضمان الجودة.">
+    <meta property="og:image" content="https://i.ibb.co/3ykVz2t/1000429427.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- كود البيانات المنظمة (Organization Schema) لربط الصورة والشعار بجوجل -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Drop Shopping",
+      "url": "https://dropshopping.com",
+      "logo": "https://i.ibb.co/3ykVz2t/1000429427.jpg"
+    }
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -66,7 +90,6 @@
         .product-card { transition: all 0.25s ease; border-radius: 16px; overflow: hidden; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.12); }
 
-        /* حركات تبديل الصور الناعمة العصرية */
         .prod-slide-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
         .prod-slide-img {
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
@@ -89,7 +112,6 @@
         .size-badge.selected, .color-badge.selected { background-color: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 900; }
         .dark .size-badge.selected, .dark .color-badge.selected { background-color: #ffffff; color: #000000; border-color: #ffffff; }
 
-        /* الأزرار الرئيسية أبيض وأسود */
         .btn-black { background: #0f172a; color: #ffffff; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; }
         .btn-black:hover { opacity: 0.85; }
         .dark .btn-black { background: #ffffff; color: #000000; border: 1px solid #ffffff; }
@@ -119,7 +141,6 @@
 </head>
 <body class="flex flex-col min-h-screen overflow-x-hidden pb-16 sm:pb-0">
 
-    <!-- شريط التحميل العلوي للمتصفح -->
     <div id="top-progress-bar"></div>
 
     <div id="page-loading-spinner">
@@ -142,7 +163,6 @@
                 </div>
             </div>
 
-            <!-- تبديل أيقونة البحث والدارك مود + تصغير أيقونة الدارك مود -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <div class="relative">
                     <button onclick="toggleSearchInput()" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 hover:opacity-75 transition text-base" title="بحث">
@@ -188,7 +208,7 @@
         </div>
     </div>
 
-    <!-- شريط الشحن المجاني (أسود وأبيض) -->
+    <!-- شريط الشحن المجاني -->
     <div class="max-w-7xl mx-auto px-3 mt-2.5 w-full">
         <div class="store-card p-3 border border-slate-200 dark:border-slate-800 space-y-1.5">
             <div class="flex justify-between items-center text-xs font-black">
@@ -240,7 +260,7 @@
         </div>
     </div>
 
-    <!-- نافذة الفئات الشغالة تماماً -->
+    <!-- نافذة الفئات -->
     <div id="categories-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
@@ -290,7 +310,7 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن (مع أداة التحكم في آراء العملاء) -->
+    <!-- لوحة تحكم الأدمن -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
@@ -318,7 +338,6 @@
                     </div>
                 </div>
 
-                <!-- التحكم الكامل في آراء وتقييمات العملاء (حذف وتعديل) -->
                 <div class="store-card p-4 rounded-xl border space-y-3">
                     <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-800 pb-1.5">💬 التحكم في آراء العملاء والكومنتات:</h4>
                     <div id="admin-reviews-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
@@ -381,7 +400,6 @@
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
-        <!-- قسم آراء العملاء المصغر والمدمج أبيض وأسود -->
         <section class="mt-12 pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
                 <h3 class="text-xs font-bold text-slate-500">آراء وتجارب العملاء 🌟</h3>
@@ -532,7 +550,7 @@
         </div>
     </div>
 
-    <!-- نافذة إتمام الطلب الشيك أبيض وأسود -->
+    <!-- نافذة إتمام الطلب -->
     <div id="checkout-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md hidden z-50 flex items-center justify-center p-3 overflow-y-auto">
         <div class="store-card w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border border-slate-200 dark:border-slate-800">
             <div class="flex justify-between items-center px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-neutral-900/80 backdrop-blur">
@@ -540,7 +558,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاستلم الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
@@ -1162,7 +1180,6 @@
             });
         }
 
-        /* ووظائف التحكم والتعديل والحذف للكومنتات في لوحة الأدمن */
         function renderAdminReviewsManageList() {
             const list = document.getElementById('admin-reviews-manage-list');
             if(!list) return; list.innerHTML = '';
