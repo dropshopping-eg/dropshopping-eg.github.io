@@ -51,7 +51,7 @@
         .store-header { background-color: #ffffff; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
         .dark .store-header { background-color: #000000; color: #ffffff; border-bottom: 1px solid #1e293b; }
 
-        .store-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 16px; color: #0f172a; }
+        .store-card { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-radius: 20px; color: #0f172a; }
         .dark .store-card { background: #121212; border: 1px solid #262626; box-shadow: 0 4px 12px rgba(0,0,0,0.4); color: #f8fafc; }
 
         .qty-btn {
@@ -61,16 +61,16 @@
         }
         .dark .qty-btn { background-color: #262626; color: #ffffff; border: 1px solid #404040; }
 
-        .product-card { transition: all 0.25s ease; border-radius: 16px; overflow: hidden; }
+        .product-card { transition: all 0.25s ease; border-radius: 20px; overflow: hidden; background: #ffffff; }
+        .dark .product-card { background: #121212; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px -5px rgba(0,0,0,0.12); }
 
         .prod-slide-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
         .prod-slide-img {
-            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
             transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
-        /* تنسيق السلايدر بمقاس التيك توك الأقصر والأنيق */
         .banner-slide {
             position: absolute; inset: 0; width: 100%; height: 100%;
             opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -173,11 +173,10 @@
         </div>
     </header>
 
-    <!-- البانر الطولي المظبوط بمقاس التيك توك مع إصلاح مكان أسرار التبديل -->
+    <!-- البانر -->
     <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
         <div id="hero-slider-container" class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-60 sm:h-72 bg-black" onmouseenter="pauseBannerSlider()" onmouseleave="startBannerSlider()">
             
-            <!-- البانر الأول: أحدث منتج أضيف تلقائياً -->
             <div id="slide-banner-1" class="banner-slide active bg-gradient-to-r from-black via-neutral-900 to-black text-white px-8 py-5 sm:px-12 sm:py-7 flex items-center justify-between">
                 <div class="space-y-2 max-w-[60%] z-10">
                     <span class="bg-white text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">وصل حديثاً 🔥</span>
@@ -190,7 +189,6 @@
                 </div>
             </div>
 
-            <!-- البانر الثاني: تعرض المنتجات التي عليها خصم فوراً عند الضغط -->
             <div id="slide-banner-2" class="banner-slide bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-8 py-5 sm:px-12 sm:py-7 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
                 <div class="space-y-2 max-w-[60%] z-10">
                     <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض المتجر 💥</span>
@@ -205,11 +203,9 @@
                 </div>
             </div>
 
-            <!-- أزرار الأسهم: تم تحسين مكانها وحجمها لكي لا تغطي على النصوص -->
             <button onclick="prevBannerSlide()" class="absolute right-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-l-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❯</button>
             <button onclick="nextBannerSlide()" class="absolute left-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-r-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❮</button>
 
-            <!-- مؤشرات النقاط السفلية -->
             <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-30 flex gap-1.5">
                 <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2 h-2 rounded-full bg-white transition-all"></button>
                 <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2 h-2 rounded-full bg-white/40 transition-all"></button>
@@ -409,21 +405,18 @@
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
-        <!-- أزرار التنقل بين الصفحات (Pagination) - 15 منتج في الصفحة -->
         <div id="pagination-container" class="flex justify-center items-center gap-3 mt-8">
             <button id="prev-page-btn" onclick="changePage(-1)" class="btn-outline-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">← السابق</button>
             <span id="page-number-indicator" class="text-xs font-black px-3 py-1 bg-slate-100 dark:bg-neutral-800 rounded-lg">صفحة 1</span>
             <button id="next-page-btn" onclick="changePage(1)" class="btn-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">التالي →</button>
         </div>
 
-        <!-- شريط مميزات الثقة (Trust Badges) -->
         <div class="grid grid-cols-3 gap-2 mt-10 text-center text-[10px] sm:text-xs font-bold store-card p-3 rounded-2xl border">
             <div class="p-1"><span class="block text-base sm:text-lg mb-0.5">🔍</span> المعاينة قبل الدفع</div>
             <div class="p-1 border-r border-l border-slate-200 dark:border-slate-800"><span class="block text-base sm:text-lg mb-0.5">🚚</span> شحن سريع للمحافظات</div>
             <div class="p-1"><span class="block text-base sm:text-lg mb-0.5">💵</span> الدفع عند الاستلام</div>
         </div>
 
-        <!-- قسم آراء العملاء -->
         <section class="mt-10 pt-5 border-t border-slate-200 dark:border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
                 <h3 class="text-xs font-bold text-slate-500">آراء وتجارب العملاء 🌟</h3>
@@ -452,7 +445,7 @@
         </section>
     </main>
 
-    <!-- صفحة تفاصيل المنتج -->
+    <!-- نافذة تفاصيل المنتج -->
     <div id="product-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="store-card w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[96vh]">
             <div class="flex justify-between items-center p-3.5 border-b border-slate-200 dark:border-slate-800">
@@ -714,11 +707,9 @@
         let activeSortFilter = 'default';
         let activeCategoryFilter = 'all';
 
-        // إعدادات نظام الصفحات (15 منتج لكل صفحة)
         let currentPage = 1;
         const ITEMS_PER_PAGE = 15;
 
-        // إعدادات السلايدر التلقائي للبانرات
         let currentBannerIndex = 0;
         let bannerTimer = null;
         const TOTAL_BANNERS = 2;
@@ -765,7 +756,6 @@
             setBannerSlide(prev);
         }
 
-        // الضغط على البانر يعرض المنتجات التي عليها خصومات فوراً ويركز عليها
         function handleOffersBannerClick() {
             triggerPageReload(() => {
                 filterCategory('offers');
@@ -967,7 +957,6 @@
             renderStore();
         });
 
-        // تحضير بانر أحدث منتج تلقائياً
         function renderLatestProductBanner() {
             if (products.length === 0) return;
             let latest = products[products.length - 1];
@@ -1054,7 +1043,7 @@
                     matches.slice(0, 5).forEach(m => {
                         suggBox.innerHTML += `
                             <div onclick="triggerPageReload(() => { openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden'); })" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
-                                <img src="${m.image1}" class="w-8 h-8 object-contain rounded border bg-white p-0.5">
+                                <img src="${m.image1}" class="w-8 h-8 object-cover rounded border bg-white p-0.5">
                                 <div class="flex flex-col">
                                     <span>${m.name}</span>
                                     <span class="text-slate-400 text-[10px]">${m.price} ج.م</span>
@@ -1131,16 +1120,30 @@
             });
         }
 
+        /* كارت المنتج الجديد المصمم بالضبط مثل الصورة التي أرسلتها */
         function renderProductsList(listData, container) {
             listData.forEach(p => {
                 let disc = Number(p.discount) || 0;
                 let finalPrice = calculateFinalPrice(p.price, disc);
+                
+                let discountBadgeHtml = disc > 0 ? `
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-red-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shadow-md">
+                        خصم ${disc}%
+                    </span>
+                ` : '';
+
                 let priceHtml = disc > 0 ? `
-                    <div class="flex items-center gap-1.5 flex-wrap my-1">
-                        <span class="bg-black text-white dark:bg-white dark:text-black font-black text-[9px] px-1.5 py-0.5 rounded-md">-${disc}%</span>
-                        <span class="font-black text-xs sm:text-sm">${finalPrice} <span class="text-[9px]">ج.م</span></span>
-                        <span class="text-slate-400 line-through text-[9px]">${p.price} ج.م</span>
-                    </div>` : `<p class="font-black text-xs sm:text-sm my-1">${p.price || 0} <span class="text-[9px]">ج.م</span></p>`;
+                    <div class="flex items-baseline gap-2 my-1">
+                        <span class="font-black text-sm sm:text-base">${finalPrice} <span class="text-[10px]">ج.م</span></span>
+                        <span class="text-slate-400 line-through text-[10px]">${p.price} ج.م</span>
+                    </div>` : `<p class="font-black text-sm sm:text-base my-1">${p.price || 0} <span class="text-[10px]">ج.م</span></p>`;
+
+                let colorsList = p.colors ? p.colors.split('/').map(c => c.trim()) : [];
+                let colorsCapsulesHtml = colorsList.length > 0 ? `
+                    <div class="flex flex-wrap gap-1 mt-1">
+                        ${colorsList.map(c => `<span class="bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 font-bold text-[9px] px-2 py-0.5 rounded-md border border-slate-200 dark:border-neutral-700">${c}</span>`).join('')}
+                    </div>
+                ` : '';
 
                 let img1 = p.image1 || '';
                 let img2 = (p.image2 && p.image2.length > 5) ? p.image2 : img1;
@@ -1169,21 +1172,24 @@
                 }
 
                 container.innerHTML += `
-                    <div class="product-card store-card flex flex-col justify-between p-2.5 relative group border">
+                    <div class="product-card store-card flex flex-col justify-between p-2 relative group border">
                         <div class="cursor-pointer" onclick="triggerPageReload(() => openProductModal('${p.id}'))">
-                            <div class="w-full h-44 sm:h-56 rounded-xl mb-2 overflow-hidden relative bg-slate-50 dark:bg-neutral-900/50">
+                            <div class="w-full h-48 sm:h-64 rounded-2xl mb-2 overflow-hidden relative bg-slate-100 dark:bg-neutral-900">
+                                ${discountBadgeHtml}
                                 <div class="prod-slide-container">
                                     <img id="${imgAId}" src="${img1}" alt="${p.name || ''}" class="prod-slide-img opacity-100">
                                     <img id="${imgBId}" src="${img2}" alt="${p.name || ''}" class="prod-slide-img opacity-0">
                                 </div>
                             </div>
-                            <h4 class="font-bold text-xs line-clamp-2 leading-tight mt-1">${p.name || ''}</h4>
-                        </div>
-                        <div>
+                            <span class="text-[10px] text-slate-400 font-bold block">${p.category || 'عام'}</span>
+                            <h4 class="font-bold text-xs sm:text-sm line-clamp-1 leading-snug text-slate-900 dark:text-white mt-0.5">${p.name || ''}</h4>
                             ${priceHtml}
-                            <div class="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-slate-100 dark:border-slate-800">
-                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="btn-outline-black py-2 text-[10px]">سلة 🛒</button>
-                                <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="btn-black py-2 text-[10px] font-black shadow">شراء ⚡</button>
+                            ${colorsCapsulesHtml}
+                        </div>
+                        <div class="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800">
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="btn-outline-black py-1.5 text-[10px]">سلة 🛒</button>
+                                <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="btn-black py-1.5 text-[10px] font-black shadow">شراء ⚡</button>
                             </div>
                         </div>
                     </div>
@@ -1249,7 +1255,7 @@
             const imagesList = [p.image1, p.image2].filter(img => img && img.length > 5);
             if (imagesList.length > 1) {
                 imagesList.forEach((imgUrl, i) => {
-                    thumbsContainer.innerHTML += `<img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-contain rounded-xl border-2 ${i === 0 ? 'border-black dark:border-white' : 'border-slate-200'} cursor-pointer p-0.5 bg-white shrink-0">`;
+                    thumbsContainer.innerHTML += `<img src="${imgUrl}" onclick="switchModalImage('${imgUrl}', this)" class="modal-thumb-img w-12 h-12 object-cover rounded-xl border-2 ${i === 0 ? 'border-black dark:border-white' : 'border-slate-200'} cursor-pointer p-0.5 bg-white shrink-0">`;
                 });
             }
 
@@ -1399,7 +1405,7 @@
 
             let newP = {
                 id: productId, name, sku: productId, price: Number(price), discount: Number(discount),
-                category, colors: colors || 'أساسي', sizes: sizes || 'S / M / L / XL', desc,
+                category, colors: colors || 'أسود / أبيض / بيج', sizes: sizes || 'S / M / L / XL', desc,
                 image1: existingProduct.image1 || '', image2: existingProduct.image2 || ''
             };
 
@@ -1457,7 +1463,7 @@
                 list.innerHTML += `
                     <div class="flex justify-between items-center store-card p-2 rounded-xl border gap-2">
                         <div class="flex items-center gap-2">
-                            <img src="${p.image1 || ''}" class="w-8 h-8 object-contain rounded border bg-white p-0.5 shrink-0">
+                            <img src="${p.image1 || ''}" class="w-8 h-8 object-cover rounded border bg-white p-0.5 shrink-0">
                             <span class="truncate w-32 font-bold text-xs">${p.name}</span>
                         </div>
                         <div class="flex items-center gap-1">
@@ -1477,7 +1483,7 @@
             const product = products.find(p => String(p.id) === String(id));
             if (product) {
                 const sz = product.sizes ? product.sizes.split('/')[0].trim() : 'L';
-                const col = product.colors ? product.colors.split('/')[0].trim() : 'أساسي';
+                const col = product.colors ? product.colors.split('/')[0].trim() : 'أسود';
                 const existing = cart.find(item => String(item.product.id) === String(id) && item.size === sz && item.color === col);
                 if (existing) { existing.quantity += 1; } 
                 else { cart.push({ product: product, quantity: 1, size: sz, color: col }); }
@@ -1539,7 +1545,7 @@
                 itemsContainer.innerHTML += `
                     <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2.5 text-xs gap-2">
                         <div class="flex items-center gap-2">
-                            <img src="${item.product.image1 || ''}" class="w-12 h-12 rounded-xl object-contain border bg-white p-0.5">
+                            <img src="${item.product.image1 || ''}" class="w-12 h-12 rounded-xl object-cover border bg-white p-0.5">
                             <div>
                                 <p class="font-bold text-xs truncate w-28">${item.product.name}</p>
                                 <p class="text-[10px] text-slate-400 font-bold">${item.size} | ${item.color} | ${unitPrice} ج.م</p>
