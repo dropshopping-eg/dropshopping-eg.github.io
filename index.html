@@ -86,18 +86,9 @@
             transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
-        .banner-slide {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none; z-index: 1; transform: scale(0.96);
-        }
-        .banner-slide.active {
-            opacity: 1; pointer-events: auto; z-index: 2; transform: scale(1);
-        }
-
-        /* أنيميشن تبدل مربعات المنتجات جوه البانر الأول */
+        /* حركة المربعات بسلو موشن ناعم جداً */
         .banner-rotating-box {
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #toast-notification {
@@ -193,50 +184,41 @@
         </div>
     </header>
 
-    <!-- البانر الاحترافي (المربعات بتتحرك وتبدل كل المنتجات أوتوماتيك مع إمكانية الضغط لفتح تفاصيل المنتج) -->
-    <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
-        <div id="hero-slider-container" class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-60 sm:h-72 bg-black" onmouseenter="pauseBannerSlider()" onmouseleave="startBannerSlider()">
+    <!-- البانر على خطين (قسمين ثابتين وبينهما مربعات تتحرك بسلو موشن لتعرض كل المنتجات بالدور) -->
+    <div class="max-w-7xl mx-auto px-3 mt-3 w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+        
+        <!-- الخط الأول: البانر العلوي الثابت للترحيب واسم المتجر ومربعات المنتجات بسلو موشن -->
+        <div class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-56 sm:h-64 bg-gradient-to-r from-black via-neutral-900 to-black text-white px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between">
+            <div class="space-y-2 max-w-[50%] z-10">
+                <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">DROP SHOPPING 👑</span>
+                <h3 class="text-xs sm:text-base font-black truncate leading-snug">مرحباً بك في متجرك العصري</h3>
+                <p class="text-[10px] sm:text-xs text-slate-300 font-bold leading-tight">اضغط على أي منتج أدناه لعرض تفاصيله وشرائه فوراً.</p>
+                <button onclick="triggerPageReload(goHome)" class="mt-1 btn-black bg-white text-black text-xs px-3 py-1.5 rounded-xl font-black shadow hover:bg-slate-200 transition">تسوق الآن ⚡</button>
+            </div>
             
-            <!-- السلايد الأول: المربعات المتحركة التي تعرض جميع المنتجات وتتبدل وتفتح تفاصيل المنتج عند النقر -->
-            <div id="slide-banner-1" class="banner-slide active bg-gradient-to-r from-black via-neutral-900 to-black text-white px-5 py-4 sm:px-8 sm:py-6 flex items-center justify-between">
-                <div class="space-y-2 max-w-[48%] z-10">
-                    <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">المنتجات الرائجة 🔥</span>
-                    <h3 class="text-xs sm:text-lg font-black truncate leading-snug">أحدث الصيحات والعروض</h3>
-                    <p class="text-[10px] sm:text-xs text-slate-300 font-bold leading-tight">اضغط على أي منتج أدناه لفتح تفاصيله مباشرة!</p>
-                    <button onclick="triggerPageReload(goHome)" class="mt-1 btn-black bg-white text-black text-xs px-3 py-1.5 rounded-xl font-black shadow hover:bg-slate-200 transition">تسوق الآن ⚡</button>
-                </div>
-                
-                <!-- مربعات المنتجات المتحركة بتبديل أوتوماتيكي -->
-                <div class="w-48 h-44 sm:w-60 sm:h-52 shrink-0 relative grid grid-cols-3 gap-1.5 items-center p-1.5 bg-neutral-950/60 rounded-2xl border border-neutral-800 shadow-inner overflow-hidden">
-                    <div id="rotating-box-1" class="banner-rotating-box w-full h-28 sm:h-36 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform -translate-y-2 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(0)"></div>
-                    <div id="rotating-box-2" class="banner-rotating-box w-full h-32 sm:h-40 rounded-xl overflow-hidden border-2 border-amber-400/90 shadow-xl bg-neutral-900 z-10 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(1)"></div>
-                    <div id="rotating-box-3" class="banner-rotating-box w-full h-28 sm:h-36 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform translate-y-2 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(2)"></div>
-                </div>
-            </div>
-
-            <!-- السلايد الثاني: عروض المتجر -->
-            <div id="slide-banner-2" class="banner-slide bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-8 py-5 sm:px-12 sm:py-7 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
-                <div class="space-y-2 max-w-[60%] z-10">
-                    <span class="bg-red-600 text-white text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض الخصومات 💥</span>
-                    <h3 class="text-sm sm:text-xl font-black">DROP SHOPPING</h3>
-                    <p class="text-[11px] sm:text-xs text-neutral-300 font-bold leading-relaxed">اضغط هنا لتصفح أقوى الخصومات الفورية في المتجر!</p>
-                    <button onclick="event.stopPropagation(); handleOffersBannerClick();" class="mt-1 btn-black bg-white text-black text-xs px-4 py-2 rounded-xl font-black shadow hover:bg-slate-200 transition flex items-center gap-1">
-                        <span>عرض منتجات الخصومات 💥</span>
-                    </button>
-                </div>
-                <div class="w-32 h-44 sm:w-40 sm:h-52 shrink-0 relative bg-black rounded-2xl p-2 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
-                    <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-xl">
-                </div>
-            </div>
-
-            <button onclick="prevBannerSlide()" class="absolute right-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-l-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❯</button>
-            <button onclick="nextBannerSlide()" class="absolute left-1 top-1/2 -translate-y-1/2 z-30 bg-black/40 hover:bg-black/80 text-white w-6 h-10 rounded-r-lg flex items-center justify-center text-xs backdrop-blur-sm border border-white/10 transition">❮</button>
-
-            <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 z-30 flex gap-1.5">
-                <button onclick="setBannerSlide(0)" id="banner-dot-0" class="w-2 h-2 rounded-full bg-white transition-all"></button>
-                <button onclick="setBannerSlide(1)" id="banner-dot-1" class="w-2 h-2 rounded-full bg-white/40 transition-all"></button>
+            <!-- مربعات المنتجات المتحركة بـ Slow Motion هادئ -->
+            <div class="w-44 h-40 sm:w-52 sm:h-44 shrink-0 relative grid grid-cols-3 gap-1 items-center p-1.5 bg-neutral-950/60 rounded-2xl border border-neutral-800 shadow-inner overflow-hidden">
+                <div id="rotating-box-1" class="banner-rotating-box w-full h-24 sm:h-32 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform -translate-y-1.5 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(0)"></div>
+                <div id="rotating-box-2" class="banner-rotating-box w-full h-28 sm:h-36 rounded-xl overflow-hidden border-2 border-amber-400/90 shadow-xl bg-neutral-900 z-10 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(1)"></div>
+                <div id="rotating-box-3" class="banner-rotating-box w-full h-24 sm:h-32 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform translate-y-1.5 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(2)"></div>
             </div>
         </div>
+
+        <!-- الخط الثاني: البانر السفلي الثابت لعروض الخصومات -->
+        <div class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-56 sm:h-64 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
+            <div class="space-y-2 max-w-[55%] z-10">
+                <span class="bg-red-600 text-white text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض الخصومات 💥</span>
+                <h3 class="text-xs sm:text-base font-black">أقوى تخفيضات الموسم</h3>
+                <p class="text-[10px] sm:text-xs text-neutral-300 font-bold leading-relaxed">اضغط هنا لتصفح الخصومات الفورية وشحن سريع لكافة المحافظات!</p>
+                <button onclick="event.stopPropagation(); handleOffersBannerClick();" class="mt-1 btn-black bg-white text-black text-xs px-3.5 py-1.5 rounded-xl font-black shadow hover:bg-slate-200 transition flex items-center gap-1">
+                    <span>تصفح عروض الخصومات 💥</span>
+                </button>
+            </div>
+            <div class="w-32 h-36 sm:w-36 sm:h-44 shrink-0 relative bg-black rounded-2xl p-2 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
+                <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-xl">
+            </div>
+        </div>
+
     </div>
 
     <!-- شريط الشحن المجاني -->
@@ -341,7 +323,7 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن -->
+    <!-- لوحة تحكم الأدمن (مع زر ذكاء Gemini المحسن لتوليد التفاصيل من الصورة) -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
@@ -362,17 +344,17 @@
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
                 
-                <!-- مساعد الذكاء الاصطناعي Gemini الحقيقي -->
+                <!-- مساعد الذكاء الاصطناعي Gemini الحقيقي والمصحح -->
                 <div class="store-card p-4 rounded-xl border border-amber-400/50 bg-amber-500/5 space-y-2">
                     <h4 class="font-black text-xs text-amber-500 flex items-center gap-1.5">
-                        <span>✨ مساعد Gemini الذكي لإضافة المنتجات</span>
+                        <span>✨ مساعد Gemini الذكي لتوليد التفاصيل من الصورة</span>
                     </h4>
-                    <p class="text-[11px] text-slate-400 font-bold">ارفع صورة المنتج واكتب السعر فقط، ثم اضغط على الزر ليقوم Gemini بتحليل الصورة وتوليد التفاصيل بالكامل!</p>
+                    <p class="text-[11px] text-slate-400 font-bold">ارفع صورة المنتج واكتب السعر المطلوب، ثم اضغط توليد ليقوم Gemini بقراءة الصورة بدقة وملء كافة البيانات تلقائياً!</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <input type="file" id="ai-gemini-file" accept="image/*" class="admin-input p-1">
                         <input type="number" id="ai-gemini-price" placeholder="السعر المطلوب (ج.م)" class="admin-input">
                     </div>
-                    <button onclick="fillProductWithGeminiAI()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black py-2 rounded-xl text-xs transition shadow">توليد التفاصيل بذكاء Gemini ⚡</button>
+                    <button onclick="fillProductWithGeminiAI()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black py-2.5 rounded-xl text-xs transition shadow-lg">توليد التفاصيل بالذكاء الاصطناعي ⚡</button>
                 </div>
 
                 <div class="store-card p-4 rounded-xl border space-y-2">
@@ -639,7 +621,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاست الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
@@ -774,93 +756,18 @@
         let currentPage = 1;
         const ITEMS_PER_PAGE = 15;
 
-        let currentBannerIndex = 0;
-        let bannerTimer = null;
-        const TOTAL_BANNERS = 2;
-
         let rotatingIndexOffset = 0;
         let rotatingInterval = null;
 
-        function startBannerSlider() {
-            stopBannerSlider();
-            bannerTimer = setInterval(() => {
-                nextBannerSlide();
-            }, 4000);
-
-            // تفعيل حركة تبدل مربعات المنتجات جوه البانر الأول أوتوماتيك
+        function startRotatingBoxes() {
             if (rotatingInterval) clearInterval(rotatingInterval);
+            // سلو موشن هادئ ومريح (كل 4 ثواني يتحرك خطوة ليعرض كل المنتجات بالدور)
             rotatingInterval = setInterval(() => {
                 if (products.length > 0) {
                     rotatingIndexOffset = (rotatingIndexOffset + 1) % products.length;
                     renderRotatingBoxes();
                 }
-            }, 3000);
-        }
-
-        function stopBannerSlider() {
-            if (bannerTimer) clearInterval(bannerTimer);
-            if (rotatingInterval) clearInterval(rotatingInterval);
-        }
-
-        function pauseBannerSlider() { stopBannerSlider(); }
-
-        function setBannerSlide(index) {
-            currentBannerIndex = index;
-            for (let i = 0; i < TOTAL_BANNERS; i++) {
-                const slide = document.getElementById(`slide-banner-${i + 1}`);
-                const dot = document.getElementById(`banner-dot-${i}`);
-                if (slide && dot) {
-                    if (i === currentBannerIndex) {
-                        slide.classList.add('active');
-                        dot.classList.remove('bg-white/40');
-                        dot.classList.add('bg-white', 'w-4');
-                    } else {
-                        slide.classList.remove('active');
-                        dot.classList.remove('bg-white', 'w-4');
-                        dot.classList.add('bg-white/40');
-                    }
-                }
-            }
-        }
-
-        function nextBannerSlide() {
-            let next = (currentBannerIndex + 1) % TOTAL_BANNERS;
-            setBannerSlide(next);
-        }
-
-        function prevBannerSlide() {
-            let prev = (currentBannerIndex - 1 + TOTAL_BANNERS) % TOTAL_BANNERS;
-            setBannerSlide(prev);
-        }
-
-        function handleOffersBannerClick() {
-            triggerPageReload(() => {
-                filterCategory('offers');
-                showToast('🔥 تم تصفية عروض الخصومات!');
-                const titleEl = document.getElementById('section-title');
-                if (titleEl) {
-                    titleEl.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        }
-
-        function triggerPageReload(action) {
-            const bar = document.getElementById('top-progress-bar');
-            if (bar) {
-                bar.style.opacity = '1';
-                bar.style.width = '40%';
-                setTimeout(() => {
-                    bar.style.width = '80%';
-                    if (typeof action === 'function') action();
-                    setTimeout(() => {
-                        bar.style.width = '100%';
-                        setTimeout(() => {
-                            bar.style.opacity = '0';
-                            bar.style.width = '0%';
-                        }, 200);
-                    }, 150);
-                }, 100);
-            } else if (typeof action === 'function') { action(); }
+            }, 4000);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -872,7 +779,7 @@
             loadHomepageReviews();
             setStoreRating(5);
             initTheme();
-            startBannerSlider();
+            startRotatingBoxes();
         });
 
         function initTheme() {
@@ -1037,7 +944,6 @@
             renderStore();
         });
 
-        // رسم وترتيل مربعات المنتجات المتحركة داخل البانر الأول وتحديثها مع كل تبديل
         let activeRotatingProductIds = [];
         function renderRotatingBoxes() {
             if (products.length === 0) return;
@@ -1056,7 +962,6 @@
             }
         }
 
-        // عند الضغط على أي مربع منتج جوه البانر، يفتح تفاصيله مباشرة!
         function clickRotatingProduct(boxIndex) {
             let prodId = activeRotatingProductIds[boxIndex];
             if (prodId) {
@@ -1297,13 +1202,15 @@
             });
         }
 
+        // زر تفعيل تحليل الذكاء الاصطناعي (Gemini) الحقيقي والمصحح
         async function fillProductWithGeminiAI() {
-            const file = document.getElementById('ai-gemini-file').files[0];
+            const fileInput = document.getElementById('ai-gemini-file');
+            const file = fileInput.files[0];
             const userPrice = document.getElementById('ai-gemini-price').value.trim();
 
             if (!file) return showToast('⚠️ يرجى رفع صورة المنتج أولاً ليقوم Gemini بتحليلها!');
 
-            showToast('✨ Gemini يحلل الصورة الآن ويولد تفاصيل المنتج...');
+            showToast('✨ Gemini يحلل الصورة الآن ويولد تفاصيل المنتج بدقة...');
 
             try {
                 let base64Image = await readFileAsBase64(file);
@@ -1315,7 +1222,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [
-                                { text: "قم بتحليل صورة هذا المنتج واقترح لي باللغة العربية: اسم تجاري احترافي للمنتج، القسم (ملابس، أحذية، إكسسوارات)، الألوان المقترحة (مفصولة بـ /)، المقاسات (مفصولة بـ /)، نسبة الخصم المقترحة (رقم فقط بين 10 و 30 أو 0)، ووصف ترويجي جذاب وخامات ممتازة. أجب بصيغة JSON مفاتيحها: name, category, colors, sizes, discount, desc" },
+                                { text: "قم بتحليل صورة هذا المنتج واقترح لي باللغة العربية بصيغة JSON حقيقية بدون أي نص زائد أو علامات markdown غير مطلوبة، على أن تكون المفاتيح كالتالي: name (اسم تجاري فخم للمنتج)، category (إما ملابس أو أحذية أو إكسسوارات)، colors (الألوان المقترحة مفصولة بـ / مثل أسود / أبيض)، sizes (المقاسات مثل S / M / L / XL)، discount (رقم الخصم المقترحة بين 10 و 30 أو 0)، desc (وصف تفصيلي احترافي للخامة والتصميم)." },
                                 { inline_data: { mime_type: file.type || "image/jpeg", data: base64Image.split(',')[1] } }
                             ]
                         }]
@@ -1347,6 +1254,7 @@
                 document.getElementById('new-sizes').value = parsed.sizes || "S / M / L / XL";
                 document.getElementById('new-desc').value = parsed.desc || "تصميم راقٍ ومميز يناسب جميع الأذواق.";
                 
+                // حفظ الصورة مؤقتاً لتعتمد كصورة للمنتج الجديد
                 document.getElementById('image1-file').dataset.autoBase64 = base64Image;
 
                 showToast('✅ تم توليد كافة بيانات المنتج بواسطة Gemini بنجاح!');
