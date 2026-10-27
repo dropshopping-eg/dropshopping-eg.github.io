@@ -175,15 +175,13 @@
         </div>
     </header>
 
-    <!-- البانرين: بانر الترحيب والمربعات المتحركة فوق، وبانر العروض تحته مباشرة -->
-    <div class="max-w-7xl mx-auto px-3 mt-3 w-full space-y-3">
-        
-        <!-- بانر الترحيب (فوق تماماً) ومعاه المربعات اللي بتتحرك بسلو موشن لعرض كل المنتجات -->
+    <!-- بانر الترحيب الوحيد (بالمربعات المتحركة ببطء) - تم إلغاء بانر العروض نهائياً -->
+    <div class="max-w-7xl mx-auto px-3 mt-3 w-full">
         <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-black via-neutral-900 to-black text-white px-4 py-3 flex items-center justify-between">
             <div class="space-y-1 max-w-[55%] z-10">
                 <span class="bg-amber-400 text-black text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">WELCOME 👑</span>
                 <h3 class="text-xs sm:text-sm font-black truncate leading-snug">مرحباً بك في عالم الفخامة والأناقة</h3>
-                <p class="text-[9px] sm:text-[10px] text-slate-300 font-bold">تسوق تشكيلة حصرية من أرقى المنتجات مع الدفع عند الاستلام وضمان الجودة العالية.</p>
+                <p class="text-[9px] sm:text-[10px] text-slate-300 font-bold">تسوق تشكيلة حصرية من أرقى المنتجات مع الدفع عند الاستلام وضمان الجودة.</p>
             </div>
             
             <div class="w-36 h-22 sm:w-44 sm:h-26 shrink-0 relative grid grid-cols-3 gap-1 items-center p-1 bg-neutral-950/80 rounded-xl border border-neutral-800 overflow-hidden">
@@ -192,19 +190,6 @@
                 <div id="rotating-box-3" class="banner-rotating-box w-full h-18 sm:h-22 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(2)"></div>
             </div>
         </div>
-
-        <!-- بانر عروض الخصومات (تحت بانر الترحيب مباشرة) -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-4 py-3 flex items-center justify-between cursor-pointer" onclick="filterCategory('offers')">
-            <div class="space-y-1 max-w-[60%] z-10">
-                <span class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">عروض الخصومات 💥</span>
-                <h3 class="text-xs sm:text-sm font-black">أقوى تخفيضات الموسم</h3>
-                <p class="text-[9px] sm:text-[10px] text-neutral-300 font-bold">اضغط هنا لتصفح الخصومات الفورية وشحن سريع لكافة المحافظات!</p>
-            </div>
-            <div class="w-20 h-22 sm:w-24 sm:h-26 shrink-0 relative bg-black rounded-xl p-1.5 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-md">
-                <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
-            </div>
-        </div>
-
     </div>
 
     <!-- شريط الشحن المجاني -->
@@ -765,8 +750,20 @@
             setStoreRating(5);
             initTheme();
             startRotatingBoxes();
-            setupGestureGestures();
+            setupHistoryBackManagement();
         });
+
+        // إدارة زر الرجوع في المتصفح/الهاتف لكي يغلق النوافذ بدل الخروج من الموقع
+        function setupHistoryBackManagement() {
+            window.addEventListener('popstate', (event) => {
+                // عند الضغط على زر الرجوع، قم بإغلاق أي نافذة مفتوحة بدلاً من الخروج من الموقع
+                closeAllModalsSilently();
+            });
+        }
+
+        function pushModalHistoryState() {
+            history.pushState({ modalOpen: true }, "", window.location.href);
+        }
 
         function initTheme() {
             const savedTheme = localStorage.getItem('drop_shopping_theme');
@@ -779,7 +776,6 @@
                     document.getElementById('theme-icon').innerText = '🌙';
                 }
             } else {
-                // الكشف التلقائي حسب النظام (Auto Dark/Light)
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     document.documentElement.classList.add('dark');
                     document.getElementById('theme-icon').innerText = '☀️';
@@ -802,33 +798,13 @@
             }
         }
 
-        // دعم إيماءات التليفون (السحب لليمين/اليسار لإغلاق النوافذ والرجوع)
-        function setupGestureGestures() {
-            let touchstartX = 0;
-            let touchendX = 0;
-
-            window.addEventListener('touchstart', e => {
-                touchstartX = e.changedTouches[0].screenX;
-            }, false);
-
-            window.addEventListener('touchend', e => {
-                touchendX = e.changedTouches[0].screenX;
-                handleSwipeGesture();
-            }, false);
-
-            function handleSwipeGesture() {
-                // سحب لليمين (إيماءة الرجوع في الهواتف)
-                if (touchendX - touchstartX > 100) {
-                    closeAllModals();
-                }
-            }
-        }
-
         function openCategoriesModal() {
+            pushModalHistoryState();
             document.getElementById('categories-modal').classList.remove('hidden');
         }
 
         function openFilterModal() {
+            pushModalHistoryState();
             document.getElementById('filter-modal').classList.remove('hidden');
         }
 
@@ -859,7 +835,6 @@
                     document.getElementById('store-header-logo').src = u;
                     document.getElementById('side-menu-logo').src = u;
                     document.getElementById('store-footer-logo').src = u;
-                    document.getElementById('side-banner-logo').src = u;
                 }
             });
         }
@@ -924,6 +899,10 @@
         }
 
         function closeAllModals() {
+            history.back(); // الرجوع خطوة في الـ history لتعويض الهستوري اللي ضفناه
+        }
+
+        function closeAllModalsSilently() {
             const sideMenu = document.getElementById('side-menu');
             const backdrop = document.getElementById('menu-backdrop');
             if (sideMenu) sideMenu.classList.add('translate-x-full');
@@ -972,6 +951,7 @@
             const sideMenu = document.getElementById('side-menu');
             const backdrop = document.getElementById('menu-backdrop');
             if (sideMenu.classList.contains('translate-x-full')) {
+                pushModalHistoryState();
                 sideMenu.classList.remove('translate-x-full');
                 if(backdrop) backdrop.classList.add('active');
             } else {
@@ -981,7 +961,12 @@
 
         function toggleSearchInput() {
             const box = document.getElementById('search-popup-box');
-            box.classList.toggle('hidden');
+            if (box.classList.contains('hidden')) {
+                pushModalHistoryState();
+                box.classList.remove('hidden');
+            } else {
+                closeAllModals();
+            }
         }
 
         function handleSecretAdminClick() {
@@ -992,6 +977,7 @@
                 if (pass === ADMIN_PASSWORD) {
                     renderAdminOrdersManageList();
                     renderAdminReviewsManageList();
+                    pushModalHistoryState();
                     document.getElementById('admin-secret-modal').classList.remove('hidden');
                 } else if (pass !== null) { showToast("❌ كلمة المرور غير صحيحة!"); }
             } else { logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1000); }
@@ -1036,7 +1022,7 @@
                     suggBox.innerHTML = '';
                     matches.slice(0, 5).forEach(m => {
                         suggBox.innerHTML += `
-                            <div onclick="openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden');" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
+                            <div onclick="openProductModal('${m.id}');" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
                                 <img src="${m.image1}" class="w-8 h-8 object-cover rounded border bg-white p-0.5">
                                 <div class="flex flex-col">
                                     <span>${m.name}</span>
@@ -1316,6 +1302,7 @@
                 });
             }
 
+            pushModalHistoryState();
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
@@ -1326,10 +1313,11 @@
         }
 
         function openZoomModal() {
+            pushModalHistoryState();
             document.getElementById('zoomed-image').src = document.getElementById('main-modal-img').src;
             document.getElementById('zoom-modal').classList.remove('hidden');
         }
-        function closeZoomModal() { document.getElementById('zoom-modal').classList.add('hidden'); }
+        function closeZoomModal() { closeAllModals(); }
 
         function changeModalQty(val) {
             currentModalQty += val;
@@ -1641,7 +1629,11 @@
         }
 
         function removeFromCart(index) { cart.splice(index, 1); saveCartToStorage(); }
-        function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
+        
+        function openCart() {
+            pushModalHistoryState();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -1663,6 +1655,7 @@
             });
             document.getElementById('checkout-grand-total').innerText = total + ' ج.م';
             document.getElementById('cart-modal').classList.add('hidden');
+            pushModalHistoryState();
             document.getElementById('checkout-modal').classList.remove('hidden');
         }
 
@@ -1719,6 +1712,7 @@
 
         function openOrdersPage() {
             updateOrdersUI();
+            pushModalHistoryState();
             document.getElementById('orders-modal').classList.remove('hidden');
         }
 
