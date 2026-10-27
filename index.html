@@ -86,9 +86,9 @@
             transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
-        /* حركة المربعات بسلو موشن ناعم جداً */
+        /* حركة سلو موشن هادئة جداً وناعمة للمربعات */
         .banner-rotating-box {
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #toast-notification {
@@ -184,38 +184,34 @@
         </div>
     </header>
 
-    <!-- البانر على خطين (قسمين ثابتين وبينهما مربعات تتحرك بسلو موشن لتعرض كل المنتجات بالدور) -->
+    <!-- البانرين على خطين: مستطيلات رفيعة وصغيرة جداً ومربعات منتجات تتحرك ببطء (Slow Motion) -->
     <div class="max-w-7xl mx-auto px-3 mt-3 w-full grid grid-cols-1 md:grid-cols-2 gap-3">
         
-        <!-- الخط الأول: البانر العلوي الثابت للترحيب واسم المتجر ومربعات المنتجات بسلو موشن -->
-        <div class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-56 sm:h-64 bg-gradient-to-r from-black via-neutral-900 to-black text-white px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between">
-            <div class="space-y-2 max-w-[50%] z-10">
-                <span class="bg-amber-400 text-black text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">DROP SHOPPING 👑</span>
-                <h3 class="text-xs sm:text-base font-black truncate leading-snug">مرحباً بك في متجرك العصري</h3>
-                <p class="text-[10px] sm:text-xs text-slate-300 font-bold leading-tight">اضغط على أي منتج أدناه لعرض تفاصيله وشرائه فوراً.</p>
-                <button onclick="triggerPageReload(goHome)" class="mt-1 btn-black bg-white text-black text-xs px-3 py-1.5 rounded-xl font-black shadow hover:bg-slate-200 transition">تسوق الآن ⚡</button>
+        <!-- البانر الأول: مستطيل رفيع وصغير للترحيب ومربعات المنتجات المتحركة ببطء -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-black via-neutral-900 to-black text-white px-4 py-3 flex items-center justify-between">
+            <div class="space-y-1 max-w-[52%] z-10">
+                <span class="bg-amber-400 text-black text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">DROP SHOPPING 👑</span>
+                <h3 class="text-xs sm:text-sm font-black truncate leading-snug">أحدث المنتجات والعروض</h3>
+                <p class="text-[9px] sm:text-[10px] text-slate-300 font-bold">اضغط على أي مربع لفتح تفاصيل المنتج.</p>
             </div>
             
-            <!-- مربعات المنتجات المتحركة بـ Slow Motion هادئ -->
-            <div class="w-44 h-40 sm:w-52 sm:h-44 shrink-0 relative grid grid-cols-3 gap-1 items-center p-1.5 bg-neutral-950/60 rounded-2xl border border-neutral-800 shadow-inner overflow-hidden">
-                <div id="rotating-box-1" class="banner-rotating-box w-full h-24 sm:h-32 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform -translate-y-1.5 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(0)"></div>
-                <div id="rotating-box-2" class="banner-rotating-box w-full h-28 sm:h-36 rounded-xl overflow-hidden border-2 border-amber-400/90 shadow-xl bg-neutral-900 z-10 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(1)"></div>
-                <div id="rotating-box-3" class="banner-rotating-box w-full h-24 sm:h-32 rounded-xl overflow-hidden border border-neutral-700 shadow-md bg-neutral-900 transform translate-y-1.5 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(2)"></div>
+            <!-- 3 مربعات منتجات صغنونة تتحرك ببطء (Slow Motion) وتعرض كل المنتجات بالدور -->
+            <div class="w-36 h-22 sm:w-44 sm:h-26 shrink-0 relative grid grid-cols-3 gap-1 items-center p-1 bg-neutral-950/80 rounded-xl border border-neutral-800 overflow-hidden">
+                <div id="rotating-box-1" class="banner-rotating-box w-full h-18 sm:h-22 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(0)"></div>
+                <div id="rotating-box-2" class="banner-rotating-box w-full h-20 sm:h-24 rounded-lg overflow-hidden border-2 border-amber-400 bg-neutral-900 z-10 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(1)"></div>
+                <div id="rotating-box-3" class="banner-rotating-box w-full h-18 sm:h-22 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(2)"></div>
             </div>
         </div>
 
-        <!-- الخط الثاني: البانر السفلي الثابت لعروض الخصومات -->
-        <div class="relative rounded-3xl overflow-hidden shadow-xl border border-slate-800 h-56 sm:h-64 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
-            <div class="space-y-2 max-w-[55%] z-10">
-                <span class="bg-red-600 text-white text-[10px] px-3 py-0.5 rounded-full font-black uppercase tracking-wider shadow">عروض الخصومات 💥</span>
-                <h3 class="text-xs sm:text-base font-black">أقوى تخفيضات الموسم</h3>
-                <p class="text-[10px] sm:text-xs text-neutral-300 font-bold leading-relaxed">اضغط هنا لتصفح الخصومات الفورية وشحن سريع لكافة المحافظات!</p>
-                <button onclick="event.stopPropagation(); handleOffersBannerClick();" class="mt-1 btn-black bg-white text-black text-xs px-3.5 py-1.5 rounded-xl font-black shadow hover:bg-slate-200 transition flex items-center gap-1">
-                    <span>تصفح عروض الخصومات 💥</span>
-                </button>
+        <!-- البانر الثاني: مستطيل رفيع وصغير لعروض الخصومات -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-4 py-3 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
+            <div class="space-y-1 max-w-[60%] z-10">
+                <span class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">عروض الخصومات 💥</span>
+                <h3 class="text-xs sm:text-sm font-black">أقوى تخفيضات الموسم</h3>
+                <p class="text-[9px] sm:text-[10px] text-neutral-300 font-bold">اضغط هنا لتصفح الخصومات الفورية وشحن سريع لكافة المحافظات!</p>
             </div>
-            <div class="w-32 h-36 sm:w-36 sm:h-44 shrink-0 relative bg-black rounded-2xl p-2 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-2xl">
-                <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-xl">
+            <div class="w-20 h-22 sm:w-24 sm:h-26 shrink-0 relative bg-black rounded-xl p-1.5 border border-neutral-700 flex items-center justify-center overflow-hidden shadow-md">
+                <img id="side-banner-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" class="w-full h-full object-contain rounded-lg">
             </div>
         </div>
 
@@ -323,7 +319,7 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن (مع زر ذكاء Gemini المحسن لتوليد التفاصيل من الصورة) -->
+    <!-- لوحة تحكم الأدمن -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
@@ -344,7 +340,7 @@
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
                 
-                <!-- مساعد الذكاء الاصطناعي Gemini الحقيقي والمصحح -->
+                <!-- مساعد الذكاء الاصطناعي Gemini الحقيقي -->
                 <div class="store-card p-4 rounded-xl border border-amber-400/50 bg-amber-500/5 space-y-2">
                     <h4 class="font-black text-xs text-amber-500 flex items-center gap-1.5">
                         <span>✨ مساعد Gemini الذكي لتوليد التفاصيل من الصورة</span>
@@ -761,7 +757,7 @@
 
         function startRotatingBoxes() {
             if (rotatingInterval) clearInterval(rotatingInterval);
-            // سلو موشن هادئ ومريح (كل 4 ثواني يتحرك خطوة ليعرض كل المنتجات بالدور)
+            // سلو موشن هادئ جداً (كل 4 ثواني يتحرك خطوة ليعرض كل المنتجات بالدور)
             rotatingInterval = setInterval(() => {
                 if (products.length > 0) {
                     rotatingIndexOffset = (rotatingIndexOffset + 1) % products.length;
@@ -1202,7 +1198,6 @@
             });
         }
 
-        // زر تفعيل تحليل الذكاء الاصطناعي (Gemini) الحقيقي والمصحح
         async function fillProductWithGeminiAI() {
             const fileInput = document.getElementById('ai-gemini-file');
             const file = fileInput.files[0];
@@ -1254,7 +1249,6 @@
                 document.getElementById('new-sizes').value = parsed.sizes || "S / M / L / XL";
                 document.getElementById('new-desc').value = parsed.desc || "تصميم راقٍ ومميز يناسب جميع الأذواق.";
                 
-                // حفظ الصورة مؤقتاً لتعتمد كصورة للمنتج الجديد
                 document.getElementById('image1-file').dataset.autoBase64 = base64Image;
 
                 showToast('✅ تم توليد كافة بيانات المنتج بواسطة Gemini بنجاح!');
