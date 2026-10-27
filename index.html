@@ -41,12 +41,6 @@
         body { background-color: #f8fafc; color: #0f172a; transition: background 0.3s, color 0.3s; }
         .dark body { background-color: #050505; color: #f8fafc; }
 
-        #top-progress-bar {
-            position: fixed; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #000000, #64748b, #ffffff);
-            z-index: 999999; width: 0%; transition: width 0.3s ease, opacity 0.3s ease; opacity: 0;
-        }
-
         .store-header { background-color: #ffffff; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
         .dark .store-header { background-color: #000000; color: #ffffff; border-bottom: 1px solid #1e293b; }
 
@@ -86,7 +80,6 @@
             transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
         }
 
-        /* حركة سلو موشن هادئة جداً وناعمة للمربعات */
         .banner-rotating-box {
             transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -107,11 +100,11 @@
         .size-badge.selected, .color-badge.selected { background-color: #0f172a; color: #ffffff; border-color: #0f172a; font-weight: 900; }
         .dark .size-badge.selected, .dark .color-badge.selected { background-color: #ffffff; color: #000000; border-color: #ffffff; }
 
-        .btn-black { background: #0f172a; color: #ffffff; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; }
+        .btn-black { background: #0f172a; color: #ffffff; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; cursor: pointer; }
         .btn-black:hover { opacity: 0.85; }
         .dark .btn-black { background: #ffffff; color: #000000; border: 1px solid #ffffff; }
 
-        .btn-outline-black { background: transparent; color: #0f172a; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; }
+        .btn-outline-black { background: transparent; color: #0f172a; border: 1px solid #0f172a; font-weight: 800; border-radius: 10px; transition: all 0.2s ease; cursor: pointer; }
         .btn-outline-black:hover { background: #0f172a; color: #ffffff; }
         .dark .btn-outline-black { color: #ffffff; border: 1px solid #404040; }
         .dark .btn-outline-black:hover { background: #ffffff; color: #000000; }
@@ -136,16 +129,14 @@
 </head>
 <body class="flex flex-col min-h-screen overflow-x-hidden pb-16 sm:pb-0">
 
-    <div id="top-progress-bar"></div>
-
     <div id="toast-notification">✨ تمت العملية بنجاح</div>
-    <div id="menu-backdrop" onclick="closeMenu()"></div>
+    <div id="menu-backdrop" onclick="closeAllModals()"></div>
 
     <!-- الهيدر -->
     <header class="store-header sticky top-0 z-40 shadow-sm w-full py-2.5">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
             <div class="flex items-center gap-3 shrink-0">
-                <button onclick="toggleMenu()" class="text-xl sm:text-2xl font-bold p-1 hover:opacity-75">☰</button>
+                <button onclick="toggleMenu()" class="text-xl sm:text-2xl font-bold p-1 hover:opacity-75 cursor-pointer">☰</button>
                 
                 <div class="cursor-pointer select-none flex items-center gap-2" onclick="handleSecretAdminClick()">
                     <img id="store-header-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" alt="Drop Shopping" class="h-10 sm:h-12 w-auto object-contain rounded-xl shadow-sm border border-slate-300 dark:border-slate-700">
@@ -155,7 +146,7 @@
 
             <div class="flex items-center gap-2 sm:gap-3">
                 <div class="relative">
-                    <button onclick="toggleSearchInput()" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 hover:opacity-75 transition text-base" title="بحث">
+                    <button onclick="toggleSearchInput()" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 hover:opacity-75 transition text-base cursor-pointer" title="بحث">
                         🔍
                     </button>
                     <div id="search-popup-box" class="absolute left-0 mt-2 w-72 sm:w-80 bg-white dark:bg-black border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl hidden z-50 p-2">
@@ -164,17 +155,17 @@
                     </div>
                 </div>
 
-                <button onclick="toggleDarkMode()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 text-xs transition hover:scale-105" title="الوضع الداكن/الفاتح">
+                <button onclick="toggleDarkMode()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700 text-xs transition hover:scale-105 cursor-pointer" title="الوضع الداكن/الفاتح">
                     <span id="theme-icon">🌙</span>
                 </button>
 
                 <div class="hidden sm:flex items-center gap-2">
-                    <button onclick="triggerPageReload(openOrdersPage)" class="flex flex-col items-start px-2 py-1 rounded hover:bg-black/5 dark:hover:bg-white/5 transition relative">
+                    <button onclick="openOrdersPage()" class="flex flex-col items-start px-2 py-1 rounded hover:bg-black/5 dark:hover:bg-white/5 transition relative cursor-pointer">
                         <span id="orders-badge-top" class="nav-badge hidden">0</span>
                         <span class="text-[9px] text-slate-500 font-bold">متابعة</span>
                         <span class="text-xs font-black">طلباتك 📦</span>
                     </button>
-                    <button onclick="triggerPageReload(openCart)" class="flex items-center gap-1.5 px-3 py-1.5 bg-black dark:bg-white text-white dark:text-black rounded-xl font-black text-xs hover:opacity-90 transition relative shadow">
+                    <button onclick="openCart()" class="flex items-center gap-1.5 px-3 py-1.5 bg-black dark:bg-white text-white dark:text-black rounded-xl font-black text-xs hover:opacity-90 transition relative shadow cursor-pointer">
                         <span id="cart-badge-top" class="nav-badge hidden">0</span>
                         <span>🛒</span>
                         <span>السلة</span>
@@ -184,10 +175,10 @@
         </div>
     </header>
 
-    <!-- البانرين على خطين: مستطيلات رفيعة وصغيرة جداً ومربعات منتجات تتحرك ببطء (Slow Motion) -->
-    <div class="max-w-7xl mx-auto px-3 mt-3 w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+    <!-- البانرين على خطين: البانر الأول (الترحيب ومربعات المنتجات المتحركة) هو اللي فوووووق -->
+    <div class="max-w-7xl mx-auto px-3 mt-3 w-full space-y-3">
         
-        <!-- البانر الأول: مستطيل رفيع وصغير للترحيب ومربعات المنتجات المتحركة ببطء -->
+        <!-- البانر الأول (الترحيب والمربعات اللي بتتحرك بسلو موشن) - فوق تماماً -->
         <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-black via-neutral-900 to-black text-white px-4 py-3 flex items-center justify-between">
             <div class="space-y-1 max-w-[52%] z-10">
                 <span class="bg-amber-400 text-black text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">DROP SHOPPING 👑</span>
@@ -195,7 +186,6 @@
                 <p class="text-[9px] sm:text-[10px] text-slate-300 font-bold">اضغط على أي مربع لفتح تفاصيل المنتج.</p>
             </div>
             
-            <!-- 3 مربعات منتجات صغنونة تتحرك ببطء (Slow Motion) وتعرض كل المنتجات بالدور -->
             <div class="w-36 h-22 sm:w-44 sm:h-26 shrink-0 relative grid grid-cols-3 gap-1 items-center p-1 bg-neutral-950/80 rounded-xl border border-neutral-800 overflow-hidden">
                 <div id="rotating-box-1" class="banner-rotating-box w-full h-18 sm:h-22 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(0)"></div>
                 <div id="rotating-box-2" class="banner-rotating-box w-full h-20 sm:h-24 rounded-lg overflow-hidden border-2 border-amber-400 bg-neutral-900 z-10 cursor-pointer hover:scale-105 transition" onclick="clickRotatingProduct(1)"></div>
@@ -203,8 +193,8 @@
             </div>
         </div>
 
-        <!-- البانر الثاني: مستطيل رفيع وصغير لعروض الخصومات -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-4 py-3 flex items-center justify-between cursor-pointer" onclick="handleOffersBannerClick()">
+        <!-- البانر الثاني (عروض الخصومات) - تحته مباشرة -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg border border-slate-800 h-28 sm:h-32 bg-gradient-to-r from-neutral-900 via-black to-neutral-900 text-white px-4 py-3 flex items-center justify-between cursor-pointer" onclick="filterCategory('offers')">
             <div class="space-y-1 max-w-[60%] z-10">
                 <span class="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">عروض الخصومات 💥</span>
                 <h3 class="text-xs sm:text-sm font-black">أقوى تخفيضات الموسم</h3>
@@ -235,29 +225,29 @@
         <div class="space-y-4">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
                 <img id="side-menu-logo" src="https://i.ibb.co/3ykVz2t/1000429427.jpg" alt="Logo" class="h-9 w-auto object-contain rounded">
-                <button onclick="closeMenu()" class="text-slate-500 font-bold text-xl hover:opacity-75">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-bold text-xl hover:opacity-75 cursor-pointer">✕</button>
             </div>
             
             <div class="space-y-3">
                 <p class="text-[10px] uppercase font-black text-slate-400 tracking-wider">الأقسام والفئات</p>
                 <nav class="space-y-1.5 font-bold text-xs">
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('all'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('all');" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>🏠 الرئيسية وجميع المنتجات</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('offers'); });" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:bg-neutral-900 transition flex items-center justify-between">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('offers');" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>🔥 العروض والخصومات</span>
                         <span>💥</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('ملابس'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('ملابس');" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>👕 قسم الملابس العصرية</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('أحذية'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('أحذية');" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>👟 قسم الأحذية والرياضة</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeMenu(); triggerPageReload(() => { goHome(); filterCategory('إكسسوارات'); });" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('إكسسوارات');" class="w-full text-right py-2 px-3 rounded-xl hover:bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>⌚ قسم الإكسسوارات</span>
                         <span>←</span>
                     </button>
@@ -274,14 +264,14 @@
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h3 class="font-black text-sm">📂 تصفح أقسام المتجر والعروض</h3>
-                <button onclick="closeCategoriesModal()" class="text-slate-500 font-bold text-lg">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-bold text-lg cursor-pointer">✕</button>
             </div>
             <div class="space-y-2 text-xs font-bold">
-                <button onclick="closeCategoriesModal(); filterCategory('all');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>🌟 جميع المنتجات</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-black text-white dark:bg-white dark:text-black hover:opacity-75 transition flex items-center justify-between"><span>🔥 العروض والخصومات الخاصة</span><span>💥</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('ملابس');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👕 قسم الملابس</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('أحذية');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>👟 قسم الأحذية</span><span>←</span></button>
-                <button onclick="closeCategoriesModal(); filterCategory('إكسسوارات');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between"><span>⌚ قسم الإكسسوارات</span><span>←</span></button>
+                <button onclick="closeAllModals(); filterCategory('all');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between cursor-pointer"><span>🌟 جميع المنتجات</span><span>←</span></button>
+                <button onclick="closeAllModals(); filterCategory('offers');" class="w-full text-right p-3 rounded-xl bg-black text-white dark:bg-white dark:text-black hover:opacity-75 transition flex items-center justify-between cursor-pointer"><span>🔥 العروض والخصومات الخاصة</span><span>💥</span></button>
+                <button onclick="closeAllModals(); filterCategory('ملابس');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between cursor-pointer"><span>👕 قسم الملابس</span><span>←</span></button>
+                <button onclick="closeAllModals(); filterCategory('أحذية');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between cursor-pointer"><span>👟 قسم الأحذية</span><span>←</span></button>
+                <button onclick="closeAllModals(); filterCategory('إكسسوارات');" class="w-full text-right p-3 rounded-xl bg-slate-100 dark:bg-neutral-900 hover:opacity-75 transition flex items-center justify-between cursor-pointer"><span>⌚ قسم الإكسسوارات</span><span>←</span></button>
             </div>
         </div>
     </div>
@@ -291,7 +281,7 @@
         <div class="store-card w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden flex flex-col p-5 space-y-4 text-xs">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
                 <h3 class="font-black text-sm">🎛️ تصفية المنتجات والأسعار</h3>
-                <button onclick="closeFilterModal()" class="text-slate-500 font-bold text-lg">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-bold text-lg cursor-pointer">✕</button>
             </div>
             <div class="space-y-3 font-bold">
                 <div>
@@ -312,8 +302,8 @@
                     </select>
                 </div>
                 <div class="pt-2 flex gap-2">
-                    <button onclick="applyFiltersFromModal()" class="w-full btn-black py-2.5 text-xs shadow">تطبيق الفلتر 🔍</button>
-                    <button onclick="resetFiltersModal()" class="w-full bg-slate-200 dark:bg-neutral-800 py-2.5 rounded-xl font-bold">إعادة ضبط 🔄</button>
+                    <button onclick="applyFiltersFromModal()" class="w-full btn-black py-2.5 text-xs shadow cursor-pointer">تطبيق الفلتر 🔍</button>
+                    <button onclick="resetFiltersModal()" class="w-full bg-slate-200 dark:bg-neutral-800 py-2.5 rounded-xl font-bold cursor-pointer">إعادة ضبط 🔄</button>
                 </div>
             </div>
         </div>
@@ -335,7 +325,7 @@
                         الزيارات: <strong id="admin-visitor-count" class="text-xs">1</strong>
                     </div>
                 </div>
-                <button onclick="closeSecretModal()" class="text-slate-500 font-bold text-xl hover:opacity-75">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-bold text-xl hover:opacity-75 cursor-pointer">✕</button>
             </div>
             
             <div class="p-5 overflow-y-auto space-y-5 text-xs">
@@ -350,14 +340,14 @@
                         <input type="file" id="ai-gemini-file" accept="image/*" class="admin-input p-1">
                         <input type="number" id="ai-gemini-price" placeholder="السعر المطلوب (ج.م)" class="admin-input">
                     </div>
-                    <button onclick="fillProductWithGeminiAI()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black py-2.5 rounded-xl text-xs transition shadow-lg">توليد التفاصيل بالذكاء الاصطناعي ⚡</button>
+                    <button onclick="fillProductWithGeminiAI()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-black py-2.5 rounded-xl text-xs transition shadow-lg cursor-pointer">توليد التفاصيل بالذكاء الاصطناعي ⚡</button>
                 </div>
 
                 <div class="store-card p-4 rounded-xl border space-y-2">
                     <h4 class="font-black text-xs border-b border-slate-200 dark:border-slate-800 pb-1.5">🖼️ تغيير شعار (لوجو) المتجر:</h4>
                     <div class="flex items-center gap-3">
                         <input type="file" id="admin-store-logo-file" accept="image/*" class="admin-input p-1">
-                        <button onclick="updateStoreLogo()" class="btn-black px-4 py-2 rounded-xl font-bold shrink-0">حفظ اللوجو</button>
+                        <button onclick="updateStoreLogo()" class="btn-black px-4 py-2 rounded-xl font-bold shrink-0 cursor-pointer">حفظ اللوجو</button>
                     </div>
                 </div>
 
@@ -425,8 +415,8 @@
                         </div>
                         
                         <div class="flex gap-2">
-                            <button id="admin-submit-btn" onclick="triggerPageReload(addProduct)" class="w-full btn-black py-2.5 rounded-xl font-black shadow">نشر المنتج فوراً 🚀</button>
-                            <button id="admin-cancel-edit-btn" onclick="cancelProductEdit()" class="hidden bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold">إلغاء</button>
+                            <button id="admin-submit-btn" onclick="addProduct()" class="w-full btn-black py-2.5 rounded-xl font-black shadow cursor-pointer">نشر المنتج فوراً 🚀</button>
+                            <button id="admin-cancel-edit-btn" onclick="cancelProductEdit()" class="hidden bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold cursor-pointer">إلغاء</button>
                         </div>
                     </div>
                 </div>
@@ -448,9 +438,9 @@
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
 
         <div id="pagination-container" class="flex justify-center items-center gap-3 mt-8">
-            <button id="prev-page-btn" onclick="changePage(-1)" class="btn-outline-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">← السابق</button>
+            <button id="prev-page-btn" onclick="changePage(-1)" class="btn-outline-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none cursor-pointer">← السابق</button>
             <span id="page-number-indicator" class="text-xs font-black px-3 py-1 bg-slate-100 dark:bg-neutral-800 rounded-lg">صفحة 1</span>
-            <button id="next-page-btn" onclick="changePage(1)" class="btn-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none">التالي →</button>
+            <button id="next-page-btn" onclick="changePage(1)" class="btn-black px-4 py-2 text-xs font-black disabled:opacity-30 disabled:pointer-events-none cursor-pointer">التالي →</button>
         </div>
 
         <div class="grid grid-cols-3 gap-2 mt-10 text-center text-[10px] sm:text-xs font-bold store-card p-3 rounded-2xl border">
@@ -482,7 +472,7 @@
                 </div>
 
                 <textarea id="store-reviewer-comment" placeholder="رأيك في المتجر وسرعة التوصيل..." class="admin-input h-10"></textarea>
-                <button onclick="submitStoreReview()" class="w-full btn-black py-1.5 rounded-xl font-bold text-[10px] transition">إرسال التقييم</button>
+                <button onclick="submitStoreReview()" class="w-full btn-black py-1.5 rounded-xl font-bold text-[10px] transition cursor-pointer">إرسال التقييم</button>
             </div>
         </section>
     </main>
@@ -492,7 +482,7 @@
         <div class="store-card w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col my-auto border max-h-[96vh]">
             <div class="flex justify-between items-center p-3.5 border-b border-slate-200 dark:border-slate-800">
                 <span class="text-xs font-black">تفاصيل المنتج والمواصفات</span>
-                <button onclick="closeProductModal()" class="text-slate-500 font-black text-xl hover:opacity-75 px-2">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-black text-xl hover:opacity-75 px-2 cursor-pointer">✕</button>
             </div>
             
             <div class="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
@@ -538,15 +528,15 @@
                         <div class="flex items-center justify-between bg-slate-100 dark:bg-neutral-900 p-2 rounded-xl border">
                             <span class="font-bold text-xs">الكمية:</span>
                             <div class="flex items-center gap-3">
-                                <button onclick="changeModalQty(-1)" class="qty-btn">-</button>
+                                <button onclick="changeModalQty(-1)" class="qty-btn cursor-pointer">-</button>
                                 <span id="modal-qty" class="font-black text-sm w-6 text-center">1</span>
-                                <button onclick="changeModalQty(1)" class="qty-btn">+</button>
+                                <button onclick="changeModalQty(1)" class="qty-btn cursor-pointer">+</button>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-2 pt-1">
-                            <button id="modal-cart-btn" onclick="addModalToCart(); closeProductModal();" class="btn-outline-black py-2.5 text-xs shadow">إضافة للسلة 🛒</button>
-                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="btn-black py-2.5 text-xs shadow">شراء الآن ⚡</button>
+                            <button id="modal-cart-btn" onclick="addModalToCart(); closeAllModals();" class="btn-outline-black py-2.5 text-xs shadow cursor-pointer">إضافة للسلة 🛒</button>
+                            <button id="modal-buy-btn" onclick="modalBuyNow();" class="btn-black py-2.5 text-xs shadow cursor-pointer">شراء الآن ⚡</button>
                         </div>
                     </div>
                 </div>
@@ -556,7 +546,7 @@
 
     <!-- نافذة تكبير الصورة -->
     <div id="zoom-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden z-[100] flex items-center justify-center p-4">
-        <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-neutral-800 w-10 h-10 rounded-full flex items-center justify-center border border-neutral-700">✕</button>
+        <button onclick="closeZoomModal()" class="absolute top-4 right-4 text-white font-black text-2xl bg-neutral-800 w-10 h-10 rounded-full flex items-center justify-center border border-neutral-700 cursor-pointer">✕</button>
         <img id="zoomed-image" src="" class="max-w-full max-h-[90vh] object-contain rounded-2xl">
     </div>
 
@@ -568,7 +558,7 @@
                     <span class="text-xl">📦</span>
                     <h3 class="font-black text-xs sm:text-sm">متابعة طلباتك وقيد التنفيذ</h3>
                 </div>
-                <button onclick="closeOrdersPage()" class="text-slate-500 font-bold text-lg hover:opacity-75">✕</button>
+                <button onclick="closeAllModals()" class="text-slate-500 font-bold text-lg hover:opacity-75 cursor-pointer">✕</button>
             </div>
             <div class="p-4 space-y-3 overflow-y-auto text-xs" id="my-orders-list"></div>
         </div>
@@ -583,7 +573,7 @@
                         <span class="text-lg">🛍️</span>
                         <h3 class="text-base font-black">عربة التسوق الاحترافية</h3>
                     </div>
-                    <button onclick="closeCart()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+                    <button onclick="closeAllModals()" class="text-slate-400 hover:text-slate-600 font-bold text-lg cursor-pointer">✕</button>
                 </div>
 
                 <div class="bg-slate-100 dark:bg-neutral-900 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 mb-4 text-xs shadow-inner">
@@ -604,7 +594,7 @@
                     <span>الإجمالي الكلي:</span>
                     <span id="cart-total" class="text-base">0 ج.م</span>
                 </div>
-                <button onclick="triggerPageReload(openCheckoutPage)" class="btn-black w-full py-3.5 text-xs shadow-lg transition text-center rounded-2xl">الذهاب لإتمام الطلب والشراء 📦</button>
+                <button onclick="openCheckoutPage()" class="btn-black w-full py-3.5 text-xs shadow-lg transition text-center rounded-2xl cursor-pointer">الذهاب لإتمام الطلب والشراء 📦</button>
             </div>
         </div>
     </div>
@@ -620,7 +610,7 @@
                         <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
-                <button onclick="closeCheckoutPage()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75">✕</button>
+                <button onclick="closeAllModals()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75 cursor-pointer">✕</button>
             </div>
 
             <div class="p-5 space-y-4 text-xs overflow-y-auto max-h-[78vh]">
@@ -649,7 +639,7 @@
                     <div>
                         <div class="flex justify-between items-center mb-1">
                             <label class="font-bold text-[11px]">العنوان التفصيلي <span class="text-red-500">*</span></label>
-                            <button type="button" onclick="getLocation()" class="text-[10px] text-black dark:text-white underline font-bold flex items-center gap-1">
+                            <button type="button" onclick="getLocation()" class="text-[10px] text-black dark:text-white underline font-bold flex items-center gap-1 cursor-pointer">
                                 <span>📍 تحديد موقعي تلقائياً</span>
                             </button>
                         </div>
@@ -661,7 +651,7 @@
                     </div>
                 </div>
 
-                <button onclick="submitOrderWhatsApp()" class="w-full btn-black py-3.5 rounded-2xl font-black text-xs shadow-xl transition flex items-center justify-center gap-2">
+                <button onclick="submitOrderWhatsApp()" class="w-full btn-black py-3.5 rounded-2xl font-black text-xs shadow-xl transition flex items-center justify-center gap-2 cursor-pointer">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.285-.143-1.687-.833-1.947-.928-.261-.095-.451-.143-.641.143-.19.285-.736.928-.902 1.118-.166.19-.333.214-.618.071-.285-.143-1.203-.443-2.292-1.414-.848-.756-1.421-1.69-1.587-1.975-.166-.285-.018-.439.125-.581.128-.128.285-.333.428-.499.143-.167.19-.285.285-.476.095-.19.048-.357-.024-.499-.071-.143-.641-1.545-.879-2.117-.231-.557-.467-.482-.641-.491-.166-.008-.357-.01-.547-.01-.19 0-.499.071-.76.357-.261.285-.998.975-.998 2.38 0 1.404 1.022 2.76 1.165 2.951.143.19 2.012 3.073 4.875 4.31.681.294 1.213.47 1.627.601.684.217 1.307.186 1.8.113.55-.082 1.687-.69 1.925-1.356.237-.666.237-1.237.166-1.356-.07-.119-.261-.19-.546-.333z"/></svg>
                     <span>تأكيد وإرسال الطلب عبر الواتساب</span>
                 </button>
@@ -671,24 +661,24 @@
 
     <!-- شريط التنقل السفلي -->
     <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t border-slate-200 dark:border-slate-800 z-40 py-2 px-4 flex justify-around items-center shadow-lg">
-        <button onclick="triggerPageReload(goHome)" class="bottom-nav-item active">
+        <button onclick="goHome()" class="bottom-nav-item active cursor-pointer">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/></svg>
             <span class="mt-0.5">الرئيسية</span>
         </button>
-        <button onclick="openCategoriesModal()" class="bottom-nav-item">
+        <button onclick="openCategoriesModal()" class="bottom-nav-item cursor-pointer">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
             <span class="mt-0.5">الفئات</span>
         </button>
-        <button onclick="openFilterModal()" class="bottom-nav-item">
+        <button onclick="openFilterModal()" class="bottom-nav-item cursor-pointer">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707v4.172a1 1 0 01-.553.894l-2 1A1 1 0 017 20.172v-5.879a1 1 0 00-.293-.707L.293 7.293A1 1 0 010 6.586V4z"/></svg>
             <span class="mt-0.5">الفلتر</span>
         </button>
-        <button onclick="triggerPageReload(openCart)" class="bottom-nav-item">
+        <button onclick="openCart()" class="bottom-nav-item cursor-pointer">
             <span id="cart-badge-bottom" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
             <span class="mt-0.5">عربة التسوق</span>
         </button>
-        <button onclick="triggerPageReload(openOrdersPage)" class="bottom-nav-item">
+        <button onclick="openOrdersPage()" class="bottom-nav-item cursor-pointer">
             <span id="orders-badge-bottom" class="nav-badge hidden">0</span>
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
             <span class="mt-0.5">الطلبات</span>
@@ -757,7 +747,6 @@
 
         function startRotatingBoxes() {
             if (rotatingInterval) clearInterval(rotatingInterval);
-            // سلو موشن هادئ جداً (كل 4 ثواني يتحرك خطوة ليعرض كل المنتجات بالدور)
             rotatingInterval = setInterval(() => {
                 if (products.length > 0) {
                     rotatingIndexOffset = (rotatingIndexOffset + 1) % products.length;
@@ -803,27 +792,17 @@
 
         function openCategoriesModal() {
             document.getElementById('categories-modal').classList.remove('hidden');
-            pushModalState('categories-modal');
-        }
-
-        function closeCategoriesModal() {
-            document.getElementById('categories-modal').classList.add('hidden');
         }
 
         function openFilterModal() {
             document.getElementById('filter-modal').classList.remove('hidden');
-            pushModalState('filter-modal');
-        }
-
-        function closeFilterModal() {
-            document.getElementById('filter-modal').classList.add('hidden');
         }
 
         function applyFiltersFromModal() {
             activePriceFilter = document.getElementById('filter-price-modal').value;
             activeSortFilter = document.getElementById('filter-sort-modal').value;
             currentPage = 1;
-            closeFilterModal();
+            closeAllModals();
             renderStore();
             showToast('✅ تم تطبيق الفلتر!');
         }
@@ -834,7 +813,7 @@
             activePriceFilter = 'all';
             activeSortFilter = 'default';
             currentPage = 1;
-            closeFilterModal();
+            closeAllModals();
             renderStore();
             showToast('🔄 تم إعادة الضبط');
         }
@@ -910,32 +889,22 @@
             });
         }
 
-        window.addEventListener('popstate', function() { closeAllModals(false); });
-        function pushModalState(modalName) { history.pushState({ modal: modalName }, ""); }
-
-        function closeAllModals(shouldGoBack = true) {
-            let isAnyOpen = false;
+        function closeAllModals() {
             const sideMenu = document.getElementById('side-menu');
             const backdrop = document.getElementById('menu-backdrop');
-            
-            if (sideMenu && !sideMenu.classList.contains('translate-x-full')) {
-                sideMenu.classList.add('translate-x-full');
-                if(backdrop) backdrop.classList.remove('active');
-                isAnyOpen = true;
-            }
-            ['cart-modal', 'product-modal', 'admin-secret-modal', 'checkout-modal', 'orders-modal', 'categories-modal', 'filter-modal'].forEach(mId => {
+            if (sideMenu) sideMenu.classList.add('translate-x-full');
+            if (backdrop) backdrop.classList.remove('active');
+
+            ['cart-modal', 'product-modal', 'admin-secret-modal', 'checkout-modal', 'orders-modal', 'categories-modal', 'filter-modal', 'zoom-modal'].forEach(mId => {
                 const el = document.getElementById(mId);
-                if (el && !el.classList.contains('hidden')) { el.classList.add('hidden'); isAnyOpen = true; }
+                if (el) el.classList.add('hidden');
             });
-            if (shouldGoBack && isAnyOpen && history.state && history.state.modal) history.back();
         }
 
         db.collection("products").onSnapshot((snapshot) => {
             products = [];
             snapshot.forEach((doc) => { products.push({ id: doc.id, ...doc.data() }); });
-            
             products.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-
             renderRotatingBoxes();
             renderStore();
         });
@@ -961,7 +930,7 @@
         function clickRotatingProduct(boxIndex) {
             let prodId = activeRotatingProductIds[boxIndex];
             if (prodId) {
-                triggerPageReload(() => openProductModal(prodId));
+                openProductModal(prodId);
             }
         }
 
@@ -971,11 +940,10 @@
             if (sideMenu.classList.contains('translate-x-full')) {
                 sideMenu.classList.remove('translate-x-full');
                 if(backdrop) backdrop.classList.add('active');
-                pushModalState('side-menu');
-            } else { closeMenu(); }
+            } else {
+                closeAllModals();
+            }
         }
-
-        function closeMenu() { closeAllModals(); }
 
         function toggleSearchInput() {
             const box = document.getElementById('search-popup-box');
@@ -991,12 +959,9 @@
                     renderAdminOrdersManageList();
                     renderAdminReviewsManageList();
                     document.getElementById('admin-secret-modal').classList.remove('hidden');
-                    pushModalState('admin-modal');
                 } else if (pass !== null) { showToast("❌ كلمة المرور غير صحيحة!"); }
             } else { logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1000); }
         }
-
-        function closeSecretModal() { closeAllModals(); }
 
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
@@ -1037,7 +1002,7 @@
                     suggBox.innerHTML = '';
                     matches.slice(0, 5).forEach(m => {
                         suggBox.innerHTML += `
-                            <div onclick="triggerPageReload(() => { openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden'); })" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
+                            <div onclick="openProductModal('${m.id}'); document.getElementById('search-popup-box').classList.add('hidden');" class="flex items-center gap-2 p-2 hover:bg-slate-100 dark:hover:bg-neutral-900 cursor-pointer border-b text-xs font-bold">
                                 <img src="${m.image1}" class="w-8 h-8 object-cover rounded border bg-white p-0.5">
                                 <div class="flex flex-col">
                                     <span>${m.name}</span>
@@ -1109,10 +1074,8 @@
 
         function changePage(delta) {
             currentPage += delta;
-            triggerPageReload(() => {
-                renderStore();
-                window.scrollTo({ top: 300, behavior: 'smooth' });
-            });
+            renderStore();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
         function renderProductsList(listData, container) {
@@ -1173,7 +1136,7 @@
 
                 container.innerHTML += `
                     <div class="product-card store-card flex flex-col justify-between p-2 relative group border">
-                        <div class="cursor-pointer" onclick="triggerPageReload(() => openProductModal('${p.id}'))">
+                        <div class="cursor-pointer" onclick="openProductModal('${p.id}')">
                             <div class="w-full h-48 sm:h-64 rounded-2xl mb-2 overflow-hidden relative bg-slate-100 dark:bg-neutral-900">
                                 ${discountBadgeHtml}
                                 ${newBadgeHtml}
@@ -1189,8 +1152,8 @@
                         </div>
                         <div class="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800">
                             <div class="grid grid-cols-2 gap-1.5">
-                                <button onclick="triggerPageReload(() => addToCartDirect('${p.id}'))" class="btn-outline-black py-1.5 text-[10px]">سلة 🛒</button>
-                                <button onclick="triggerPageReload(() => buyNowDirect('${p.id}'))" class="btn-black py-1.5 text-[10px] font-black shadow">شراء ⚡</button>
+                                <button onclick="addToCartDirect('${p.id}')" class="btn-outline-black py-1.5 text-[10px] cursor-pointer">سلة 🛒</button>
+                                <button onclick="buyNowDirect('${p.id}')" class="btn-black py-1.5 text-[10px] font-black shadow cursor-pointer">شراء ⚡</button>
                             </div>
                         </div>
                     </div>
@@ -1262,7 +1225,6 @@
             const p = products.find(item => String(item.id) === String(id));
             if(!p) return;
             currentModalProductId = p.id; currentModalQty = 1;
-            location.hash = `product-${p.id}`;
 
             document.getElementById('modal-qty').innerText = currentModalQty;
             document.getElementById('modal-name').innerText = p.name;
@@ -1321,7 +1283,6 @@
             }
 
             document.getElementById('product-modal').classList.remove('hidden');
-            pushModalState('product-modal');
         }
 
         function switchModalImage(src, el) {
@@ -1335,7 +1296,6 @@
             document.getElementById('zoom-modal').classList.remove('hidden');
         }
         function closeZoomModal() { document.getElementById('zoom-modal').classList.add('hidden'); }
-        function closeProductModal() { closeAllModals(); location.hash = ''; }
 
         function changeModalQty(val) {
             currentModalQty += val;
@@ -1416,8 +1376,8 @@
                             </div>
                             <p class="text-slate-500 font-bold">${r.comment}</p>
                             <div class="flex gap-1.5 pt-1 border-t border-slate-200 dark:border-slate-800">
-                                <button onclick="editReviewInAdmin('${doc.id}', '${r.comment.replace(/'/g, "\\'")}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold">تعديل النص ✏️</button>
-                                <button onclick="deleteReviewFromAdmin('${doc.id}')" class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">حذف الكومنت 🗑️</button>
+                                <button onclick="editReviewInAdmin('${doc.id}', '${r.comment.replace(/'/g, "\\'")}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">تعديل النص ✏️</button>
+                                <button onclick="deleteReviewFromAdmin('${doc.id}')" class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">حذف الكومنت 🗑️</button>
                             </div>
                         </div>`;
                 });
@@ -1535,8 +1495,8 @@
                             <span class="truncate w-32 font-bold text-xs">${p.name}</span>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="editProductInAdmin('${p.id}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded text-[10px] font-bold">تعديل</button>
-                            <button onclick="deleteProductFromCloud('${p.id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold">حذف</button>
+                            <button onclick="editProductInAdmin('${p.id}')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded text-[10px] font-bold cursor-pointer">تعديل</button>
+                            <button onclick="deleteProductFromCloud('${p.id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">حذف</button>
                         </div>
                     </div>`;
             });
@@ -1571,7 +1531,7 @@
             }
         }
 
-        function modalBuyNow() { addModalToCart(); closeProductModal(); triggerPageReload(openCheckoutPage); }
+        function modalBuyNow() { addModalToCart(); closeAllModals(); openCheckoutPage(); }
 
         function increaseQty(index) { cart[index].quantity += 1; saveCartToStorage(); }
         function decreaseQty(index) {
@@ -1587,9 +1547,10 @@
             let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
             if (totalQty > 0) {
                 cTop.innerText = totalQty; cTop.classList.remove('hidden');
-                cBot.innerText = totalQty; cBot.classList.remove('hidden');
+                if(cBot) { cBot.innerText = totalQty; cBot.classList.remove('hidden'); }
             } else {
-                cTop.classList.add('hidden'); cBot.classList.add('hidden');
+                cTop.classList.add('hidden');
+                if(cBot) cBot.classList.add('hidden');
             }
 
             if (!itemsContainer) return; itemsContainer.innerHTML = '';
@@ -1620,10 +1581,10 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="decreaseQty(${index})" class="qty-btn">-</button>
+                            <button onclick="decreaseQty(${index})" class="qty-btn cursor-pointer">-</button>
                             <span class="w-5 text-center font-bold text-xs">${item.quantity}</span>
-                            <button onclick="increaseQty(${index})" class="qty-btn">+</button>
-                            <button onclick="removeFromCart(${index})" class="text-red-500 font-bold ml-1">حذف</button>
+                            <button onclick="increaseQty(${index})" class="qty-btn cursor-pointer">+</button>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 font-bold ml-1 cursor-pointer">حذف</button>
                         </div>
                     </div>`;
             });
@@ -1646,8 +1607,7 @@
         }
 
         function removeFromCart(index) { cart.splice(index, 1); saveCartToStorage(); }
-        function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); pushModalState('cart'); }
-        function closeCart() { closeAllModals(); }
+        function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -1670,10 +1630,7 @@
             document.getElementById('checkout-grand-total').innerText = total + ' ج.م';
             document.getElementById('cart-modal').classList.add('hidden');
             document.getElementById('checkout-modal').classList.remove('hidden');
-            pushModalState('checkout');
         }
-
-        function closeCheckoutPage() { closeAllModals(); }
 
         async function submitOrderWhatsApp() {
             const name = document.getElementById('client-name').value.trim();
@@ -1722,17 +1679,14 @@
             });
             msg += `💰 *الإجمالي الكلي:* *${totalPrice} ج.م*`;
 
-            cart = []; saveCartToStorage(); closeCheckoutPage();
+            cart = []; saveCartToStorage(); closeAllModals();
             window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function openOrdersPage() {
             updateOrdersUI();
             document.getElementById('orders-modal').classList.remove('hidden');
-            pushModalState('orders-modal');
         }
-
-        function closeOrdersPage() { closeAllModals(); }
 
         function setOrderStatusInStore(orderId, newStatus) {
             let ord = myOrders.find(o => o.order_id === orderId);
@@ -1761,9 +1715,9 @@
                             <span class="text-[10px] text-slate-400">${ord.customer_info.name} - ${ord.total_price} ج.م</span>
                         </div>
                         <div class="flex items-center gap-1.5 pt-1 border-t border-slate-200 dark:border-slate-800">
-                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold">⏳ قيد التنفيذ</button>
-                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">✅ تم التسليم</button>
-                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold mr-auto">حذف</button>
+                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'قيد التنفيذ ⏳')" class="bg-black text-white dark:bg-white dark:text-black px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">⏳ قيد التنفيذ</button>
+                            <button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">✅ تم التسليم</button>
+                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold mr-auto cursor-pointer">حذف</button>
                         </div>
                     </div>`;
             });
@@ -1772,11 +1726,14 @@
         function updateOrdersUI() {
             const activeOrders = myOrders.filter(o => o.status !== 'تم الاستلام ✅' && o.status !== 'تم التسليم بنجاح ✅');
             const cTop = document.getElementById('orders-badge-top');
+            const cBot = document.getElementById('orders-badge-bottom');
 
             if (activeOrders.length > 0) {
                 cTop.innerText = activeOrders.length; cTop.classList.remove('hidden');
+                if(cBot) { cBot.innerText = activeOrders.length; cBot.classList.remove('hidden'); }
             } else {
                 cTop.classList.add('hidden');
+                if(cBot) cBot.classList.add('hidden');
             }
 
             const container = document.getElementById('my-orders-list');
@@ -1797,8 +1754,8 @@
                             <span class="text-[10px] text-slate-400">${ord.created_at}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 border-t border-slate-200 dark:border-slate-800">
-                            ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-[10px] font-bold">✅ تم الاستلام</button>` : '<span class="text-emerald-500 font-bold text-[10px]">✨ تم الاستلام</span>'}
-                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold">حذف</button>
+                            ${ord.status !== 'تم التسليم بنجاح ✅' ? `<button onclick="setOrderStatusInStore('${ord.order_id}', 'تم التسليم بنجاح ✅')" class="bg-emerald-600 text-white px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer">✅ تم الاستلام</button>` : '<span class="text-emerald-500 font-bold text-[10px]">✨ تم الاستلام</span>'}
+                            <button onclick="deleteOrderFromStore('${ord.order_id}')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">حذف</button>
                         </div>
                     </div>`;
             });
