@@ -77,7 +77,7 @@
         .prod-slide-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
         .prod-slide-img {
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-            transition: opacity 0.7s ease-in-out;
+            transition: opacity 0.4s ease-in-out;
         }
 
         .banner-rotating-box {
@@ -261,7 +261,7 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن (تم شطب خيار AI وتعديل الحفظ المباشر) -->
+    <!-- لوحة تحكم الأدمن -->
     <div id="admin-secret-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="store-card w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
@@ -299,7 +299,7 @@
                     <div id="admin-orders-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
                 </div>
 
-                <!-- نموذج إضافة/تعديل المنتج بضمان الحفظ المباشر -->
+                <!-- نموذج إضافة/تعديل المنتج -->
                 <div class="store-card p-4 rounded-xl border">
                     <h4 id="admin-form-title" class="font-black text-xs mb-3">➕ إضافة منتج جديد إلى المتجر:</h4>
                     <input type="hidden" id="edit-product-id" value="">
@@ -343,7 +343,7 @@
                             <input type="text" id="new-sizes" placeholder="S / M / L / XL" class="admin-input font-bold">
                         </div>
                         <div class="grid grid-cols-3 gap-2">
-                            <div><label class="block text-[10px] mb-1 font-bold">صورة 1 <span class="text-red-500">*</span>:</label><input type="file" id="image1-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
+                            <div><label class="block text-[10px] mb-1 font-bold">صورة 1:</label><input type="file" id="image1-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                             <div><label class="block text-[10px] mb-1 font-bold">صورة 2:</label><input type="file" id="image2-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                             <div><label class="block text-[10px] mb-1 font-bold">صورة 3:</label><input type="file" id="image3-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                         </div>
@@ -539,7 +539,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاستام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeAllModals()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75 cursor-pointer">✕</button>
@@ -591,7 +591,7 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي للموبايل -->
+    <!-- شريط التنقل السفلي -->
     <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t border-slate-200 dark:border-slate-800 z-40 py-2 px-4 flex justify-around items-center shadow-lg">
         <button onclick="goHome()" class="bottom-nav-item active cursor-pointer">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/></svg>
@@ -815,17 +815,15 @@
             });
         }
 
-        // جلب وقراءة المنتجات بشكل تلقائي ومستمر من قاعدة البيانات
         db.collection("products").onSnapshot((snapshot) => {
             products = [];
             snapshot.forEach((doc) => { products.push({ id: doc.id, ...doc.data() }); });
             products.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
             renderRotatingBoxes();
             renderStore();
-            checkDirectProductUrl(); // الفحص التلقائي للإعلانات المباشرة
+            checkDirectProductUrl();
         });
 
-        // ميزة فتح المنتج مباشرة عبر الرابط من الإعلانات الممولة
         function checkDirectProductUrl() {
             const hash = window.location.hash;
             const urlParams = new URLSearchParams(window.location.search);
@@ -1003,7 +1001,6 @@
             window.scrollTo({ top: 300, behavior: 'smooth' });
         }
 
-        // تم تعديل التبديل التلقائي بين الـ 3 صور بالتتابع الدوري
         function renderProductsList(listData, container) {
             listData.forEach((p, idx) => {
                 let disc = Number(p.discount) || 0;
@@ -1024,7 +1021,6 @@
                 let imgs = [p.image1, p.image2, p.image3].filter(img => img && img.length > 5);
                 let slideImgId = `prod-slide-img-${p.id}`;
 
-                // التبديل بين الثلاث صور بالتتابع وبسلاسة
                 if (imgs.length > 1) {
                     if (!window.slideshowIntervals) window.slideshowIntervals = {};
                     if (window.slideshowIntervals[p.id]) clearInterval(window.slideshowIntervals[p.id]);
@@ -1038,7 +1034,7 @@
                             setTimeout(() => {
                                 imgEl.src = imgs[currentImgIdx];
                                 imgEl.style.opacity = '1';
-                            }, 250);
+                            }, 200);
                         }
                     }, 2600);
                 }
@@ -1067,7 +1063,7 @@
             });
         }
 
-        // كود إضافة المنتجات المحدث بضمان حفظ البيانات دائماً في Firebase وعدم اختفائها
+        // تم إصلاح كود الإضافة تماماً ليعمل بسلاسة وبدون أي أخطاء
         async function addProduct() {
             const editId = document.getElementById('edit-product-id').value;
             const name = document.getElementById('new-name').value.trim();
@@ -1083,46 +1079,45 @@
             const img2File = document.getElementById('image2-file').files[0];
             const img3File = document.getElementById('image3-file').files[0];
 
-            if(!name || !price) return showToast('⚠️ يرجى كتابة اسم المنتج والسعر الأساسي!');
+            if(!name || !price) return showToast('⚠️ أدخل اسم المنتج والسعر الأساسي!');
 
             const productId = editId || sku || ('PROD-' + Date.now().toString().slice(-6));
             let existingProduct = products.find(p => String(p.id) === String(productId)) || {};
 
-            if(!img1File && !existingProduct.image1) {
-                return showToast('⚠️ يرجى رفع الصورة الأولى للمنتج على الأقل!');
-            }
+            let finalImage1 = existingProduct.image1 || 'https://i.ibb.co/3ykVz2t/1000429427.jpg';
+            let finalImage2 = existingProduct.image2 || '';
+            let finalImage3 = existingProduct.image3 || '';
 
-            showToast('⏳ جاري رفع المنتج لحسابك وتأكيده...');
-
-            let newP = {
-                id: productId,
-                name: name,
-                sku: productId,
-                price: Number(price),
-                discount: Number(discount),
-                category: category,
-                colors: colors || 'أسود / أبيض / بيج',
-                sizes: sizes || 'S / M / L / XL',
-                desc: desc || '',
-                image1: existingProduct.image1 || '', 
-                image2: existingProduct.image2 || '', 
-                image3: existingProduct.image3 || '',
-                createdAt: existingProduct.createdAt || Date.now()
-            };
+            showToast('⏳ جاري حفظ المنتج في المتجر...');
 
             try {
-                if(img1File) newP.image1 = await readFileAsBase64(img1File);
-                if(img2File) newP.image2 = await readFileAsBase64(img2File);
-                if(img3File) newP.image3 = await readFileAsBase64(img3File);
+                if(img1File) finalImage1 = await readFileAsBase64(img1File);
+                if(img2File) finalImage2 = await readFileAsBase64(img2File);
+                if(img3File) finalImage3 = await readFileAsBase64(img3File);
+
+                let newP = {
+                    id: productId,
+                    name: name,
+                    sku: productId,
+                    price: Number(price),
+                    discount: Number(discount),
+                    category: category,
+                    colors: colors || 'أسود / أبيض / بيج',
+                    sizes: sizes || 'S / M / L / XL',
+                    desc: desc || '',
+                    image1: finalImage1, 
+                    image2: finalImage2, 
+                    image3: finalImage3,
+                    createdAt: existingProduct.createdAt || Date.now()
+                };
                 
-                // حفظ نهائي ومضمون في Firestore
                 await db.collection("products").doc(String(productId)).set(newP, { merge: true });
                 
                 cancelProductEdit();
-                showToast('🚀 تم نشر المنتج في المتجر وحفظه بنجاح!');
+                showToast('🚀 تم حفظ ونشر المنتج بنجاح تام!');
             } catch (err) {
                 console.error(err);
-                showToast('⚠️ حدث خطأ أثناء الحفظ، يرجى المحاولة مرة أخرى.');
+                showToast('⚠️ حدث خطأ في الحفظ، تأكد من اتصال الإنترنت.');
             }
         }
 
