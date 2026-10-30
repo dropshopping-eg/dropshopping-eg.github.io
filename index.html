@@ -220,7 +220,7 @@
                         <span>🏠 الرئيسية وجميع المنتجات</span>
                         <span>←</span>
                     </button>
-                    <button onclick="closeAllModals(); goHome(); filterCategory('offers');" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
+                    <button onclick="closeAllModals(); goHome(); filterCategory('offers');" class="w-full text-right py-2 px-3 rounded-xl bg-slate-100 dark:hover:bg-neutral-900 transition flex items-center justify-between cursor-pointer">
                         <span>🔥 العروض والخصومات</span>
                         <span>💥</span>
                     </button>
@@ -299,9 +299,9 @@
                     <div id="admin-orders-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
                 </div>
 
-                <!-- نموذج إضافة/تعديل المنتج -->
+                <!-- نموذج إضافة/تعديل المنتج مع رفع الملفات مباشرة والضغط الآلي -->
                 <div class="store-card p-4 rounded-xl border">
-                    <h4 id="admin-form-title" class="font-black text-xs mb-3">➕ إضافة منتج جديد إلى المتجر:</h4>
+                    <h4 id="admin-form-title" class="font-black text-xs mb-3">➕ إضافة منتج جديد إلى المتجر (من صور الجهاز مباشرة):</h4>
                     <input type="hidden" id="edit-product-id" value="">
                     <div class="space-y-3">
                         <div class="grid grid-cols-2 gap-2">
@@ -343,7 +343,7 @@
                             <input type="text" id="new-sizes" placeholder="S / M / L / XL" class="admin-input font-bold">
                         </div>
                         <div class="grid grid-cols-3 gap-2">
-                            <div><label class="block text-[10px] mb-1 font-bold">صورة 1:</label><input type="file" id="image1-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
+                            <div><label class="block text-[10px] mb-1 font-bold">صورة 1 (إجباري):</label><input type="file" id="image1-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                             <div><label class="block text-[10px] mb-1 font-bold">صورة 2:</label><input type="file" id="image2-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                             <div><label class="block text-[10px] mb-1 font-bold">صورة 3:</label><input type="file" id="image3-file" accept="image/*" class="admin-input p-1 text-[10px]"></div>
                         </div>
@@ -539,7 +539,7 @@
                     <span class="p-2 bg-black text-white dark:bg-white dark:text-black rounded-xl text-base font-bold">⚡</span>
                     <div>
                         <h3 class="font-black text-sm sm:text-base">تأكيد وإتمام الشراء</h3>
-                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلاستام الشحنة والمعاينة متاحة</span>
+                        <span class="text-[10px] text-slate-400 font-bold block">الدفع نقداً عند استلام الشحنة والمعاينة متاحة</span>
                     </div>
                 </div>
                 <button onclick="closeAllModals()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-800 flex items-center justify-center text-slate-500 font-bold hover:opacity-75 cursor-pointer">✕</button>
@@ -591,7 +591,7 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي للموبايل -->
     <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black border-t border-slate-200 dark:border-slate-800 z-40 py-2 px-4 flex justify-around items-center shadow-lg">
         <button onclick="goHome()" class="bottom-nav-item active cursor-pointer">
             <svg class="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/></svg>
@@ -1063,7 +1063,35 @@
             });
         }
 
-        // تم إصلاح كود الإضافة تماماً ليعمل بسلاسة وبدون أي أخطاء
+        function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const max_size = 600;
+
+                        if (width > height) {
+                            if (width > max_size) { height *= max_size / width; width = max_size; }
+                        } else {
+                            if (height > max_size) { width *= max_size / height; height = max_size; }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
         async function addProduct() {
             const editId = document.getElementById('edit-product-id').value;
             const name = document.getElementById('new-name').value.trim();
@@ -1084,16 +1112,16 @@
             const productId = editId || sku || ('PROD-' + Date.now().toString().slice(-6));
             let existingProduct = products.find(p => String(p.id) === String(productId)) || {};
 
-            let finalImage1 = existingProduct.image1 || 'https://i.ibb.co/3ykVz2t/1000429427.jpg';
-            let finalImage2 = existingProduct.image2 || '';
-            let finalImage3 = existingProduct.image3 || '';
-
-            showToast('⏳ جاري حفظ المنتج في المتجر...');
+            if(!img1File && !existingProduct.image1) {
+                return showToast('⚠️ اختر الصورة الأولى للمنتج من جهازك!');
+            }
 
             try {
-                if(img1File) finalImage1 = await readFileAsBase64(img1File);
-                if(img2File) finalImage2 = await readFileAsBase64(img2File);
-                if(img3File) finalImage3 = await readFileAsBase64(img3File);
+                showToast('⏳ جاري ضغط وحفظ المنتج في المتجر...');
+
+                let img1 = img1File ? await compressImage(img1File) : existingProduct.image1;
+                let img2 = img2File ? await compressImage(img2File) : (existingProduct.image2 || '');
+                let img3 = img3File ? await compressImage(img3File) : (existingProduct.image3 || '');
 
                 let newP = {
                     id: productId,
@@ -1102,12 +1130,12 @@
                     price: Number(price),
                     discount: Number(discount),
                     category: category,
-                    colors: colors || 'أسود / أبيض / بيج',
-                    sizes: sizes || 'S / M / L / XL',
+                    colors: colors || 'أساسي',
+                    sizes: sizes || 'S/M/L/XL',
                     desc: desc || '',
-                    image1: finalImage1, 
-                    image2: finalImage2, 
-                    image3: finalImage3,
+                    image1: img1, 
+                    image2: img2, 
+                    image3: img3,
                     createdAt: existingProduct.createdAt || Date.now()
                 };
                 
@@ -1117,17 +1145,8 @@
                 showToast('🚀 تم حفظ ونشر المنتج بنجاح تام!');
             } catch (err) {
                 console.error(err);
-                showToast('⚠️ حدث خطأ في الحفظ، تأكد من اتصال الإنترنت.');
+                showToast('⚠️ حدث خطأ، حجم الصور كبير جداً جرب صور أصغر.');
             }
-        }
-
-        function readFileAsBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.onerror = (e) => reject(e);
-                reader.readAsDataURL(file);
-            });
         }
 
         function openProductModal(id) {
